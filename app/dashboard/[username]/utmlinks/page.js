@@ -1,4 +1,5 @@
 "use client"
+import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 

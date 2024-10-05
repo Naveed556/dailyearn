@@ -1,8 +1,9 @@
 "use client"
+import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-export default function utmGenerator() {
+export default function UtmGenerator() {
     const params = useParams(); // Get dynamic route params
     const [username, setUsername] = useState(''); // Local state for the username
     const [links, setLinks] = useState([]); // To store all the links

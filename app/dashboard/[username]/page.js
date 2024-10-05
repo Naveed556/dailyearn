@@ -1,4 +1,5 @@
 "use client"
+import Header from '@/app/components/header';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import React from 'react'

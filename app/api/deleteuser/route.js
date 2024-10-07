@@ -7,9 +7,9 @@ export async function DELETE(request) {
 
     // Connect to the database
     await dbConnect();
-    const user = await User.deleteOne({ _id: _id });
+    const user = await User.deleteOne({ username: username });
     if (!user) {
-        return NextResponse.json({ message: 'No User Found to Delete' });
+        return NextResponse.json({ error: 'No User Found to Delete' });
     }
     return NextResponse.json({ message: `User ${username} is Deleted Successfully` })
 }

@@ -8,12 +8,13 @@ export async function POST(request) {
 
     // Connect to the database
     await dbConnect();
-    const checkUser = User.find({ username: username });
+    const checkUser = await User.findOne({ username: username });
     if (checkUser) {
-        return NextResponse.json({ message: `User Already Exist` })
+        return NextResponse.json({ error: `User Already Exist` }, { status: 401 })
+    }else{
+        const user = new User({ username: username, password: bcrypt.hashSync(password, 10) })
+        user.save()
+        return NextResponse.json({ message: `User ${username} Added Successfully` });
     }
-    const user = new User({ username: username, password: bcrypt.hashSync(password, 10) })
-    user.save()
-    return NextResponse.json({ message: `User ${username} Added Successfully` });
 
 }

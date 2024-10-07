@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -25,7 +26,7 @@ const AdminHeader = () => {
                 <nav className="bg-white border-gray-200 dark:bg-gray-900">
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
+                            <Image src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Admin Panel</span>
                         </Link>
                         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -72,7 +73,7 @@ const AdminHeader = () => {
                                 No, cancel
                             </button>
                             <button onClick={() => { handleLogout(); setHideSignout(true) }} className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                Yes, I'm sure
+                                Yes, I am sure
                             </button>
                         </div>
                     </div>

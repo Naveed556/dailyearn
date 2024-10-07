@@ -9,15 +9,30 @@ const Admimpanel = () => {
     const [usersList, setUsersList] = useState([]);
     const [hideAddUser, setHideAddUser] = useState(true);
     const [hideDelPanel, setHideDelPanel] = useState(true);
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState(usersList);
+    
     useEffect(() => {
         getUsers();
     }, [])
+    // Filter table data based on search term
+    useEffect(() => {
+        const results = usersList.filter((row) =>
+            row.username.toLowerCase().includes(searchTerm.toLowerCase())// ||
+            // row.createdAt.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredData(results);
+    }, [searchTerm, usersList]);
 
+    // Handle search input change
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
     const getUsers = async () => {
         const req = await fetch("/api/getusers");
         const res = await req.json();
         setUsersList(res);
+        setFilteredData(res);
         // console.log(res);
     }
 
@@ -39,10 +54,9 @@ const Admimpanel = () => {
         const res = await req.json();
         if (!req.ok) {
             setError("formErrors", { message: res.error })
-        }else{
+        } else {
             setHideAddUser(true);
         }
-        console.log(res.error)
         getUsers();
     }
 
@@ -63,15 +77,15 @@ const Admimpanel = () => {
             <AdminHeader />
             <main className="relative">
                 <h1 className="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Dashboard Admin’s Panel</h1>
-                <div className="w-[80vw] mx-auto mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
                     <div className="bg-white dark:bg-gray-900 flex justify-between items-center flex-wrap gap-2 p-1">
-                        <div className="relative mx-1">
+                        <div className="relative mx-1 w-1/2">
                             <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input type="text" className="py-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
+                            <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
                         </div>
                         <button onClick={() => { setHideAddUser(false) }} data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                             Add User
@@ -145,7 +159,7 @@ const Admimpanel = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {usersList.map((item, index) => {
+                                {filteredData.map((item, index) => {
                                     return (<tr key={index} className={`text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 ${hideDelPanel ? "hover:bg-gray-50 dark:hover:bg-gray-600" : ""}`}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {item.username}
@@ -160,7 +174,14 @@ const Admimpanel = () => {
                                             $29
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button onClick={() => { setHideDelPanel(false) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                            <button onClick={() => { setHideDelPanel(false) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/skkahier.json"
+                                                    trigger="hover"
+                                                    colors="primary:#ff0000"
+                                                    style={{ "width": "25px", "height": "25px" }}>
+                                                </lord-icon>
+                                            </button>
                                             <div tabIndex="-1" aria-hidden="true" className={`bg-[#37415130] ${hideDelPanel ? "hidden" : "flex"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full`}>
                                                 <div className="h-screen flex items-center justify-center relative p-4 w-full max-w-md md:h-auto">
                                                     <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">

@@ -3,8 +3,6 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-    // const { username, password } = await request.json();
-
     // Connect to the database
     await dbConnect();
     const users = await User.find({});

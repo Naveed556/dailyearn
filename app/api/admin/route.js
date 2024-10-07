@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken';
-import dbConnect from '@/lib/admindb';
+import dbConnect from '@/lib/mongodb';
 import Admin from '@/models/Admin';
 
 export async function POST(request) {
@@ -9,7 +9,7 @@ export async function POST(request) {
 
     // Connect to the database
     await dbConnect();
-    // const admin = new Admin({username:"admin", password: bcrypt.hashSync("password", 10)})
+    // const admin = new Admin({ username: "admin", password: bcrypt.hashSync("password", 10) })
     // admin.save()
     // Find the user in the database
     const admin = await Admin.findOne({ username });
@@ -23,14 +23,14 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
     }
     if (admin) {
-        // Create a JWT token
-        const token = jwt.sign(
+        // Create a JWT admintoken
+        const admintoken = jwt.sign(
             { userId: admin._id, username: admin.username },
             process.env.JWT_SECRET
             // { expiresIn: '1h' }
         );
         const response = NextResponse.json({ username: username, message: 'Login successful' });
-        response.cookies.set('token', token, {
+        response.cookies.set('admintoken', admintoken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'development', // Ensure cookie is secure in production
             sameSite: 'strict', // Prevent CSRF attacks
@@ -38,6 +38,6 @@ export async function POST(request) {
         });
         return response;
     }
-    // Return the token as a response
-    return NextResponse.json({ token });
+    // Return the admintoken as a response
+    return NextResponse.json({ admintoken });
 }

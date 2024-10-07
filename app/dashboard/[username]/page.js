@@ -88,12 +88,11 @@ export default function Dashboard() {
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                 </div>
-                                <h2 className="text-lg text-white font-medium title-font mb-2">Neptune</h2>
+                                <h2 className="text-lg text-white font-medium title-font mb-2">Statistics</h2>
                                 <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
                             </div>
                         </div>
                     </div>
-                    <button className="flex mx-auto mt-16 text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">Button</button>
                 </div>
             </section>
         </>

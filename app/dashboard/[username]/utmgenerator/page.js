@@ -30,18 +30,22 @@ export default function UtmGenerator() {
 
     // Utility to break the address into components
     function break_address(url_add) {
-        const data = url_add.split("://");
-        const protocol = data[0];
-        const domainData = data[1].split(".com");
-        const domain = domainData[0];
-        const pathData = domainData[1].split("/");
-        const title = pathData[1].split("-").slice(0, 3).join("-");
+        try {
+            const data = url_add.split("://");
+            const protocol = data[0];
+            const domainData = data[1].split(".com");
+            const domain = domainData[0];
+            const pathData = domainData[1].split("/");
+            const title = pathData[1].split("-").slice(0, 3).join("-");
 
-        return {
-            protocol: protocol,
-            domain: domain,
-            title: title,
-        };
+            return {
+                protocol: protocol,
+                domain: domain,
+                title: title,
+            };
+        } catch (error) {
+            return error
+        }
     }
     const storeLinks = () => {
         // Split the input value by newline, trim, and filter out empty lines
@@ -91,7 +95,7 @@ export default function UtmGenerator() {
                             <button onClick={(e) => { e.preventDefault(); copy(utmLinks.join("\n")) }} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                 Copy All
                             </button>
-                            <button onClick={(e) => { e.preventDefault(); setUtmLinks([]) }} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
+                            <button onClick={(e) => { e.preventDefault(); setUtmLinks([]); setCopiedIndexes([]) }} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
                                 Clear All
                             </button>
                         </div>

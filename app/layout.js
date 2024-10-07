@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "./components/header";
 import Script from "next/script";
+import NavBottom from "./components/navbottom";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,10 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}
+      >
         {children}
-        <Script src="https://cdn.lordicon.com/lordicon.js" strategy="lazyOnload" />
+        <NavBottom />
       </body>
+      <Script src="https://cdn.lordicon.com/lordicon.js" strategy="afterInteractive" />
     </html>
   );
 }

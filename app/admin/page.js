@@ -25,7 +25,7 @@ const Admin = () => {
         });
         const res = await req.json();
         if (req.ok) {
-            router.push(`/adminpanel`); // Redirect to the dashboard and adding username to the url
+            router.push(`/admin/adminpanel`); // Redirect to the dashboard and adding username to the url
             console.log(res)
         } else {
             console.log(res.error);
@@ -34,8 +34,8 @@ const Admin = () => {
     }
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <section className="bg-gray-50 dark:bg-gray-900 h-screen flex">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-full">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -49,7 +49,7 @@ const Admin = () => {
                             <div className="relative">
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Password</label>
                                 <input onBeforeInput={() => { clearErrors("formErrors") }} type={showPass ? "text" : "password"} {...register("password", { required: true })} placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-[#2563eb] focus:border-[#2563eb] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                <button onClick={(e) => { e.preventDefault(); setShowPass(!showPass) }} className='absolute top-1/2 right-2'>
+                                <span onClick={(e) => { e.preventDefault(); setShowPass(!showPass) }} className='absolute top-1/2 right-2 cursor-pointer'>
                                     {!showPass &&
                                         <lord-icon
                                             src="https://cdn.lordicon.com/fmjvulyw.json"
@@ -68,7 +68,7 @@ const Admin = () => {
                                             style={{ "width": "25px", "height": "25px" }}>
                                         </lord-icon>
                                     }
-                                </button>
+                                </span>
                             </div>
 
                             {errors.formErrors && <span className='text-red-600 font-bold'>{errors.formErrors.message}</span>}

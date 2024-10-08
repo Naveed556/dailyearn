@@ -21,13 +21,13 @@ const NavBottom = () => {
     return (
         <ul className={`${checkPath ? "hidden" : "md:hidden flex"} fixed bottom-0 w-full flex-wrap justify-center text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400`}>
             <li className="me-2">
-                <Link href={`/dashboard/${username}`} className={`inline-block p-4 rounded-t-lg ${currentPath === `/dashboard/${username}` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>Dashboard</Link>
+                <Link href={`/dashboard/${username}`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>Dashboard</Link>
             </li>
             <li className="me-2">
-                <Link href={`/dashboard/${username}/utmlinks`} className={`inline-block p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmlinks` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>UTM-Links</Link>
+                <Link href={`/dashboard/${username}/utmlinks`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmlinks` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>UTM-Links</Link>
             </li>
             <li className="me-2">
-                <Link href={`/dashboard/${username}/utmgenerator`} className={`inline-block p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmgenerator` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>UTM Generator</Link>
+                <Link href={`/dashboard/${username}/utmgenerator`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmgenerator` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>UTM Generator</Link>
             </li>
         </ul>
     )

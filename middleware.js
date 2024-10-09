@@ -128,11 +128,11 @@ export async function middleware(req) {
 }
 
 // --- Configure the paths for which this middleware should apply ---
-export const config = {
-    matcher: [
-        '/dashboard/:path*',
-        '/login',
-        '/admin/:path*',
-        '/dashboard',
-    ],
-};
+// export const config = {
+//     matcher: [
+//         '/dashboard/:path*',
+//         '/login',
+//         '/admin/:path*',
+//         '/dashboard',
+//     ],
+// };

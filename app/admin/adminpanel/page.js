@@ -145,13 +145,10 @@ const Admimpanel = () => {
                                         Username
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        Encrypted Password
+                                        Revenew
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Created At
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Revenew
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Action
@@ -165,13 +162,10 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {item.password}
+                                            $29
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.createdAt.split("T")[0]}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            $29
                                         </td>
                                         <td className="px-6 py-4">
                                             <button onClick={() => { setHideDelPanel(false) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">

@@ -11,9 +11,10 @@ const Admimpanel = () => {
     const [hideDelPanel, setHideDelPanel] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState(usersList);
-    
+
     useEffect(() => {
         getUsers();
+        console.log("Fetching Users")
     }, [])
     // Filter table data based on search term
     useEffect(() => {
@@ -33,7 +34,7 @@ const Admimpanel = () => {
         const res = await req.json();
         setUsersList(res);
         setFilteredData(res);
-        // console.log(res);
+        console.log(res);
     }
 
     const {
@@ -87,9 +88,14 @@ const Admimpanel = () => {
                             </div>
                             <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
                         </div>
-                        <button onClick={() => { setHideAddUser(false) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Add User
-                        </button>
+                        <div>
+                            <button onClick={() => { getUsers() }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-4">
+                                Fetch User
+                            </button>
+                            <button onClick={() => { setHideAddUser(false) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Add User
+                            </button>
+                        </div>
 
                         <div className={`bg-[#37415180] ${hideAddUser ? "hidden" : "flex"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full`}>
                             <div className="relative p-4 w-full max-w-md max-h-full">

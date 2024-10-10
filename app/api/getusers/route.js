@@ -9,16 +9,17 @@ export async function GET() {
 
         if (!users || users.length === 0) {
             return NextResponse.json({ message: 'No Users Found' }, {
-                headers: { 'Cache-Control': 'no-store, must-revalidate' },
+                headers: { 'Cache-Control': 'no-store' }, // No caching
             });
         }
 
         return NextResponse.json(users, {
-            headers: { 'Cache-Control': 'no-store, must-revalidate' },
+            headers: { 'Cache-Control': 'no-store' }, // No caching
         });
     } catch (error) {
-        return NextResponse.json({ message: 'Error fetching users', error: error.message }, { status: 500 }, {
-            headers: { 'Cache-Control': 'no-store, must-revalidate' },
+        return NextResponse.json({ message: 'Error fetching users', error: error.message }, {
+            status: 500,
+            headers: { 'Cache-Control': 'no-store' }, // No caching
         });
     }
 }

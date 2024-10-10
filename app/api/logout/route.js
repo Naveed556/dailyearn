@@ -12,7 +12,7 @@ export async function GET(req) {
         // Clear the token cookie by setting it with an expired date
         response.cookies.set('token', '', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'development', // Ensure secure flag is true in production
+            secure: process.env.NODE_ENV === 'production', // Ensure secure flag is true in production
             sameSite: 'strict',
             path: '/', // Ensure the cookie is removed from the entire application
             expires: new Date(0), // Set the cookie to expire immediately

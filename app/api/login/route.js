@@ -31,7 +31,7 @@ export async function POST(request) {
         const response = NextResponse.json({ username: username, message: 'Login successful' });
         response.cookies.set('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'development', // Ensure cookie is secure in production
+            secure: process.env.NODE_ENV === 'production', // Ensure cookie is secure in production
             sameSite: 'strict', // Prevent CSRF attacks
             path: '/', // Cookie is available throughout the app
         });

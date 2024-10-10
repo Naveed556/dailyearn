@@ -55,7 +55,7 @@ export async function middleware(req) {
             // Set username in a cookie for convenience
             response.cookies.set('username', username, {
                 httpOnly: false,
-                secure: process.env.NODE_ENV !== 'development',
+                secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
                 path: '/',
             });
@@ -104,7 +104,7 @@ export async function middleware(req) {
             // Set username in a cookie for convenience
             response.cookies.set('username', username, {
                 httpOnly: false,
-                secure: process.env.NODE_ENV !== 'development',
+                secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
                 path: '/',
             });

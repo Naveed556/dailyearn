@@ -30,7 +30,7 @@ const Admimpanel = () => {
         setSearchTerm(e.target.value);
     };
     const getUsers = async () => {
-        const req = await fetch("/api/getusers");
+        const req = await fetch(`/api/getusers?ts=${new Date().getTime()}`);
         const res = await req.json();
         setUsersList(res);
         setFilteredData(res);

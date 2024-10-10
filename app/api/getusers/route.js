@@ -1,24 +1,28 @@
 import dbConnect from "@/lib/mongodb";
+import mongoose from "mongoose";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-    // Connect to the database
-    console.log('Connecting to database...');
-    await dbConnect();
-    console.log('Database connected, fetching users...');
     try {
+        // Connect to the database
+        await dbConnect();
+
+        // Fetch users from the database
         const users = await User.find({}).lean();
-        if (!users || users.length === 0) {
+
+        // Disconnect from the database after query
+        await mongoose.disconnect();
+
+        // Return the fetched users
+        if (users.length === 0) {
             return NextResponse.json({ message: 'No Users Found' });
         }
 
-        // Create the response object and set Cache-Control header
-        const response = NextResponse.json(users);
-        response.headers.set('Cache-Control', 'no-store');
-        return response;
+        return NextResponse.json(users);
     } catch (error) {
-        return NextResponse.json({ error: 'Error fetching users', details: error.message }, { status: 500 });
+        // Handle errors and disconnect in case of a failure
+        await mongoose.disconnect();
+        return NextResponse.json({ message: 'Error fetching users', error: error.message }, { status: 500 });
     }
 }
-

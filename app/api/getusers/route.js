@@ -1,28 +1,25 @@
 import dbConnect from "@/lib/mongodb";
-import mongoose from "mongoose";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        // Connect to the database
+        console.log('Attempting to connect to the database...');
         await dbConnect();
 
-        // Fetch users from the database
+        console.log('Connected to the database. Fetching users...');
         const users = await User.find({}).lean();
-
-        // Disconnect from the database after query
-        await mongoose.disconnect();
-
-        // Return the fetched users
-        if (users.length === 0) {
+        
+        if (!users || users.length === 0) {
+            console.log('No users found.');
             return NextResponse.json({ message: 'No Users Found' });
         }
 
+        console.log('Users fetched successfully:', users);
         return NextResponse.json(users);
     } catch (error) {
-        // Handle errors and disconnect in case of a failure
-        await mongoose.disconnect();
+        // Log full error object for debugging
+        console.error('Error fetching users:', error);
         return NextResponse.json({ message: 'Error fetching users', error: error.message }, { status: 500 });
     }
 }

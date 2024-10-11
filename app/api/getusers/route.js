@@ -1,8 +1,10 @@
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 
 export async function GET() {
+    revalidateTag("users")
     try {
         await dbConnect();
         const users = await User.find({}).lean();

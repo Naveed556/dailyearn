@@ -28,7 +28,7 @@ export default function UTMLinks() {
     if (links.length > 0 && username) {
       const updatedLinks = links.map((link) => {
         link = link.split("?utm_campaign")[0];
-        if (!link.endsWith("/")) { link += "/"; }
+        if (link.endsWith("/")) { link = link.slice(0, -1); }
         let newLink = break_address(link);
         if (newLink) {
           return `${link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`;

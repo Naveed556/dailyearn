@@ -57,7 +57,7 @@ export default function UtmGenerator() {
         // Process each link to generate the UTM link
         const updatedLinks = newLinks.map((link) => {
             link = link.split("?utm_campaign")[0];
-            if (!link.endsWith("/")) { link += "/"; }
+            if (link.endsWith("/")) { link = link.slice(0, -1); }
             let newlink = break_address(link);
             if (newlink) {
                 // Construct the final URL with UTM parameters

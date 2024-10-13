@@ -20,7 +20,7 @@ export default function Statistics() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ utm: utm }),
+                body: JSON.stringify({ utm: username }),
             });
             const data = await response.json();
             data.length <= 0 ? setDataFound(false) : setDataFound(true);

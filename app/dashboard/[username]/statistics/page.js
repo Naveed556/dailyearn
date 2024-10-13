@@ -28,7 +28,7 @@ export default function Statistics() {
             setUtmData(data);
         };
         fetchUtmData();
-    }, [utmSource]);
+    }, [utm]);
 
     useEffect(() => {
         // Get the username from cookies after the component has mounted

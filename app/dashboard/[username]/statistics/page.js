@@ -54,7 +54,7 @@ export default function Statistics() {
     for (let i = 0; i < utmData.length; i++) {
         const element = utmData[i];
         totalRevenue += Number(element.revenue);
-        totalRPM += Number(element.revenue);
+        totalRPM += Number(element.rpm);
         totalUsers += Number(element.users);
     }
     return (
@@ -116,7 +116,7 @@ export default function Statistics() {
                                             {`$${item.revenue}`}
                                         </td>
                                         <td className="px-6 py-4">
-                                            $29
+                                            {`$${item.rpm}`}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.users}

@@ -19,12 +19,12 @@ export async function POST(request) {
         const [response] = await analyticsDataClient.runReport({
             property: `properties/${propertyId}`,
             dimensions: [
-                { name: "firstUserSource" },
                 { name: "firstUserCampaignName" }
             ],
             metrics: [
                 { name: "totalUsers" },
-                { name: "totalRevenue" }
+                { name: "totalRevenue" },
+                { name:"averageRevenuePerUser" }
             ],
             dateRanges: [
                 { startDate: "30daysAgo", endDate: "today" }
@@ -42,10 +42,10 @@ export async function POST(request) {
 
         // Map and return the response data
         const data = response.rows.map(row => ({
-            source: row.dimensionValues[0].value,
-            campaign: row.dimensionValues[1].value,
+            campaign: row.dimensionValues[0].value,
             users: row.metricValues[0].value,
-            revenue: row.metricValues[1].value
+            revenue: row.metricValues[1].value,
+            rpm: row.metricValies[2].value
         }));
 
         // Return the response using NextResponse

@@ -10,7 +10,7 @@ export default function Statistics() {
     const [utmData, setUtmData] = useState([]);
     const [dataLoading, setDataLoading] = useState(false);
     const [dataFound, setDataFound] = useState(true)
-    const utmSource = `link_${username}`; // Replace with actual UTM source value
+    const utm = username; // Replace with actual UTM source value
 
     useEffect(() => {
         const fetchUtmData = async () => {
@@ -20,7 +20,7 @@ export default function Statistics() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ utmSource: utmSource }),
+                body: JSON.stringify({ utm: utm }),
             });
             const data = await response.json();
             data.length <= 0 ? setDataFound(false) : setDataFound(true);

@@ -14,7 +14,7 @@ const analyticsDataClient = new BetaAnalyticsDataClient({
 export async function POST(request) {
     try {
         // Parse the request body to get utmSource
-        const { utmSource } = await request.json();
+        const { utm } = await request.json();
 
         const [response] = await analyticsDataClient.runReport({
             property: `properties/${propertyId}`,
@@ -31,10 +31,10 @@ export async function POST(request) {
             ],
             dimensionFilter: {
                 filter: {
-                    fieldName: "firstUserSource",
+                    fieldName: "firstUserCampaignName",
                     stringFilter: {
-                        matchType: "EXACT",
-                        value: utmSource // Pass utmSource dynamically
+                        matchType: "CONTAINS",
+                        value: utm // Pass utmSource dynamically
                     }
                 }
             }

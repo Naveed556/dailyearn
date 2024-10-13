@@ -61,6 +61,7 @@ const Header = () => {
                             <Link href={`/dashboard/${username}`} className="mr-5 hover:text-white">Dashboard</Link>
                             <Link href={`/dashboard/${username}/utmlinks`} className="mr-5 hover:text-white">UTM-Links</Link>
                             <Link href={`/dashboard/${username}/utmgenerator`} className="mr-5 hover:text-white">UTM Generator</Link>
+                            <Link href={`/dashboard/${username}/statistics`} className="mr-5 hover:text-white">Statistics</Link>
                         </nav>
                         <button onClick={() => { setHideSignout(false) }} className="inline-flex items-center border-0 py-1 px-3 rounded text-base font-bold md:mt-0 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Log Out
                             <lord-icon

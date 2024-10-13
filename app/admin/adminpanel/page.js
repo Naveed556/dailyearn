@@ -12,6 +12,7 @@ const Admimpanel = () => {
     const [userFetching, setUserFetching] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState(usersList);
+    const [sortOrder, setSortOrder] = useState(null); // null, 'asc', or 'desc'
 
     useEffect(() => {
         getUsers();
@@ -37,6 +38,10 @@ const Admimpanel = () => {
             },
         });
         const res = await req.json();
+        for (let i = 0; i < res.length; i++) {
+            const element = res[i];
+            element["revenue"] = Math.floor(Math.random() * 100);
+        }
         setUserFetching(false);
         setUsersList(res);
         setFilteredData(res);
@@ -51,7 +56,7 @@ const Admimpanel = () => {
     } = useForm()
 
     const onSubmit = async (data) => {
-        // console.log(data);
+        data.username = data.username.toLowerCase();
         const req = await fetch("/api/adduser", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -76,6 +81,18 @@ const Admimpanel = () => {
         });
         getUsers();
     }
+    const handleSort = () => {
+        if (sortOrder === null) {
+            setSortOrder('desc');
+            setFilteredData([...filteredData].sort((a, b) => b.revenue - a.revenue)); // Ascending
+        } else if (sortOrder === 'desc') {
+            setSortOrder('asc');
+            setFilteredData([...filteredData].sort((a, b) => a.revenue - b.revenue)); // Descending
+        } else {
+            setSortOrder(null);
+            setFilteredData(usersList);
+        }
+    };
 
     return (
         <>
@@ -149,8 +166,20 @@ const Admimpanel = () => {
                                     <th scope="col" className="px-6 py-3">
                                         Username
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Revenew
+                                    <th scope="col" className="px-6 py-3" sortOrder={sortOrder} handleSort={handleSort}>
+                                        <div className="flex items-center justify-center">
+                                            Revenue
+                                            <button onClick={handleSort}>
+                                                <div className="flex flex-col items-center">
+                                                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style={{ marginBottom: "-4px" }}>
+                                                        <polygon points="12,8 16,14 8,14" fill={sortOrder === 'asc' ? 'white' : 'gray'} />
+                                                    </svg>
+                                                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style={{ marginTop: "-4px" }}>
+                                                        <polygon points="12,16 16,10 8,10" fill={sortOrder === 'desc' ? 'white' : 'gray'} />
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                        </div>
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Created At
@@ -179,7 +208,7 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <td className="px-6 py-4">
-                                            $29
+                                            {`$${item.revenue}`}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.createdAt.split("T")[0]}

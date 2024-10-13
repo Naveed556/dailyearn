@@ -10,7 +10,7 @@ export default function Statistics() {
     const [utmData, setUtmData] = useState([]);
     const [dataLoading, setDataLoading] = useState(false);
     const [dataFound, setDataFound] = useState(true)
-    const utmSource = '(direct)'; // Replace with actual UTM source value
+    const utmSource = `link_${username}`; // Replace with actual UTM source value
 
     useEffect(() => {
         const fetchUtmData = async () => {

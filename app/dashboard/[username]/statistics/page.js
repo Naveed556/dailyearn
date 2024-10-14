@@ -13,6 +13,14 @@ export default function Statistics() {
     const utm = username; // Replace with actual UTM source value
 
     useEffect(() => {
+        // Get the username from cookies after the component has mounted
+        const storedUsername = Cookies.get('username');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
+
+    useEffect(() => {
         const fetchUtmData = async () => {
             setDataLoading(true)
             const response = await fetch('/api/utmdata', {
@@ -20,23 +28,22 @@ export default function Statistics() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ utm: username }),
+                body: JSON.stringify({ utm: utm }),
             });
             const data = await response.json();
-            data.length <= 0 ? setDataFound(false) : setDataFound(true);
+            // data.length <= 0 ? setDataFound(false) : setDataFound(true);
+            if (data.length <= 0) {
+                setDataFound(false);
+                setUtmData([]);
+            } else {
+                setDataFound(true);
+                setUtmData(data);
+            }
             setDataLoading(false)
-            setUtmData(data);
         };
         fetchUtmData();
     }, [utm]);
 
-    useEffect(() => {
-        // Get the username from cookies after the component has mounted
-        const storedUsername = Cookies.get('username');
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-    }, []);
 
     // Conditionally render the content once the username is set
     if (!username) {
@@ -52,10 +59,10 @@ export default function Statistics() {
     let totalUsers = 0;
 
     for (let i = 0; i < utmData.length; i++) {
-        const element = utmData[i];
-        totalRevenue += Number(element.revenue);
-        totalRPM += Number(element.rpm);
-        totalUsers += Number(element.users);
+        const campaign = utmData[i];
+        totalRevenue += Number(campaign.revenue);
+        totalRPM += Number(campaign.rpm);
+        totalUsers += Number(campaign.users);
     }
     return (
         <>
@@ -103,7 +110,7 @@ export default function Statistics() {
                                     </th>
                                 </tr>
                             }
-                            {utmData.map((item, index) => {
+                            {utmData.length > 0 && utmData.map((item, index) => {
                                 return (
                                     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -128,8 +135,8 @@ export default function Statistics() {
                         <tfoot>
                             <tr className="font-semibold text-gray-900 dark:text-white">
                                 <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
-                                <td className="px-6 py-3">${totalRevenue}</td>
-                                <td className="px-6 py-3">$29</td>
+                                <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
+                                <td className="px-6 py-3">${(totalRPM/utmData.length).toFixed(2)}</td>
                                 <td className="px-6 py-3">{totalUsers}</td>
                             </tr>
                         </tfoot>

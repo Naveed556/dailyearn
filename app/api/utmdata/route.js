@@ -48,7 +48,6 @@ export async function POST(request) {
         if (!response.rows || response.rows.length === 0) {
             return NextResponse.json({ message: "No data found for the given UTM parameter." }, { status: 404 });
         }
-
         // Map and return the response data
         const data = response.rows.map(row => {
             const totalUsers = parseInt(row.metricValues[0].value, 10);   // Users for this campaign

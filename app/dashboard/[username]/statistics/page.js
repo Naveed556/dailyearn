@@ -91,8 +91,8 @@ export default function Statistics() {
             <Header />
             <h1 className='font-bold text-5xl text-white text-center m-4'>Statistics</h1>
             <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
-                <div className='flex items-center justify-between mb-4'>
-                    <div id="date-range-picker" date-rangepicker className="flex items-center">
+                <div className='flex items-center justify-between flex-wrap gap-2 mb-4'>
+                    <div className="flex items-center flex-wrap gap-2">
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

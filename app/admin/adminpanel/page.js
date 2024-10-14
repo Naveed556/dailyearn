@@ -13,6 +13,7 @@ const Admimpanel = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState(usersList);
     const [sortOrder, setSortOrder] = useState(null); // null, 'asc', or 'desc'
+    const [tempIndex, setTempIndex] = useState(null);
 
     useEffect(() => {
         getUsers();
@@ -25,6 +26,17 @@ const Admimpanel = () => {
         setFilteredData(results);
     }, [searchTerm, usersList]);
 
+    const fetchUtmData = async (utm) => {
+        const response = await fetch('/api/utmdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ utm: utm, startDate: "30daysAgo", endDate: "today" }),
+        });
+        const data = await response.json();
+        return data
+    };
     // Handle search input change
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -38,13 +50,24 @@ const Admimpanel = () => {
             },
         });
         const res = await req.json();
-        for (let i = 0; i < res.length; i++) {
-            const element = res[i];
-            element["revenue"] = Math.floor(Math.random() * 100);
-        }
+        const result = await addRevenue(res);
         setUserFetching(false);
-        setUsersList(res);
-        setFilteredData(res);
+        setUsersList(result);
+        setFilteredData(result);
+    }
+
+    const addRevenue = async (data) => {
+        for (let i = 0; i < data.length; i++) {
+            const user = data[i];
+            const utmData = await fetchUtmData(user.username);
+            let totalRevenue = 0;
+            for (let j = 0; j < utmData.length; j++) {
+                const campaign = await utmData[j];
+                totalRevenue += Number(campaign.revenue)
+            }
+            user["revenue"] = totalRevenue.toFixed(2);
+        }
+        return data;
     }
 
     const {
@@ -71,13 +94,13 @@ const Admimpanel = () => {
         getUsers();
     }
 
-    const deleteUser = async (i) => {
+    const deleteUser = async () => {
         const req = await fetch("/api/getusers");
         const res = await req.json();
         await fetch("/api/deleteuser", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(res[i])
+            body: JSON.stringify(res[tempIndex])
         });
         getUsers();
     }
@@ -166,7 +189,7 @@ const Admimpanel = () => {
                                     <th scope="col" className="px-6 py-3">
                                         Username
                                     </th>
-                                    <th scope="col" className="px-6 py-3" sortOrder={sortOrder} handleSort={handleSort}>
+                                    <th scope="col" className="px-6 py-3">
                                         <div className="flex items-center justify-center">
                                             Revenue
                                             <button onClick={handleSort}>
@@ -208,13 +231,13 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {`$${item.revenue}`}
+                                            ${item.revenue}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.createdAt.split("T")[0]}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button onClick={() => { setHideDelPanel(false) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <button onClick={() => { setHideDelPanel(false); setTempIndex(index) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/skkahier.json"
                                                     trigger="hover"
@@ -225,17 +248,17 @@ const Admimpanel = () => {
                                             <div className={`bg-[#37415130] ${hideDelPanel ? "hidden" : "flex"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full`}>
                                                 <div className="h-screen flex items-center justify-center relative p-4 w-full max-w-md md:h-auto">
                                                     <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                                        <button onClick={() => { setHideDelPanel(true) }} className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
+                                                        <button onClick={() => { setHideDelPanel(true); setTempIndex(null) }} className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
                                                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                                                             <span className="sr-only">Close modal</span>
                                                         </button>
                                                         <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path></svg>
                                                         <p className="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
                                                         <div className="flex justify-center items-center space-x-4">
-                                                            <button data-modal-toggle="deleteModal" onClick={() => { setHideDelPanel(true) }} className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                            <button data-modal-toggle="deleteModal" onClick={() => { setHideDelPanel(true); setTempIndex(null) }} className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                                 No, cancel
                                                             </button>
-                                                            <button onClick={() => { deleteUser(index); setHideDelPanel(true) }} className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                            <button onClick={() => { deleteUser(); setHideDelPanel(true); setTempIndex(null) }} className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                                 Yes, I am sure
                                                             </button>
                                                         </div>

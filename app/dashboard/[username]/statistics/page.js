@@ -139,7 +139,7 @@ export default function Statistics() {
                         </thead>
                         <tbody>
                             {dataLoading &&
-                                <tr className="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr className="text-center border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
                                     <td colSpan={"5"} className="px-6 py-4">
                                         <div className="w-full flex justify-center items-center">
                                             <svg aria-hidden="true" className="w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,7 +151,7 @@ export default function Statistics() {
                                 </tr>
                             }
                             {!dataFound &&
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
                                     <th colSpan={"5"} scope="row" className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                                         No Data Available Yet!
                                     </th>
@@ -159,8 +159,8 @@ export default function Statistics() {
                             }
                             {utmData.length > 0 && utmData.map((item, index) => {
                                 return (
-                                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <tr key={index} className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
+                                        <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                                             {index + 1}
                                         </th>
                                         <td className="px-6 py-4">

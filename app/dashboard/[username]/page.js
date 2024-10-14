@@ -7,6 +7,21 @@ import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
     const [username, setUsername] = useState('');
+    const [totalRevenue, setTotalRevenue] = useState(0);
+    const [totalRPM, setTotalRPM] = useState(0);
+    const [maxRevenue, setMaxRevenue] = useState(0.0);
+    const [maxRPM, setMaxRPM] = useState(0);
+    const [dataLegth, setDataLegth] = useState(0);
+    const utm = username;
+
+    // Utility function to format date as YYYY-MM-DD
+    const firstDateofMonth = () => {
+        const date = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // 1st of the current month
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
     useEffect(() => {
         // Get the username from cookies after the component has mounted
@@ -16,6 +31,29 @@ export default function Dashboard() {
         }
     }, []);
 
+    useEffect(() => {
+        fetchUtmData();
+    }, [utm]);
+
+    const fetchUtmData = async () => {
+        const response = await fetch('/api/utmdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ utm: utm, startDate: firstDateofMonth(), endDate: "today" }),
+        });
+        const data = await response.json();
+        setDataLegth(data.length);
+
+        for (let i = 0; i < data.length; i++) {
+            const campaign = data[i];
+            setTotalRevenue((prevTotalRevenue) => prevTotalRevenue + Number(campaign.revenue));
+            setTotalRPM((prevTotalRPM) => prevTotalRPM + Number(campaign.rpm));
+            setMaxRevenue((prevMaxRevenue) => Math.max(prevMaxRevenue, Number(campaign.revenue)));
+            setMaxRPM((prevMaxRPM) => Math.max(prevMaxRPM, Number(campaign.rpm)));
+        }
+    };
     // Conditionally render the content once the username is set
     if (!username) {
         return <div role="status" className="w-screen h-screen flex justify-center items-center">
@@ -32,26 +70,26 @@ export default function Dashboard() {
             <section className="text-gray-400 body-font bg-gray-900">
                 <div className="container px-5 py-24 mx-auto">
                     <div className="flex flex-wrap w-full mb-10 flex-col items-center text-center">
-                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Wellcome User {username} to Dashboard</h1>
-                        <p className="lg:w-1/2 w-full leading-relaxed text-opacity-80">What you going to do next?</p>
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Wellcome to Dashboard {username}</h1>
+                        <p className="lg:w-1/2 w-full leading-relaxed text-opacity-80">This is your currect Month Progress</p>
                     </div>
                     <div className="container px-5 py-2 mx-auto">
                         <div className="flex flex-wrap -m-4 text-center">
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">$2.7K</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${totalRevenue.toFixed(2)}</h2>
                                 <p className="leading-relaxed">Revenue</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">$57</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${maxRevenue}</h2>
+                                <p className="leading-relaxed">Best Campaign</p>
+                            </div>
+                            <div className="p-4 sm:w-1/4 w-1/2">
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${(totalRPM / dataLegth).toFixed(2)}</h2>
                                 <p className="leading-relaxed">Average RPM</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">$115</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${maxRPM}</h2>
                                 <p className="leading-relaxed">Best RPM</p>
-                            </div>
-                            <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">4</h2>
-                                <p className="leading-relaxed">Products</p>
                             </div>
                         </div>
                     </div>

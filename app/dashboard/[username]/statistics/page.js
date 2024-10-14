@@ -47,7 +47,6 @@ export default function Statistics() {
             body: JSON.stringify({ utm: utm, startDate: startDate, endDate: endDate }),
         });
         const data = await response.json();
-        // data.length <= 0 ? setDataFound(false) : setDataFound(true);
         if (data.length <= 0) {
             setDataFound(false);
             setUtmData([]);

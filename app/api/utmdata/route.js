@@ -27,7 +27,7 @@ export async function POST(request) {
                 { name: "firstUserCampaignName" }
             ],
             metrics: [
-                { name: "totalUsers" },
+                { name: "newUsers" },
                 { name: "totalRevenue" }
             ],
             dateRanges: [

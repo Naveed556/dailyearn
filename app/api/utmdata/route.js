@@ -14,7 +14,7 @@ const analyticsDataClient = new BetaAnalyticsDataClient({
 export async function POST(request) {
     try {
         // Parse the request body to get utmSource
-        const { utm } = await request.json();
+        const { utm, startDate, endDate } = await request.json();
 
         // Ensure the utm keyword is provided
         if (!utm || utm.trim() === "") {
@@ -31,7 +31,7 @@ export async function POST(request) {
                 { name: "totalRevenue" }
             ],
             dateRanges: [
-                { startDate: "30daysAgo", endDate: "today" }
+                { startDate: startDate, endDate: endDate }
             ],
             dimensionFilter: {
                 filter: {

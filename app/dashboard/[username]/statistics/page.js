@@ -151,8 +151,8 @@ export default function Statistics() {
                                 </tr>
                             }
                             {!dataFound &&
-                                <tr className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
-                                    <th colSpan={"5"} scope="row" className="px-6 py-4 font-medium text-center whitespace-nowrap text-white">
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th colSpan={"5"} scope="row" className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                                         No Data Available Yet!
                                     </th>
                                 </tr>
@@ -180,7 +180,7 @@ export default function Statistics() {
                             })}
                         </tbody>
                         <tfoot>
-                            <tr className="font-semibold text-white">
+                            <tr className="font-semibold text-gray-900 dark:text-white">
                                 <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
                                 <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
                                 <td className="px-6 py-3">${(totalRPM / utmData.length).toFixed(2)}</td>

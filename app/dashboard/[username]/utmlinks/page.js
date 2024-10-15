@@ -93,7 +93,7 @@ export default function UTMLinks() {
             {utmLinks.length > 0 && utmLinks.map((link, index) => {
               const isCopied = copiedIndexes.includes(index);
               return (
-                <tr key={index} className={`cursor-pointer border-b bg-gray-800 border-gray-700 ${isCopied ? 'bg-green-200 text-gray-600' : 'bg-white text-gray-900 hover:bg-gray-600'}`}>
+                <tr key={index} className={`cursor-pointer border-b bg-gray-800 border-gray-700 ${isCopied ? 'bg-gray-700 text-gray-600' : 'bg-gray-800 text-gray-900 hover:bg-gray-600'}`}>
                   <th scope="row" className={`w-6 px-6 py-4 font-medium whitespace-nowrap ${isCopied ? 'text-gray-600' : 'text-white'}`}>{index + 1}</th>
                   <td className={`px-6 py-4 font-medium ${isCopied ? 'text-gray-600' : 'text-blue-500 hover:underline'}`} onClick={() => { copy(link, index) }}>
                     <p className="">

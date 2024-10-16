@@ -4,10 +4,12 @@ import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function UTMLinks() {
-  const params = useParams(); // Get dynamic route params
-  const [username, setUsername] = useState(''); // Local state for the username
-  const [links, setLinks] = useState([]); // To store all the links
-  const [utmLinks, setUtmLinks] = useState([]); // To store all the links
+  const params = useParams();
+  const [username, setUsername] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [utmLinks, setUtmLinks] = useState([]);
   const [copiedIndexes, setCopiedIndexes] = useState([]);
 
   useEffect(() => {
@@ -17,27 +19,29 @@ export default function UTMLinks() {
   }, [params?.username]);
 
   useEffect(() => {
-    // Simulate fetching links from Google Analytics
-    setLinks([
-      "https://dailyjugarr.com/mountain-tragedy-unfolds-climbers-fatal-plunge-in-denali-national-park/",
-      "https://dailyjugarr.com/israeli-minister-ben-gvir-hurt-in-car-accident-near-suspected-attack-scene/"
-    ]);
+    fetchCategories();
   }, []);
 
   useEffect(() => {
-    if (links.length > 0 && username) {
-      const updatedLinks = links.map((link) => {
-        link = link.split("?utm_campaign")[0];
-        if (link.endsWith("/")) { link = link.slice(0, -1); }
-        let newLink = break_address(link);
+    setUtmLinks([]);
+  }, [selectedCategory])
+
+
+  useEffect(() => {
+    if (posts.length > 0 && username) {
+      const updatedLinks = posts.map((item) => {
+        item.link = item.link.split("?utm_campaign")[0];
+        if (item.link.endsWith("/")) { item.link = item.link.slice(0, -1); }
+        let newLink = break_address(item.link);
         if (newLink) {
-          return `${link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`;
+          return `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`;
         }
-        return link;
+        return item.link;
+        // console.log(item)
       });
       setUtmLinks(updatedLinks);
     }
-  }, [links, username]);
+  }, [posts, username]);
 
   // Prevent rendering until username is available
   if (!username) {
@@ -50,6 +54,45 @@ export default function UTMLinks() {
       </div>
     );
   }
+  // Function to fetch categories
+  async function fetchCategories() {
+    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories');
+    const res = await response.json();
+    let array = []
+    for (const element of res) {
+      array.push({
+        id: element.id,
+        name: element.name
+      })
+    }
+    setCategories(array);
+    console.log(array);
+    return array;
+  }
+
+  // Handle category change
+  const handleCategoryChange = async (e) => {
+    const categoryId = e.target.value;
+    setSelectedCategory(categoryId);
+
+    if (categoryId) {
+      const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`);
+      const res = await response.json();
+      let fetchedPosts = [];
+      res.forEach(post => {
+        fetchedPosts.push({
+          id: post.id,
+          title: post.title.rendered,
+          link: post.link
+        })
+      });
+      setPosts(fetchedPosts);
+      console.log(fetchedPosts);
+    } else {
+      setPosts([]);
+    }
+  };
+
 
   // Utility to break the address into components
   function break_address(url_add) {
@@ -66,6 +109,7 @@ export default function UTMLinks() {
       title: title,
     };
   }
+
   const copy = (text, index) => {
     navigator.clipboard.writeText(text)
     // Add the index to the copiedIndexes array if it's not already present
@@ -73,6 +117,7 @@ export default function UTMLinks() {
       setCopiedIndexes([...copiedIndexes, index]);
     }
   }
+
   return (
     <>
       <Header />
@@ -80,8 +125,12 @@ export default function UTMLinks() {
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-[80vw] mx-auto my-4">
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-white bg-gray-800">
-            Articles
-            <p className="mt-1 text-sm font-normal text-gray-400">Just click on the box to copy url with UTM</p>
+            <select className='w-full h-10 rounded-lg bg-gray-700 px-4' onChange={handleCategoryChange}>
+              <option className='rounded-full' value={""}>Select a Category</option>
+              {categories.map((category) => {
+                return (<option key={category.id} className='rounded-full' value={category.id}>{category.name}</option>)
+              })}
+            </select>
           </caption>
           <thead className="text-xs uppercase bg-gray-700 text-gray-400">
             <tr>
@@ -108,7 +157,7 @@ export default function UTMLinks() {
                 <th scope="row" className="w-6 px-6 py-4 font-medium whitespace-nowrap text-white">0</th>
                 <td className="px-6 py-4">
                   <p className="font-medium text-white text-center">
-                    NO Article Available!
+                    No Article to Display!
                   </p>
                 </td>
               </tr>

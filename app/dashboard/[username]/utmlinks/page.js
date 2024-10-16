@@ -39,7 +39,7 @@ export default function UTMLinks() {
         }
         return item.link;
       });
-      setUtmLinks(updatedLinks);z
+      setUtmLinks(updatedLinks);
     }
   }, [posts, username]);
 

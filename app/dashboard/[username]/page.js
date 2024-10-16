@@ -64,6 +64,11 @@ export default function Dashboard() {
             setTotalRPM(await data.reduce((total, campaign) => total + Number(campaign.rpm), 0));
             setMaxRevenue(await data.reduce((max, campaign) => Math.max(max, Number(campaign.revenue)), 0));
             setMaxRPM(await data.reduce((max, campaign) => Math.max(max, Number(campaign.rpm)), 0));
+        }else{
+            setTotalRevenue(0);
+            setTotalRPM(0);
+            setMaxRevenue(0);
+            setMaxRPM(0);
         }
     };
     // Conditionally render the content once the username is set

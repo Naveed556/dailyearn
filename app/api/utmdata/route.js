@@ -18,7 +18,7 @@ export async function POST(request) {
 
         // Ensure the utm keyword is provided
         if (!utm || utm.trim() === "") {
-            return NextResponse.json({ error: "UTM parameter is missing or empty." }, { status: 400 });
+            return NextResponse.json({ error: "UTM parameter is missing or empty." });
         }
 
         const [response] = await analyticsDataClient.runReport({
@@ -46,7 +46,7 @@ export async function POST(request) {
 
         // If no data is returned, handle that case
         if (!response.rows || response.rows.length === 0) {
-            return NextResponse.json({ message: "No data found for the given UTM parameter." }, { status: 404 });
+            return NextResponse.json({ message: "No data found for the given UTM parameter." }, { DataNotFound: true });
         }
         // Map and return the response data
         const data = response.rows.map(row => {
@@ -65,7 +65,7 @@ export async function POST(request) {
         });
 
         // Return the response using NextResponse
-        return NextResponse.json(data);
+        return NextResponse.json(data, {DataNotFound: false});
     } catch (error) {
         console.error('Error fetching UTM Campaign Data:', error);
         return NextResponse.json({ error: 'No Data Found' }, { status: 500 });

@@ -23,11 +23,13 @@ const Header = () => {
     const handleLogout = async () => {
         try {
             // Make a request to the logout API route
-            await fetch('/api/logout', {
+            const response = await fetch('/api/logout', {
                 method: 'GET',
             });
             // Redirect to login or home page after successful logout
-            router.push('/login');
+            if (response.ok) {
+                router.push('/login');
+            }
         } catch (err) {
             console.error('Failed to logout:', err);
         }

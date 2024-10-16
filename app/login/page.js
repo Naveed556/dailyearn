@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Header from '../components/header'
+import { toast } from 'react-toastify'
 
 const Login = () => {
     const router = useRouter();
@@ -26,6 +27,16 @@ const Login = () => {
         });
         const res = await req.json();
         if (req.ok) {
+            toast('Logged In Successfully!', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             router.push(`/dashboard/${res.username}`); // Redirect to the dashboard and adding username to the url
         } else {
             console.log(res.error);

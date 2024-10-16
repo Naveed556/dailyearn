@@ -2,6 +2,7 @@
 import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export default function UtmGenerator() {
     const params = useParams(); // Get dynamic route params
@@ -76,7 +77,16 @@ export default function UtmGenerator() {
 
     const copy = (text, index) => {
         navigator.clipboard.writeText(text)
-        // Add the index to the copiedIndexes array if it's not already present
+        toast('Copied to Clipboard!', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
         if (!copiedIndexes.includes(index)) {
             setCopiedIndexes([...copiedIndexes, index]);
         }

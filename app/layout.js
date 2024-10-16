@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 import NavBottom from "./components/navbottom";
+import ToastWrapper from "./components/toastwrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,11 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}>
+        <ToastWrapper />
         {children}
         <NavBottom />
       </body>

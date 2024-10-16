@@ -2,6 +2,7 @@
 import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export default function UTMLinks() {
   const params = useParams();
@@ -20,6 +21,7 @@ export default function UTMLinks() {
   }, [params?.username]);
 
   useEffect(() => {
+    setCategories(JSON.parse(localStorage.getItem("categories")));
     fetchCategories();
   }, []);
 
@@ -66,7 +68,7 @@ export default function UTMLinks() {
       })
     }
     setCategories(array);
-    console.log(array);
+    localStorage.setItem("categories", JSON.stringify(array));
     return array;
   }
 
@@ -114,7 +116,16 @@ export default function UTMLinks() {
 
   const copy = (text, index) => {
     navigator.clipboard.writeText(text)
-    // Add the index to the copiedIndexes array if it's not already present
+    toast('Copied to Clipboard!', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
     if (!copiedIndexes.includes(index)) {
       setCopiedIndexes([...copiedIndexes, index]);
     }

@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const Admin = () => {
     const router = useRouter();
@@ -25,8 +26,17 @@ const Admin = () => {
         });
         const res = await req.json();
         if (req.ok) {
-            router.push(`/admin/adminpanel`); // Redirect to the dashboard and adding username to the url
-            console.log(res)
+            toast('Signed In Successfully!', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            router.push(`/admin/adminpanel`);
         } else {
             console.log(res.error);
             setError("formErrors", { message: res.error })

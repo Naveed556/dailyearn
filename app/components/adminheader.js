@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const AdminHeader = () => {
     const router = useRouter();
@@ -14,6 +15,16 @@ const AdminHeader = () => {
             await fetch('/api/adminlogout', {
                 method: 'GET',
             });
+            toast('You have been Signed Out!', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
             // Redirect to login or home page after successful logout
             router.push('/admin');
         } catch (err) {

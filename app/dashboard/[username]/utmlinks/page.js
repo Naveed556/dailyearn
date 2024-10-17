@@ -1,7 +1,7 @@
 "use client"
 import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
 export default function UTMLinks() {
@@ -67,48 +67,49 @@ export default function UTMLinks() {
       console.log(error);
     }
   }
-  // async function fetchPosts(categoryId) {
-  //   setFetchingPosts(true);
-  //   const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`);
-  //   const res = await response.json();
-  //   let fetchedPosts = [];
-  //   res.forEach(post => {
-  //     fetchedPosts.push({
-  //       id: post.id,
-  //       title: post.title.rendered,
-  //       link: post.link
-  //     })
-  //   });
-  //   setFetchingPosts(false);
-  //   setPosts(fetchedPosts);
-  //   localStorage.setItem(categoryId, JSON.stringify(fetchedPosts));
-  //   console.log(fetchedPosts);
-  // }
+
+  // Reference to store the current AbortController
+  const controllerRef = useRef(null);
 
   // Handle category change
   const handleCategoryChange = async (e) => {
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);
-
+    console.log(categoryId);
     if (categoryId) {
       try {
         setFetchingPosts(true);
-        const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`);
-        const res = await response.json();
-        let fetchedPosts = [];
-        res.forEach(post => {
-          fetchedPosts.push({
-            id: post.id,
-            title: post.title.rendered,
-            link: post.link
-          })
+
+        // Cancel the previous fetch request if it exists
+        if (controllerRef.current) {
+          controllerRef.current.abort();
+        }
+
+        // Create a new AbortController for this request
+        const controller = new AbortController();
+        controllerRef.current = controller;
+
+        const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`, {
+          signal: controller.signal,
         });
+        const res = await response.json();
+        // Initialize fetchedPosts as an empty array
+        let fetchedPosts = res.map(post => ({
+          id: post.id,
+          title: post.title.rendered,
+          link: post.link
+        }));
         setFetchingPosts(false);
         setPosts(fetchedPosts);
         localStorage.setItem(categoryId, JSON.stringify(fetchedPosts));
         console.log(fetchedPosts);
       } catch (error) {
-        console.log(error);
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error('Fetch error:', error);
+        }
+        setFetchingPosts(false);
       }
     } else {
       setPosts([]);
@@ -169,7 +170,7 @@ export default function UTMLinks() {
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-white bg-gray-800">
             <select className='w-full h-10 rounded-lg bg-gray-700 px-4' onChange={handleCategoryChange}>
-              <option className='rounded-full' value={"null"}>Select a Category</option>
+              <option className='rounded-full' value={""}>Select a Category</option>
               {categories.map((category) => {
                 return (<option key={category.id} className='rounded-full' value={category.id}>{category.name}</option>)
               })}

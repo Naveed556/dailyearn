@@ -19,9 +19,9 @@ const NavBottom = () => {
         }
     }, []);
     return (
-        <ul className={`${checkPath ? "hidden" : "md:hidden flex"} fixed bottom-0 w-full flex-wrap justify-center text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400`}>
+        <ul className={`${checkPath ? "hidden" : "md:hidden flex"} fixed bottom-0 w-full flex-wrap justify-center text-sm font-medium text-center border-b border-gray-700 text-gray-400`}>
             <li className="me-2">
-                <Link href={`/dashboard/${username}`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>
+                <Link href={`/dashboard/${username}`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}` ? "bg-gray-800 text-blue-500" : "bg-gray-800 text-gray-300"}`}>
                     <div className='flex items-center justify-center'>
                         <span className="material-symbols-outlined">bar_chart_4_bars</span>
                         <span className={`font-bold ${currentPath === `/dashboard/${username}` ? "" : "hidden"}`}>Dashboard</span>
@@ -29,7 +29,7 @@ const NavBottom = () => {
                 </Link>
             </li>
             <li className="me-2">
-                <Link href={`/dashboard/${username}/utmlinks`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmlinks` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>
+                <Link href={`/dashboard/${username}/utmlinks`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmlinks` ? "bg-gray-800 text-blue-500" : "bg-gray-800 text-gray-300"}`}>
                     <div className='flex items-center justify-center'>
                         <span className="material-symbols-outlined">campaign</span>
                         <span className={`font-bold ${currentPath === `/dashboard/${username}/utmlinks` ? "" : "hidden"}`}>UTM Links</span>
@@ -37,7 +37,7 @@ const NavBottom = () => {
                 </Link>
             </li>
             <li className="me-2">
-                <Link href={`/dashboard/${username}/utmgenerator`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmgenerator` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>
+                <Link href={`/dashboard/${username}/utmgenerator`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/utmgenerator` ? "bg-gray-800 text-blue-500" : " bg-gray-800 text-gray-300"}`}>
                     <div className='flex items-center justify-center'>
                         <span className="material-symbols-outlined">add_link</span>
                         <span className={`font-bold ${currentPath === `/dashboard/${username}/utmgenerator` ? "" : "hidden"}`}>UTM Generator</span>
@@ -45,7 +45,7 @@ const NavBottom = () => {
                 </Link>
             </li>
             <li className="me-2">
-                <Link href={`/dashboard/${username}/statistics`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/statistics` ? "text-blue-600 bg-gray-100 dark:bg-gray-800 dark:text-blue-500" : " text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-300"}`}>
+                <Link href={`/dashboard/${username}/statistics`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/statistics` ? "bg-gray-800 text-blue-500" : "bg-gray-800 text-gray-300"}`}>
                     <div className='flex items-center justify-center'>
                         <span className="material-symbols-outlined">query_stats</span>
                         <span className={`font-bold ${currentPath === `/dashboard/${username}/statistics` ? "" : "hidden"}`}>Statistics</span>

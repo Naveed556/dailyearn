@@ -95,12 +95,10 @@ const Admimpanel = () => {
     }
 
     const deleteUser = async () => {
-        const req = await fetch("/api/getusers");
-        const res = await req.json();
         await fetch("/api/deleteuser", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(res[tempIndex])
+            body: JSON.stringify({ username: tempIndex })
         });
         getUsers();
     }
@@ -226,7 +224,7 @@ const Admimpanel = () => {
                                     </tr>
                                 }
                                 {filteredData.map((item, index) => {
-                                    return (<tr key={index} className={`text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
+                                    return (<tr key={index} className={`cursor-pointer text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
                                         <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                                             {item.username}
                                         </th>
@@ -237,7 +235,7 @@ const Admimpanel = () => {
                                             {item.createdAt.split("T")[0]}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button onClick={() => { setHideDelPanel(false); setTempIndex(index) }} className="font-medium text-blue-500 hover:underline">
+                                            <button onClick={() => { setHideDelPanel(false); setTempIndex(item.username) }} className="font-medium text-blue-500 hover:underline">
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/skkahier.json"
                                                     trigger="hover"

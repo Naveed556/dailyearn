@@ -1,7 +1,7 @@
 "use client"
 import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 export default function UTMLinks() {

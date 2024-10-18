@@ -48,7 +48,7 @@ export async function POST() {
             }
             console.log(`Saved category: ${category.name} with ${posts.length} posts.`);
         }
-        return NextResponse.json({ message: `Category Saved` });
+        return NextResponse.json({ message: `All Categories are Updated in Data Base` });
     } catch (error) {
         return NextResponse.json({ error: error.message });
     }

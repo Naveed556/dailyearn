@@ -22,10 +22,12 @@ export default function UTMLinks() {
 
   useEffect(() => {
     fetchCategories();
+    refreshDB();
   }, []);
 
   useEffect(() => {
     setUtmLinks([]);
+    setCopiedIndexes([]);
   }, [selectedCategory])
 
 
@@ -36,7 +38,10 @@ export default function UTMLinks() {
         if (item.link.endsWith("/")) { item.link = item.link.slice(0, -1); }
         let newLink = break_address(item.link);
         if (newLink) {
-          return `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`;
+          return {
+            link: `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`,
+            title: item.title
+          };
         }
         return item.link;
       });
@@ -52,6 +57,18 @@ export default function UTMLinks() {
       const data = await response.json();
       setFetchingPosts(false);
       setCategories(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function refreshDB() {
+    try {
+      const req = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+      const res = await req.json();
+      console.log(res.message);
     } catch (error) {
       console.log(error);
     }
@@ -85,6 +102,12 @@ export default function UTMLinks() {
       domain: domain,
       title: title,
     };
+  }
+
+  function decode(str) {
+    return str.replace(/(&#(\d+);)/g, function (match, capture, charCode) {
+      return String.fromCharCode(charCode);
+    });
   }
 
   const copy = (text, index) => {
@@ -148,14 +171,14 @@ export default function UTMLinks() {
             </tr>
           </thead>
           <tbody>
-            {utmLinks.length > 0 && utmLinks.map((link, index) => {
+            {utmLinks.length > 0 && utmLinks.map((item, index) => {
               const isCopied = copiedIndexes.includes(index);
               return (
                 <tr key={index} className={`cursor-pointer border-b bg-gray-800 border-gray-700 ${isCopied ? 'bg-gray-700 text-gray-600' : 'bg-gray-800 text-gray-900 hover:bg-gray-600'}`}>
                   <th scope="row" className={`w-6 px-6 py-4 font-medium whitespace-nowrap ${isCopied ? 'text-gray-600' : 'text-white'}`}>{index + 1}</th>
-                  <td className={`px-6 py-4 font-medium ${isCopied ? 'text-gray-600' : 'text-blue-500 hover:underline'}`} onClick={() => { copy(link, index) }}>
+                  <td className={`px-6 py-4 font-medium ${isCopied ? 'text-gray-600' : 'text-blue-500 hover:underline'}`} onClick={() => { copy(item.link, index) }}>
                     <p className="">
-                      {link}
+                      {decode(item.title)}
                     </p>
                   </td>
                 </tr>

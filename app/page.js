@@ -4,13 +4,17 @@ import heroimg from "../app/images/hero-img.png"
 import FTTlogo from "../app/images/logo.png"
 import WivesHubLogo from "../app/images/WivesHub-Logo.png"
 import DJlogo from "../app/images/dailyjugarr_Logo.png"
+import moazzam from "../app/images/moazzam.png"
+import naveed from "../app/images/naveed.png"
+import nabeel from "../app/images/nabeel.png"
+import aftab from "../app/images/aftab.jpg"
 import Link from "next/link";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <div className="relative pt-16 pb-32 flex content-center items-center justify-center"
+      <div className="relative pt-16 pb-32 flex content-center items-center justify-center top-[-100px]"
         style={{
           minHeight: "75vh"
         }}>
@@ -25,10 +29,10 @@ export default function Home() {
             <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div className="pr-12">
                 <h1 className="text-white font-semibold text-5xl">
-                Better Solution For Your Social Media Traffic
+                  Better Solution For Your Social Media Traffic
                 </h1>
                 <p className="mt-4 text-lg text-gray-300">
-                A technology-first publisher specializing in entertainment, looking to partner with affiliates to drive traffic to our websites
+                  A technology-first publisher specializing in entertainment, looking to partner with affiliates to drive traffic to our websites
                 </p>
               </div>
             </div>
@@ -62,7 +66,7 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"> */}
-                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={DJlogo} width={200}/>
+                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={DJlogo} width={200} />
                   {/* </div> */}
                   <h6 className="text-xl font-semibold">Daily Jugarr</h6>
                   <p className="mt-2 mb-4 text-gray-300">
@@ -76,7 +80,7 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400"> */}
-                    <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200}/>
+                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200} />
                   {/* </div> */}
                   <h6 className="text-xl font-semibold">
                     Fashion Tips & Tricks
@@ -92,7 +96,7 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400"> */}
-                    <Image className="p-3 inline-flex items-center justify-center mb-5" src={WivesHubLogo} width={200}/>
+                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={WivesHubLogo} width={200} />
                   {/* </div> */}
                   <h6 className="text-xl font-semibold">
                     Wives Hub
@@ -112,19 +116,19 @@ export default function Home() {
                 <i className="fas fa-user-friends text-xl"></i>
               </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
-              GET PAID FOR SHARING STORIES YOUR FOLLOWERS WILL ADORE.
+                GET PAID FOR SHARING STORIES YOUR FOLLOWERS WILL ADORE.
               </h3>
               <p className="text-base font-light leading-relaxed mt-4 mb-4 text-gray-300">
-              1. You have the freedom to select stories based on your fanbase, and the choice to decide if you want to pursue them. Your storytelling, your decision.
+                1. You have the freedom to select stories based on your fanbase, and the choice to decide if you want to pursue them. Your storytelling, your decision.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-              2. Plus, if your fans share the story, you'll earn from every click their friends give as well! More shares, more earnings for you. 
+                2. Plus, if your fans share the story, you'll earn from every click their friends give as well! More shares, more earnings for you.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-              3. With our excellent tracking system, you can always see in real time where your clicks are coming from and how much money you're earning. Stay informed and in control of your earnings effortlessly.  
+                3. With our excellent tracking system, you can always see in real time where your clicks are coming from and how much money you're earning. Stay informed and in control of your earnings effortlessly.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-              4. Every click from your fans on the story means compensation and rewards for you, whether it's on Facebook, Instagram, Twitter, or any other platform! Your fans' engagement pays off across all channels 
+                4. Every click from your fans on the story means compensation and rewards for you, whether it's on Facebook, Instagram, Twitter, or any other platform! Your fans' engagement pays off across all channels
               </p>
               <a
                 href="mailto:cnstatus310@gmail.com"
@@ -158,10 +162,10 @@ export default function Home() {
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">
-                  Working with us is a pleasure
+                    Working with us is a pleasure
                   </h4>
                   <p className="text-md font-light mt-2 text-white">
-                  "Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can't wait for your next story." 
+                    "Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can't wait for your next story."
                   </p>
                 </blockquote>
               </div>
@@ -209,7 +213,7 @@ export default function Home() {
                   A growing company
                 </h3>
                 <p className="mt-4 text-lg leading-relaxed text-gray-300">
-                We generate the industrys highest conversion rates and drive over 1.5B readers yearly. FashionTips&Tricks affiliate team is looking for partners that want to launch a new and scalable revenue stream.
+                  We generate the industrys highest conversion rates and drive over 1.5B readers yearly. FashionTips&Tricks affiliate team is looking for partners that want to launch a new and scalable revenue stream.
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
@@ -221,7 +225,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="text-gray-300">
-                        Industry-Leading Conversion Rates
+                          Industry-Leading Conversion Rates
                         </h4>
                       </div>
                     </div>
@@ -273,20 +277,21 @@ export default function Home() {
           <div className="flex flex-wrap">
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                <img
+                {/* <img
                   alt="..."
                   src={'../assets/img/team-1-800x800.jpg'}
                   className="shadow-lg rounded-full max-w-full mx-auto"
                   style={{ maxWidth: "120px" }}
-                />
+                /> */}
+                <Image className="shadow-lg rounded-full max-w-full mx-auto" src={moazzam} width={120} />
                 <div className="pt-6 text-center">
                   <h5 className="text-xl font-bold">
-                    Ryan Tompson
+                    Nawab Moazzam
                   </h5>
                   <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
                     Web Developer
                   </p>
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <button
                       className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                       type="button"
@@ -305,26 +310,27 @@ export default function Home() {
                     >
                       <i className="fab fa-dribbble"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                <img
+                {/* <img
                   alt="..."
-                  src={'../assets/img/team-2-800x800.jpg'}
+                  src={'../assets/img/team-1-800x800.jpg'}
                   className="shadow-lg rounded-full max-w-full mx-auto"
                   style={{ maxWidth: "120px" }}
-                />
+                /> */}
+                <Image className="shadow-lg rounded-full max-w-full mx-auto" src={nabeel} width={120} />
                 <div className="pt-6 text-center">
                   <h5 className="text-xl font-bold">
-                    Romina Hadid
+                    Nabeel Ameen
                   </h5>
                   <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
                     Marketing Specialist
                   </p>
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <button
                       className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                       type="button"
@@ -337,26 +343,27 @@ export default function Home() {
                     >
                       <i className="fab fa-facebook-f"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                <img
+                {/* <img
                   alt="..."
-                  src={'../assets/img/team-3-800x800.jpg'}
+                  src={'../assets/img/team-1-800x800.jpg'}
                   className="shadow-lg rounded-full max-w-full mx-auto"
                   style={{ maxWidth: "120px" }}
-                />
+                /> */}
+                <Image className="shadow-lg rounded-full max-w-full mx-auto" src={aftab} width={120} />
                 <div className="pt-6 text-center">
                   <h5 className="text-xl font-bold">
-                    Alexa Smith
+                    Aftab Ahmad
                   </h5>
                   <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    UI/UX Designer
+                    Co-Founder
                   </p>
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <button
                       className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                       type="button"
@@ -375,26 +382,27 @@ export default function Home() {
                     >
                       <i className="fab fa-instagram"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                <img
+                {/* <img
                   alt="..."
-                  src={'../assets/img/team-4-470x470.png'}
+                  src={'../assets/img/team-1-800x800.jpg'}
                   className="shadow-lg rounded-full max-w-full mx-auto"
                   style={{ maxWidth: "120px" }}
-                />
+                /> */}
+                <Image className="shadow-lg rounded-full max-w-full mx-auto" src={naveed} width={120} />
                 <div className="pt-6 text-center">
                   <h5 className="text-xl font-bold">
-                    Jenna Kardi
+                    Naveed Ameen
                   </h5>
                   <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
                     Founder and CEO
                   </p>
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <button
                       className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                       type="button"
@@ -419,7 +427,7 @@ export default function Home() {
                     >
                       <i className="fab fa-instagram"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

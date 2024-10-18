@@ -165,7 +165,7 @@ export default function Home() {
                     Working with us is a pleasure
                   </h4>
                   <p className="text-md font-light mt-2 text-white">
-                    Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can't wait for your next story.
+                    Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can not wait for your next story.
                   </p>
                 </blockquote>
               </div>

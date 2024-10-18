@@ -24,6 +24,7 @@ const getPosts = async (categoryId) => {
 }
 
 export async function POST() {
+    revalidateTag("categories");
     try {
         await dbConnect();
         const Categories = await getCategories();

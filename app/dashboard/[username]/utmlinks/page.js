@@ -64,10 +64,18 @@ export default function UTMLinks() {
   async function refreshDB() {
     try {
       console.log("Updating Categories.....")
-      const req = await fetch("/api/categories",{ signal: AbortSignal.timeout(60000) }, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-      });
+      const req = await fetch("/api/categories",
+        {
+          next: {
+            tags: ['categories'], // Invalidate with revalidateTag('users') on-demand
+            revalidate: 300, // 5 min
+          },
+        },
+        { signal: AbortSignal.timeout(60000) },
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
       const res = await req.json();
       console.log(res.message);
     } catch (error) {

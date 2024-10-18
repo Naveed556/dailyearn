@@ -18,7 +18,7 @@ const Admin = () => {
     } = useForm()
 
     const onSubmit = async (data) => {
-        // console.log(data)
+        data.username = data.username.toLowerCase()
         const req = await fetch("/api/admin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

@@ -63,7 +63,8 @@ export default function UTMLinks() {
   }
   async function refreshDB() {
     try {
-      const req = await fetch("/api/categories", {
+      console.log("Updating Categories.....")
+      const req = await fetch("/api/categories",{ signal: AbortSignal.timeout(60000) }, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
       });

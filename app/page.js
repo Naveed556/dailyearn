@@ -122,13 +122,13 @@ export default function Home() {
                 1. You have the freedom to select stories based on your fanbase, and the choice to decide if you want to pursue them. Your storytelling, your decision.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-                2. Plus, if your fans share the story, you'll earn from every click their friends give as well! More shares, more earnings for you.
+                2. Plus, if your fans share the story, you will earn from every click their friends give as well! More shares, more earnings for you.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-                3. With our excellent tracking system, you can always see in real time where your clicks are coming from and how much money you're earning. Stay informed and in control of your earnings effortlessly.
+                3. With our excellent tracking system, you can always see in real time where your clicks are coming from and how much money you are earning. Stay informed and in control of your earnings effortlessly.
               </p>
               <p className="text-base font-light leading-relaxed mt-0 mb-4 text-gray-300">
-                4. Every click from your fans on the story means compensation and rewards for you, whether it's on Facebook, Instagram, Twitter, or any other platform! Your fans' engagement pays off across all channels
+                4. Every click from your fans on the story means compensation and rewards for you, whether it is on Facebook, Instagram, Twitter, or any other platform! Your fans engagement pays off across all channels
               </p>
               <a
                 href="mailto:cnstatus310@gmail.com"
@@ -165,7 +165,7 @@ export default function Home() {
                     Working with us is a pleasure
                   </h4>
                   <p className="text-md font-light mt-2 text-white">
-                    "Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can't wait for your next story."
+                    Make money by sharing stories your followers love. Turn your unique voice into income. Every captivating tale you share opens up a new way to earn, building a community that can't wait for your next story.
                   </p>
                 </blockquote>
               </div>
@@ -477,7 +477,7 @@ export default function Home() {
               </h6>
               <p className="mt-2 mb-4 text-gray-500">
                 Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                the bulk of the cards content.
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -489,7 +489,7 @@ export default function Home() {
               </h5>
               <p className="mt-2 mb-4 text-gray-500">
                 Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                the bulk of the cards content.
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -501,7 +501,7 @@ export default function Home() {
               </h5>
               <p className="mt-2 mb-4 text-gray-500">
                 Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                the bulk of the cards content.
               </p>
             </div>
           </div>

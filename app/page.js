@@ -461,7 +461,7 @@ export default function Home() {
               Frequently Asked Questions
               </h2>
               <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-400">
-              We provide a platform for you to share your stories with your followers. When your fans click on and engage with your stories, you earn compensation for each click. Find answers to commonly asked questions about our platform and how it works. Whether you're curious about payment methods, story selection, or tracking your earnings, we've got you covered with these FAQs. 
+              We provide a platform for you to share your stories with your followers. When your fans click on and engage with your stories, you earn compensation for each click. Find answers to commonly asked questions about our platform and how it works. Whether you are curious about payment methods, story selection, or tracking your earnings, we have got you covered with these FAQs. 
               </p>
             </div>
           </div>
@@ -474,7 +474,7 @@ export default function Home() {
                 Track Your Earnings
               </h6>
               <p className="mt-2 mb-4 text-gray-400">
-              To track your earnings, simply log into your account and access our user-friendly dashboard. Here, you'll find detailed insights into where your clicks are coming from and the corresponding earnings. Our system provides real-time updates, ensuring you're always in the know about your earnings. 
+              To track your earnings, simply log into your account and access our user-friendly dashboard. Here, you will find detailed insights into where your clicks are coming from and the corresponding earnings. Our system provides real-time updates, ensuring you are always in the know about your earnings. 
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -485,7 +485,7 @@ export default function Home() {
                 Payments
               </h5>
               <p className="mt-2 mb-4 text-gray-400">
-              We offer various payment methods to ensure convenience for our users. You can choose from options such as Bank Transfers, PayPal, Payoneer, or other electronic payment methods. When you reach the minimum threshold for payout, simply select your preferred payment method in your account settings, and we'll process your earnings accordingly. 
+              We offer various payment methods to ensure convenience for our users. You can choose from options such as Bank Transfers, PayPal, Payoneer, or other electronic payment methods. When you reach the minimum threshold for payout, simply select your preferred payment method in your account settings, and we will process your earnings accordingly. 
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">

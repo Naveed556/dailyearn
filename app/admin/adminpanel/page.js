@@ -2,9 +2,11 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import AdminHeader from '@/app/components/adminheader'
 
 const Admimpanel = () => {
+    const router = useRouter();
     const [usersList, setUsersList] = useState([]);
     const [hideAddUser, setHideAddUser] = useState(true);
     const [hideDelPanel, setHideDelPanel] = useState(true);
@@ -101,6 +103,7 @@ const Admimpanel = () => {
         });
         getUsers();
     }
+
     const handleSort = () => {
         if (sortOrder === null) {
             setSortOrder('desc');
@@ -113,6 +116,11 @@ const Admimpanel = () => {
             setFilteredData(usersList);
         }
     };
+
+    const userStats = (useranme) => {
+      router.push(`/admin/adminpanel/${useranme}`);
+    }
+    
 
     return (
         <>
@@ -223,7 +231,7 @@ const Admimpanel = () => {
                                     </tr>
                                 }
                                 {filteredData.map((item, index) => {
-                                    return (<tr key={index} className={`cursor-pointer text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
+                                    return (<tr key={index} onClick={()=>{userStats(item.username)}} className={`cursor-pointer text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
                                         <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                                             {item.username}
                                         </th>

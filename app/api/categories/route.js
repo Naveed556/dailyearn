@@ -43,12 +43,12 @@ export async function POST(req) {
                     console.log(`Category: ${existingCategory.name} Updated with ${posts.length} posts.`);
                 }
             } else {
-                // const newposts = await getPosts(category.id);
+                const newposts = await getPosts(category.id);
                 // Create a new category
                 const newCategory = new Category({
                     categoryId: category.id,
                     name: category.name,
-                    newposts:[],
+                    newposts,
                 });
                 await newCategory.save();
                 console.log(`Saved category: ${newCategory.name} with ${newposts.length} posts.`);

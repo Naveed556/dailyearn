@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
 const getCategories = async () => {
-    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories');
+    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories?per_page=100');
     const res = await response.json();
     let array = res.map(category => ({
         id: category.id,

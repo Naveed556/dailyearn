@@ -22,12 +22,15 @@ export default function UTMLinks() {
 
   useEffect(() => {
     fetchCategories();
-    refreshDB();
   }, []);
 
   useEffect(() => {
     setUtmLinks([]);
     setCopiedIndexes([]);
+    if(selectedCategory)
+    {
+      refreshDB(selectedCategory);
+    }
   }, [selectedCategory])
 
 
@@ -61,20 +64,14 @@ export default function UTMLinks() {
       console.log(error);
     }
   }
-  async function refreshDB() {
+  async function refreshDB(categoryId) {
     try {
-      console.log("Updating Categories.....")
+      console.log("Updating Links.....")
       const req = await fetch("/api/categories",
         {
-          next: {
-            tags: ['categories'], // Invalidate with revalidateTag('users') on-demand
-            revalidate: 300, // 5 min
-          },
-        },
-        { signal: AbortSignal.timeout(60000) },
-        {
           method: "POST",
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ categoryId: categoryId })
         });
       const res = await req.json();
       console.log(res.message);

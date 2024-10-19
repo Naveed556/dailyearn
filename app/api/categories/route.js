@@ -23,31 +23,36 @@ const getPosts = async (categoryId) => {
     return fetchedPosts;
 }
 
-export async function POST() {
+export async function POST(req) {
     revalidateTag("categories");
     try {
+        const { categoryId } = await req.json();
         await dbConnect();
         const Categories = await getCategories();
+        const posts = await getPosts(parseInt(categoryId));
         for (const category of Categories) {
-            const posts = await getPosts(category.id);
-
+            
             // Check if the category already exists in the database
             const existingCategory = await Category.findOne({ categoryId: category.id });
 
             if (existingCategory) {
-                // Update the existing category
-                existingCategory.posts = posts;
-                await existingCategory.save();
+                if (parseInt(categoryId) === existingCategory.id) {
+                    // Update the existing category
+                    existingCategory.posts = posts;
+                    await existingCategory.save();
+                    console.log(`Category: ${existingCategory.name} Updated with ${posts.length} posts.`);
+                }
             } else {
+                const newposts = await getPosts(category.id);
                 // Create a new category
                 const newCategory = new Category({
                     categoryId: category.id,
                     name: category.name,
-                    posts,
+                    newposts,
                 });
                 await newCategory.save();
+                console.log(`Saved category: ${newCategory.name} with ${newposts.length} posts.`);
             }
-            console.log(`Saved category: ${category.name} with ${posts.length} posts.`);
         }
         return NextResponse.json({ message: `All Categories are Updated in Data Base` });
     } catch (error) {

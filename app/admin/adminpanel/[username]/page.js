@@ -112,29 +112,29 @@ const UserStats = ({ params }) => {
                     </button>
                 </div>
 
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-auto shadow-md sm:rounded-lg h-[60vh]">
                     <table className="w-full text-sm text-center rtl:text-right text-gray-400">
                         <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                             <tr>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-2">
                                     #
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-2">
                                     Campaign Name
                                 </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Total-Revenue
+                                <th scope="col" className="px-2 py-2">
+                                    Total Revenue
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-2">
                                     Profit(-20%)
                                 </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Final-Revenue
+                                <th scope="col" className="px-2 py-2">
+                                    Final Revenue
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-2">
                                     RPM
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-2">
                                     Active Users
                                 </th>
                             </tr>

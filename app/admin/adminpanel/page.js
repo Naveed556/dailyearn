@@ -11,7 +11,7 @@ const Admimpanel = () => {
     const [userFetching, setUserFetching] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState(usersList);
-    const [sortOrder, setSortOrder] = useState(null); // null, 'asc', or 'desc'
+    const [sortOrder, setSortOrder] = useState(null);
     const [tempIndex, setTempIndex] = useState(null);
 
     useEffect(() => {

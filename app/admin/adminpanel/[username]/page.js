@@ -123,7 +123,13 @@ const UserStats = ({ params }) => {
                                     Campaign Name
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Revenue
+                                    Total-Revenue
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Profit(-20%)
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Final-Revenue
                                 </th>
                                 <th scope="col" className="px-6 py-3">
                                     RPM
@@ -136,7 +142,7 @@ const UserStats = ({ params }) => {
                         <tbody>
                             {dataLoading &&
                                 <tr className="text-center border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
-                                    <td colSpan={"5"} className="px-6 py-4">
+                                    <td colSpan={"7"} className="px-6 py-4">
                                         <div className="w-full flex justify-center items-center">
                                             <svg aria-hidden="true" className="w-10 h-10 animate-spin text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -163,10 +169,16 @@ const UserStats = ({ params }) => {
                                             {item.campaign}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {`$${item.revenue}`}
+                                            ${item.revenue}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {`$${item.rpm}`}
+                                            ${((20 / 100) * item.revenue).toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            ${(item.revenue-((20 / 100) * item.revenue)).toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            ${item.rpm}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.users}
@@ -179,6 +191,8 @@ const UserStats = ({ params }) => {
                             <tr className="font-semibold text-white">
                                 <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
                                 <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
+                                <td className="px-6 py-3">${((20 / 100) * totalRevenue).toFixed(2)}</td>
+                                <td className="px-6 py-3">${(totalRevenue-((20 / 100) * totalRevenue)).toFixed(2)}</td>
                                 <td className="px-6 py-3">${(totalRPM / utmData.length).toFixed(2)}</td>
                                 <td className="px-6 py-3">{totalUsers}</td>
                             </tr>

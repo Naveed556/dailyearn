@@ -118,9 +118,9 @@ const Admimpanel = () => {
     };
 
     const userStats = (useranme) => {
-      router.push(`/admin/adminpanel/${useranme}`);
+        router.push(`/admin/adminpanel/${useranme}`);
     }
-    
+
 
     return (
         <>
@@ -191,10 +191,10 @@ const Admimpanel = () => {
                         <table className="w-full text-sm text-center rtl:text-right text-gray-400">
                             <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-3 py-3">
                                         Username
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-3 py-3">
                                         <div className="flex items-center justify-center">
                                             Revenue
                                             <button onClick={handleSort}>
@@ -209,10 +209,10 @@ const Admimpanel = () => {
                                             </button>
                                         </div>
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-3 py-3">
                                         Created At
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-3 py-3">
                                         Action
                                     </th>
                                 </tr>
@@ -220,7 +220,7 @@ const Admimpanel = () => {
                             <tbody>
                                 {userFetching &&
                                     <tr className="text-center border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
-                                        <td colSpan={"4"} className="px-6 py-4">
+                                        <td colSpan={"4"} className="px-3 py-4">
                                             <div className="w-full flex justify-center items-center">
                                                 <svg aria-hidden="true" className="w-10 h-10 animate-spin text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -231,22 +231,31 @@ const Admimpanel = () => {
                                     </tr>
                                 }
                                 {filteredData.map((item, index) => {
-                                    return (<tr key={index} onClick={()=>{userStats(item.username)}} className={`cursor-pointer text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
-                                        <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                                    return (<tr key={index} className={`text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
+                                        <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
                                             {item.username}
                                         </th>
-                                        <td className="px-6 py-4">
+                                        <td className="px-3 py-4">
                                             ${item.revenue}
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-3 py-4">
                                             {item.createdAt.split("T")[0]}
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <button onClick={() => { setHideDelPanel(false); setTempIndex(item.username) }} className="font-medium text-blue-500 hover:underline">
+                                        <td className="px-3 py-2">
+                                            <button onClick={() => { setHideDelPanel(false); setTempIndex(item.username) }} className="font-medium text-blue-500 hover:underline p-2">
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/skkahier.json"
+                                                    trigger="morph"
+                                                    state="morph-trash-full"
+                                                    colors="primary:#dc2626"
+                                                    style={{ "width": "25px", "height": "25px" }}>
+                                                </lord-icon>
+                                            </button>
+                                            <button onClick={() => { userStats(item.username) }} className="font-medium text-blue-500 hover:underline p-2">
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/qhkvfxpn.json"
                                                     trigger="hover"
-                                                    colors="primary:#ff0000"
+                                                    colors="primary:#2563eb"
                                                     style={{ "width": "25px", "height": "25px" }}>
                                                 </lord-icon>
                                             </button>

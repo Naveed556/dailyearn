@@ -4,37 +4,36 @@ import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
 const getPosts = async (categoryId) => {
-    // First request to get total pages and reduce data size with _fields
-    const initialResponse = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&_fields=title,link`);
-    const initialData = await initialResponse.json();
-    
-    // Get total pages
-    const totalPages = initialResponse.headers.get('X-WP-TotalPages');
-    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+    let fetchedPosts = [];
+    let page = 1;
+    let totalPages = 1;
 
-    // Fetch all pages in parallel with reduced fields
-    const promises = pageNumbers.map(page =>
-        fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&page=${page}&_fields=title,link`)
-            .then(response => response.json())
-    );
+    do {
+        const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&page=${page}&_fields=title,link`);
+        const data = await response.json();
+        
+        // Map the fetched posts from the current page
+        const postsFromPage = data.map(post => ({
+            title: post.title.rendered,
+            link: post.link
+        }));
 
-    // Collect and flatten the data
-    const allData = await Promise.all(promises);
-    const fetchedPosts = allData.flat().map(post => ({
-        title: post.title.rendered,
-        link: post.link
-    }));
+        // Add the current page posts to the fetchedPosts array
+        fetchedPosts = fetchedPosts.concat(postsFromPage);
+
+        // Get the total number of pages from the headers
+        totalPages = response.headers.get('X-WP-TotalPages');
+        page++;
+    } while (page <= totalPages);
 
     return fetchedPosts;
 }
+
+
 // const getPosts = async (categoryId) => {
-//     const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`);
+//     const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&_fields=title,link`);
 //     const data = await response.json();
-//     let fetchedPosts = data.map(post => ({
-//         title: post.title.rendered,
-//         link: post.link
-//     }));
-//     return fetchedPosts;
+//     return data;
 // }
 
 export async function POST(req) {

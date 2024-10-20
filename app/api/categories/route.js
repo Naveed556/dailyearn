@@ -4,13 +4,9 @@ import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
 const getCategories = async () => {
-    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories?per_page=100');
-    const res = await response.json();
-    let array = res.map(category => ({
-        id: category.id,
-        name: category.name
-    }));
-    return array;
+    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories&_fields=id,name');
+    const data = await response.json();
+    return data;
 }
 
 export async function POST() {
@@ -49,6 +45,6 @@ export async function GET() {
 
         return NextResponse.json(categories);
     } catch (error) {
-        return NextResponse.json({ message: `Somthing Wrong while fetching Categories: ${error.message}` });
+        return NextResponse.json({ error: error.message });
     }
 }

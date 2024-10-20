@@ -23,15 +23,18 @@ export default function UTMLinks() {
   useEffect(() => {
     fetchCategories();
   }, []);
-  
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      categories.map(category => updateDB(category.categoryId));
+    }
+  }, [categories]);
+
   useEffect(() => {
     setUtmLinks([]);
     setCopiedIndexes([]);
-    if (selectedCategory) {
-      updateDB(selectedCategory);
-    }
   }, [selectedCategory])
-  
+
 
   useEffect(() => {
     if (posts.length > 0 && username) {

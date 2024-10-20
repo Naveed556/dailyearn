@@ -23,16 +23,15 @@ export default function UTMLinks() {
   useEffect(() => {
     fetchCategories();
   }, []);
-
+  
   useEffect(() => {
     setUtmLinks([]);
     setCopiedIndexes([]);
-    if(selectedCategory)
-    {
-      refreshDB(selectedCategory);
+    if (selectedCategory) {
+      updateDB(selectedCategory);
     }
   }, [selectedCategory])
-
+  
 
   useEffect(() => {
     if (posts.length > 0 && username) {
@@ -60,21 +59,33 @@ export default function UTMLinks() {
       const data = await response.json();
       setFetchingPosts(false);
       setCategories(data);
+      console.log("All Categories are Updated")
+
+      //Updating Categories
+      console.log(`Updating Categories in DB.....`)
+      const reqCat = await fetch("/api/categories",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+      const catRes = await reqCat.json();
+      console.log(catRes.message);
     } catch (error) {
       console.log(error);
     }
   }
-  async function refreshDB(categoryId) {
+  async function updateDB(categoryId) {
     try {
-      console.log("Updating Links.....")
-      const req = await fetch("/api/categories",
+      //Updating Links
+      console.log(`Updating Links for ${categoryId}.....`)
+      const reqPosts = await fetch("/api/posts",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ categoryId: categoryId })
         });
-      const res = await req.json();
-      console.log(res.message);
+      const postsRes = await reqPosts.json();
+      console.log(postsRes.message);
     } catch (error) {
       console.log(error);
     }

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
 const getCategories = async () => {
-    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories');
+    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories?per_page=100');
     const res = await response.json();
     let array = res.map(category => ({
         id: category.id,
@@ -13,50 +13,29 @@ const getCategories = async () => {
     return array;
 }
 
-const getPosts = async (categoryId) => {
-    const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`);
-    const data = await response.json();
-    let fetchedPosts = data.map(post => ({
-        title: post.title.rendered,
-        link: post.link
-    }));
-    return fetchedPosts;
-}
-
-export async function POST(req) {
+export async function POST() {
     revalidateTag("categories");
     try {
-        const { categoryId } = await req.json();
         await dbConnect();
         const Categories = await getCategories();
-        const posts = await getPosts(parseInt(categoryId));
         for (const category of Categories) {
-            
+
             // Check if the category already exists in the database
             const existingCategory = await Category.findOne({ categoryId: category.id });
 
-            if (existingCategory) {
-                if (parseInt(categoryId) === existingCategory.id) {
-                    // Update the existing category
-                    existingCategory.posts = posts;
-                    await existingCategory.save();
-                    console.log(`Category: ${existingCategory.name} Updated with ${posts.length} posts.`);
-                }
-            } else {
-                const newposts = await getPosts(category.id);
-                // Create a new category
+            if (!existingCategory) {
+                // Create new category
                 const newCategory = new Category({
                     categoryId: category.id,
                     name: category.name,
-                    newposts,
+                    posts: [],
                 });
                 await newCategory.save();
-                console.log(`Saved category: ${newCategory.name} with ${newposts.length} posts.`);
             }
         }
         return NextResponse.json({ message: `All Categories are Updated in Data Base` });
     } catch (error) {
-        return NextResponse.json({ error: error.message });
+        return NextResponse.json({ message: `Error Updating Categories: ${error.message}` });
     }
 
 }
@@ -70,6 +49,6 @@ export async function GET() {
 
         return NextResponse.json(categories);
     } catch (error) {
-        return NextResponse.json({ error: error.message });
+        return NextResponse.json({ message: `Somthing Wrong while fetching Categories: ${error.message}` });
     }
 }

@@ -146,13 +146,13 @@ const UserStats = ({ params }) => {
                                             {item.dateRange}({item.month})
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${item.revenue}
+                                            ${item.revenue.toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${item.revenue - ((campaignData.commission / 100) * item.revenue)}
+                                            ${(item.revenue - ((campaignData.commission / 100) * item.revenue)).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${(campaignData.commission / 100) * item.revenue}
+                                            ${(campaignData.commission / 100 * item.revenue).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.isPaid?"Paid":"Pending"}

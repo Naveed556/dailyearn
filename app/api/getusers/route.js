@@ -10,11 +10,11 @@ export async function GET() {
         const users = await User.find({}).lean();
 
         if (!users || users.length === 0) {
-            return NextResponse.json({ message: 'No Users Found' });
+            return NextResponse.json({ message: 'No Users Found' }, { status: 401 });
         }
 
         return NextResponse.json(users);
     } catch (error) {
-        return NextResponse.json({ message: 'Error fetching users', error: error.message }, { status: 500 });
+        return NextResponse.json({ message: `Error fetching users: ${error.message}` }, { status: 500 });
     }
 }

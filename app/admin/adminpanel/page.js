@@ -50,11 +50,16 @@ const Admimpanel = () => {
                 revalidate: 300, // 5 min
             },
         });
-        const res = await req.json();
-        const result = await addRevenue(res);
+        if (req.ok) {
+            const res = await req.json();
+            const result = await addRevenue(res);
+            setUsersList(result);
+            setFilteredData(result);
+        }else{
+            setUsersList([]);
+            setFilteredData([]);
+        }
         setUserFetching(false);
-        setUsersList(result);
-        setFilteredData(result);
     }
 
     const addRevenue = async (data) => {
@@ -81,6 +86,7 @@ const Admimpanel = () => {
 
     const onSubmit = async (data) => {
         data.username = data.username.toLowerCase();
+        data.commission = Number(data.commission);
         const req = await fetch("/api/adduser", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -164,6 +170,10 @@ const Admimpanel = () => {
                                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
                                                 <input type="text" onBeforeInput={() => { clearErrors("formErrors") }} {...register("password", { required: true })} placeholder="••••••••" className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" />
                                             </div>
+                                            <div>
+                                                <label htmlFor="commission" className="block mb-2 text-sm font-medium text-white">Commission</label>
+                                                <input type='number' min="0" max="100" onBeforeInput={() => { clearErrors("formErrors") }} {...register("commission", { required: true })} className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Enter Commission" />
+                                            </div>
                                             {errors.formErrors && <span className='text-red-600 font-bold'>{errors.formErrors.message}</span>}
                                             {!isSubmitting &&
 
@@ -210,7 +220,7 @@ const Admimpanel = () => {
                                         </div>
                                     </th>
                                     <th scope="col" className="px-3 py-3">
-                                        Created At
+                                        Commission
                                     </th>
                                     <th scope="col" className="px-3 py-3">
                                         Action
@@ -239,7 +249,7 @@ const Admimpanel = () => {
                                             ${item.revenue}
                                         </td>
                                         <td className="px-3 py-4">
-                                            {item.createdAt.split("T")[0]}
+                                            {item.commission}%
                                         </td>
                                         <td className="px-3 py-2">
                                             <button onClick={() => { setHideDelPanel(false); setTempIndex(item.username) }} className="font-medium text-blue-500 hover:underline p-2">

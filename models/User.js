@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+const paymentsSchema = new mongoose.Schema({
+    dateRange: String,
+    month: String,
+    revenue: Number,
+    isPaid:Boolean
+});
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -9,7 +16,12 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    commission: {
+        type: Number,
+        required: true
+    },
+    payments: [paymentsSchema]
 },
     { timestamps: true }
 );

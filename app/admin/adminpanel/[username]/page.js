@@ -11,6 +11,7 @@ const UserStats = ({ params }) => {
     const [dataFound, setDataFound] = useState(true)
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [campaignData, setCampaignData] = useState([]);
     const utm = username; // Replace with actual UTM source value
 
     // Utility function to format date as YYYY-MM-DD
@@ -19,7 +20,6 @@ const UserStats = ({ params }) => {
     };
 
     useEffect(() => {
-        // Get the username from cookies after the component has mounted
         setUsername(params.username);
         const today = new Date();
         const thirtyDaysAgo = new Date();
@@ -31,7 +31,25 @@ const UserStats = ({ params }) => {
 
     useEffect(() => {
         fetchUtmData();
+        if (username != "") {
+            console.log(username);
+            getPaymentsData(username);
+        }
     }, [utm]);
+
+    const getPaymentsData = async (username) => {
+        console.log("Fetching Payments Details....")
+        const response = await fetch('/api/userPayments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username }),
+        }).catch((error) => console.error('Error fetching data:', error));
+        const data = await response.json();
+        setCampaignData(data);
+        console.log(data);
+    }
 
     const fetchUtmData = async () => {
         setDataLoading(true)
@@ -97,10 +115,16 @@ const UserStats = ({ params }) => {
                                     #
                                 </th>
                                 <th scope="col" className="px-2 py-2">
-                                    Date
+                                    Date Range
                                 </th>
                                 <th scope="col" className="px-2 py-2">
-                                    Earnings
+                                    Total Earnings
+                                </th>
+                                <th scope="col" className="px-2 py-2">
+                                    Final Earnings
+                                </th>
+                                <th scope="col" className="px-2 py-2">
+                                    Profit
                                 </th>
                                 <th scope="col" className="px-2 py-2">
                                     Status
@@ -111,31 +135,45 @@ const UserStats = ({ params }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
-                                    1
-                                </th>
-                                <td className="px-6 py-4">
-                                    01/01/2024-019/10/2024
-                                </td>
-                                <td className="px-6 py-4">
-                                    $100
-                                </td>
-                                <td className="px-6 py-4">
-                                    Pending
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-                                        Mark as Paid
-                                    </button>
-                                </td>
-                            </tr>
+
+                            {campaignData?.payments?.length > 0 && campaignData.payments.map((item, index) => {
+                                return (
+                                    <tr key={index} className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
+                                        <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                                            1
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            {item.dateRange}({item.month})
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            ${item.revenue}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            ${item.revenue - ((campaignData.commission / 100) * item.revenue)}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            ${(campaignData.commission / 100) * item.revenue}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {item.isPaid?"Paid":"Pending"}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <button className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                                                Mark as Paid
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                         <tfoot className='sticky bottom-0 bg-gray-900'>
                             <tr className="font-semibold text-white">
-                                <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
-                                <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
-                                <td className="px-6 py-3">${((20 / 100) * totalRevenue).toFixed(2)}</td>
+                                <th colSpan={2} scope="row" className="px-6 py-3 text-base">Total Paid: $100</th>
+                                <th scope="row" className="px-6 py-3 text-base">Total Pending:</th>
+                                <td className="px-6 py-3">$100</td>
+                                <th scope="row" className="px-6 py-3 text-base">Total Profit:</th>
+                                <td className="px-6 py-3">$10</td>
+                                <td className="px-6 py-3">  </td>
                             </tr>
                         </tfoot>
                     </table>

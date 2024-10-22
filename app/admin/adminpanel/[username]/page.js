@@ -229,7 +229,7 @@ const UserStats = ({ params }) => {
                                             }
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button onClick={() => { updatePayments(item._id) }} disabled={item.isPaid} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                                            <button onClick={() => { updatePayments(item._id) }} disabled={item.isPaid} className={`text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center ${item.isPaid?"bg-gray-900":"bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"}`}>
                                                 {item.isPaid ? "Paid" : "Mark as Paid"}
                                             </button>
                                         </td>

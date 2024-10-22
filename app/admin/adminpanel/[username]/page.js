@@ -205,7 +205,28 @@ const UserStats = ({ params }) => {
                                             ${(campaignData.commission / 100 * item.revenue).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.isPaid ? "Paid" : "Pending"}
+                                            {item.isPaid &&
+                                                <div className='flex items-center justify-center gap-2'>
+                                                    <lord-icon
+                                                        src="https://cdn.lordicon.com/lomfljuq.json"
+                                                        trigger="hover"
+                                                        colors="primary:#22c553"
+                                                        style={{ "width": "25px", "height": "25px" }}>
+                                                    </lord-icon>
+                                                    Paid
+                                                </div>
+                                            }
+                                            {!item.isPaid &&
+                                                <div className='flex items-center justify-center gap-2'>
+                                                    <lord-icon
+                                                        src="https://cdn.lordicon.com/zxvuvcnc.json"
+                                                        trigger="hover"
+                                                        colors="primary:#dc2626"
+                                                        style={{ "width": "25px", "height": "25px" }}>
+                                                    </lord-icon>
+                                                    Pending
+                                                </div>
+                                            }
                                         </td>
                                         <td className="px-6 py-4">
                                             <button onClick={() => { updatePayments(item._id) }} disabled={item.isPaid} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">

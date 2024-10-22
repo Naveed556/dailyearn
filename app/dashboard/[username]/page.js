@@ -12,6 +12,7 @@ export default function Dashboard() {
     const [maxRevenue, setMaxRevenue] = useState(0.0);
     const [maxRPM, setMaxRPM] = useState(0);
     const [dataLegth, setDataLegth] = useState(0);
+    const [campaignData, setCampaignData] = useState([]);
     const utm = username;
 
     // Utility function to format date as YYYY-MM-DD
@@ -38,6 +39,9 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetchUtmData();
+        if (username != "") {
+            getPaymentsData(username);
+        }
     }, [utm]);
     useEffect(() => {
         if (totalRevenue != 0) {
@@ -48,6 +52,19 @@ export default function Dashboard() {
             localStorage.setItem("dataLength", dataLegth);
         }
     }, [totalRevenue, totalRPM, maxRevenue, maxRPM, dataLegth])
+
+    const getPaymentsData = async (username) => {
+        // console.log("Fetching Payments Details....")
+        const response = await fetch('/api/userPayments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username }),
+        }).catch((error) => console.error('Error fetching data:', error));
+        const data = await response.json();
+        setCampaignData(data);
+    }
 
     const fetchUtmData = async () => {
         const response = await fetch('/api/utmdata', {
@@ -93,11 +110,11 @@ export default function Dashboard() {
                     <div className="container px-5 py-2 mx-auto">
                         <div className="flex flex-wrap -m-4 text-center">
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${totalRevenue.toFixed(2)}</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${(totalRevenue- ((campaignData.commission / 100) * totalRevenue)).toFixed(2)}</h2>
                                 <p className="leading-relaxed">Revenue</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${maxRevenue}</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${maxRevenue- ((campaignData.commission / 100) * maxRevenue)}</h2>
                                 <p className="leading-relaxed">Best Campaign</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">

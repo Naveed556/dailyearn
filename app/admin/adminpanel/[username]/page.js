@@ -4,7 +4,6 @@ import AdminHeader from '@/app/components/adminheader'
 import { useState, useEffect } from 'react';
 
 const UserStats = ({ params }) => {
-    // const username = params.username;
     const [username, setUsername] = useState('');
     const [utmData, setUtmData] = useState([]);
     const [dataLoading, setDataLoading] = useState(false);

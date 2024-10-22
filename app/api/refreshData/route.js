@@ -23,6 +23,8 @@ export async function POST(request) {
                 console.log(userPayments);
             }
         }
+        const currentRevenue = payments.reduce((total, item) =>total + Number(item.revenue), 0);
+        user.currentRevenue = currentRevenue
         await user.save();
         return NextResponse.json({message : "Data Refreshed!"});
     } catch (error) {

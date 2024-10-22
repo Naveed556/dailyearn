@@ -32,13 +32,13 @@ const UserStats = ({ params }) => {
     useEffect(() => {
         fetchUtmData();
         if (username != "") {
-            console.log(username);
+            // console.log(username);
             getPaymentsData(username);
         }
     }, [utm]);
 
     const getPaymentsData = async (username) => {
-        console.log("Fetching Payments Details....")
+        // console.log("Fetching Payments Details....")
         const response = await fetch('/api/userPayments', {
             method: 'POST',
             headers: {
@@ -48,7 +48,23 @@ const UserStats = ({ params }) => {
         }).catch((error) => console.error('Error fetching data:', error));
         const data = await response.json();
         setCampaignData(data);
-        console.log(data);
+        // console.log(data);
+    }
+
+    const updatePayments = async (id) => {
+        const response = await fetch('/api/updateUserPayments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username, id: id }),
+        })
+        if (response.ok) {
+            const data = await response.json();
+            setCampaignData(data);
+        } else {
+            setCampaignData([]);
+        }
     }
 
     const fetchUtmData = async () => {
@@ -115,7 +131,7 @@ const UserStats = ({ params }) => {
                                     #
                                 </th>
                                 <th scope="col" className="px-2 py-2">
-                                    Date Range
+                                    Duration
                                 </th>
                                 <th scope="col" className="px-2 py-2">
                                     Total Earnings
@@ -155,11 +171,11 @@ const UserStats = ({ params }) => {
                                             ${(campaignData.commission / 100 * item.revenue).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.isPaid?"Paid":"Pending"}
+                                            {item.isPaid ? "Paid" : "Pending"}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-                                                Mark as Paid
+                                            <button onClick={() => { updatePayments(item._id) }} disabled={item.isPaid} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                                                {item.isPaid ? "Paid" : "Mark as Paid"}
                                             </button>
                                         </td>
                                     </tr>
@@ -167,14 +183,30 @@ const UserStats = ({ params }) => {
                             })}
                         </tbody>
                         <tfoot className='sticky bottom-0 bg-gray-900'>
-                            <tr className="font-semibold text-white">
-                                <th colSpan={2} scope="row" className="px-6 py-3 text-base">Total Paid: $100</th>
-                                <th scope="row" className="px-6 py-3 text-base">Total Pending:</th>
-                                <td className="px-6 py-3">$100</td>
-                                <th scope="row" className="px-6 py-3 text-base">Total Profit:</th>
-                                <td className="px-6 py-3">$10</td>
-                                <td className="px-6 py-3">  </td>
-                            </tr>
+                            {campaignData?.payments?.length > 0 &&
+                                <tr className="font-semibold text-white">
+                                    <th colSpan={2} scope="row" className="px-6 py-3 text-base">Total</th>
+                                    <td className="px-6 py-3">
+                                        {/* Total Earnings */}
+                                        ${campaignData.payments.reduce((total, item) => total + Number(item.revenue), 0)}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {/* Final Earnings */}
+                                        ${(campaignData.payments.reduce((total, item) => total + (item.revenue - campaignData.commission / 100 * item.revenue), 0)).toFixed(2)}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {/* Profit */}
+                                        ${(campaignData.payments.reduce((total, item) => total + (campaignData.commission / 100 * item.revenue), 0)).toFixed(2)}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {/* Total Pending */}
+                                        Total Pending: ${(campaignData.currentRevenue - (campaignData.commission / 100 * campaignData.currentRevenue)).toFixed(2)}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        Total Paid: ${((campaignData.payments.reduce((total, item) => total + (item.revenue - campaignData.commission / 100 * item.revenue), 0))-(campaignData.currentRevenue - (campaignData.commission / 100 * campaignData.currentRevenue))).toFixed(2)}
+                                    </td>
+                                </tr>
+                            }
                         </tfoot>
                     </table>
                 </div>

@@ -4,7 +4,7 @@ const paymentsSchema = new mongoose.Schema({
     dateRange: String,
     month: String,
     revenue: Number,
-    isPaid:Boolean
+    isPaid: Boolean
 });
 
 const UserSchema = new mongoose.Schema({
@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    currentRevenue: Number,
     payments: [paymentsSchema]
 },
     { timestamps: true }

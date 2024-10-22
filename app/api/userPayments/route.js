@@ -8,9 +8,7 @@ export async function POST(request) {
     try {
         await dbConnect();
         const { username } = await request.json();
-        console.log("Received username:", username); // Debugging line
         const user = await User.findOne({ username: username }).lean();
-        console.log("Found user:", user); // Debugging line
         return NextResponse.json(user);
 
     } catch (error) {

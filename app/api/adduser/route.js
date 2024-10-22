@@ -31,11 +31,13 @@ export async function POST(request) {
                 object["isPaid"] = false;
             }
         }
+        const currentRevenue = payments.reduce((total, item) =>total + Number(item.revenue), 0);
         const user = new User(
             {
                 username: username,
                 password: bcrypt.hashSync(password, 10),
                 commission: commission,
+                currentRevenue: currentRevenue,
                 payments: payments
             }
         )

@@ -27,17 +27,17 @@ const Admimpanel = () => {
         setFilteredData(results);
     }, [searchTerm, usersList]);
 
-    const fetchUtmData = async (utm) => {
-        const response = await fetch('/api/utmdata', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ utm: utm, startDate: "30daysAgo", endDate: "today" }),
-        });
-        const data = await response.json();
-        return data
-    };
+    // const fetchUtmData = async (utm) => {
+    //     const response = await fetch('/api/utmdata', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ utm: utm, startDate: "30daysAgo", endDate: "today" }),
+    //     });
+    //     const data = await response.json();
+    //     return data
+    // };
     // Handle search input change
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -52,9 +52,9 @@ const Admimpanel = () => {
         });
         if (req.ok) {
             const res = await req.json();
-            const result = await addRevenue(res);
-            setUsersList(result);
-            setFilteredData(result);
+            // const result = await addRevenue(res);
+            setUsersList(res);
+            setFilteredData(res);
         }else{
             setUsersList([]);
             setFilteredData([]);
@@ -62,19 +62,19 @@ const Admimpanel = () => {
         setUserFetching(false);
     }
 
-    const addRevenue = async (data) => {
-        for (let i = 0; i < data.length; i++) {
-            const user = data[i];
-            const utmData = await fetchUtmData(user.username);
-            let totalRevenue = 0;
-            for (let j = 0; j < utmData.length; j++) {
-                const campaign = await utmData[j];
-                totalRevenue += Number(campaign.revenue)
-            }
-            user["revenue"] = totalRevenue.toFixed(2);
-        }
-        return data;
-    }
+    // const addRevenue = async (data) => {
+    //     for (let i = 0; i < data.length; i++) {
+    //         const user = data[i];
+    //         const utmData = await fetchUtmData(user.username);
+    //         let totalRevenue = 0;
+    //         for (let j = 0; j < utmData.length; j++) {
+    //             const campaign = await utmData[j];
+    //             totalRevenue += Number(campaign.revenue)
+    //         }
+    //         user["revenue"] = totalRevenue.toFixed(2);
+    //     }
+    //     return data;
+    // }
 
     const {
         register,
@@ -206,7 +206,7 @@ const Admimpanel = () => {
                                     </th>
                                     <th scope="col" className="px-3 py-3">
                                         <div className="flex items-center justify-center">
-                                            Revenue
+                                            Pending Payments
                                             <button onClick={handleSort}>
                                                 <div className="flex flex-col items-center">
                                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style={{ marginBottom: "-4px" }}>
@@ -246,7 +246,7 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <td className="px-3 py-4">
-                                            ${item.revenue}
+                                            ${(item.currentRevenue - ((item.commission / 100) * item.currentRevenue)).toFixed(2)}
                                         </td>
                                         <td className="px-3 py-4">
                                             {item.commission}%

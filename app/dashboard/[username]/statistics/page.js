@@ -11,6 +11,7 @@ export default function Statistics() {
     const [dataFound, setDataFound] = useState(true)
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [campaignData, setCampaignData] = useState([]);
     const utm = username; // Replace with actual UTM source value
 
     // Utility function to format date as YYYY-MM-DD
@@ -34,6 +35,9 @@ export default function Statistics() {
 
     useEffect(() => {
         fetchUtmData();
+        if (username != "") {
+            getPaymentsData(username);
+        }
     }, [utm]);
 
     const fetchUtmData = async () => {
@@ -56,6 +60,18 @@ export default function Statistics() {
         setDataLoading(false)
     };
 
+    const getPaymentsData = async (username) => {
+        // console.log("Fetching Payments Details....")
+        const response = await fetch('/api/userPayments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username }),
+        }).catch((error) => console.error('Error fetching data:', error));
+        const data = await response.json();
+        setCampaignData(data);
+    }
 
     // Conditionally render the content once the username is set
     if (!username) {
@@ -81,7 +97,7 @@ export default function Statistics() {
 
     for (let i = 0; i < utmData.length; i++) {
         const campaign = utmData[i];
-        totalRevenue += Number(campaign.revenue);
+        totalRevenue += (Number(campaign.revenue)-((campaignData.commission / 100) * campaign.revenue));
         totalRPM += Number(campaign.rpm);
         totalUsers += Number(campaign.users);
     }
@@ -166,10 +182,10 @@ export default function Statistics() {
                                             {item.campaign}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {`$${item.revenue}`}
+                                            ${(item.revenue-((campaignData.commission / 100) * item.revenue)).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {`$${item.rpm}`}
+                                            ${item.rpm}
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.users}

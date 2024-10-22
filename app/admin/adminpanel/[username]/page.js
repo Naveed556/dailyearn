@@ -300,10 +300,10 @@ const UserStats = ({ params }) => {
                                             ${item.revenue}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${((20 / 100) * item.revenue).toFixed(2)}
+                                            ${((campaignData.commission / 100) * item.revenue).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${(item.revenue - ((20 / 100) * item.revenue)).toFixed(2)}
+                                            ${(item.revenue - ((campaignData.commission / 100) * item.revenue)).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
                                             ${item.rpm}
@@ -319,8 +319,8 @@ const UserStats = ({ params }) => {
                             <tr className="font-semibold text-white">
                                 <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
                                 <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
-                                <td className="px-6 py-3">${((20 / 100) * totalRevenue).toFixed(2)}</td>
-                                <td className="px-6 py-3">${(totalRevenue - ((20 / 100) * totalRevenue)).toFixed(2)}</td>
+                                <td className="px-6 py-3">${((campaignData.commission / 100) * totalRevenue).toFixed(2)}</td>
+                                <td className="px-6 py-3">${(totalRevenue - ((campaignData.commission / 100) * totalRevenue)).toFixed(2)}</td>
                                 <td className="px-6 py-3">${(totalRPM / utmData.length).toFixed(2)}</td>
                                 <td className="px-6 py-3">{totalUsers}</td>
                             </tr>

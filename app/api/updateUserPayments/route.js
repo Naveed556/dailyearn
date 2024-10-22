@@ -18,7 +18,6 @@ export async function POST(request) {
                 currentRevenue += item.revenue;
             }
         })
-        console.log(currentRevenue);
         user.currentRevenue = currentRevenue;
         await user.save();
         return NextResponse.json(user);

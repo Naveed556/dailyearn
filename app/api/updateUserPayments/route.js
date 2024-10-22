@@ -13,7 +13,7 @@ export async function POST(request) {
         const selectedObj = await userPayments.filter(item => item._id == id)
         selectedObj[0].isPaid = true;
         let currentRevenue = 0;
-        await userPayments.map((item)=>{
+        await userPayments.map((item) => {
             if (!item.isPaid) {
                 currentRevenue += item.revenue;
             }

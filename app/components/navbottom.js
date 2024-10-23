@@ -52,6 +52,14 @@ const NavBottom = () => {
                     </div>
                 </Link>
             </li>
+            <li className="me-2">
+                <Link href={`/dashboard/${username}/earnings`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}/earnings` ? "bg-gray-800 text-blue-500" : "bg-gray-800 text-gray-300"}`}>
+                    <div className='flex items-center justify-center'>
+                        <span className="material-symbols-outlined">payments</span>
+                        <span className={`font-bold ${currentPath === `/dashboard/${username}/earnings` ? "" : "hidden"}`}>Earnings</span>
+                    </div>
+                </Link>
+            </li>
         </ul>
     )
 }

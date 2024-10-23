@@ -12,7 +12,7 @@ const UserStats = ({ params }) => {
     const [endDate, setEndDate] = useState('');
     const [campaignData, setCampaignData] = useState([]);
     const [paymentsLoading, setPaymentsLoading] = useState(false);
-    const [updatingPayments, setupdatingPayments] = useState(false)
+    const [updatingPayments, setupdatingPayments] = useState(false);
     const utm = username; // Replace with actual UTM source value
 
     // Utility function to format date as YYYY-MM-DD

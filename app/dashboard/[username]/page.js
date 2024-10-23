@@ -81,7 +81,7 @@ export default function Dashboard() {
             setTotalRPM(await data.reduce((total, campaign) => total + Number(campaign.rpm), 0));
             setMaxRevenue(await data.reduce((max, campaign) => Math.max(max, Number(campaign.revenue)), 0));
             setMaxRPM(await data.reduce((max, campaign) => Math.max(max, Number(campaign.rpm)), 0));
-        }else{
+        } else {
             setTotalRevenue(0);
             setTotalRPM(0);
             setMaxRevenue(0);
@@ -110,11 +110,11 @@ export default function Dashboard() {
                     <div className="container px-5 py-2 mx-auto">
                         <div className="flex flex-wrap -m-4 text-center">
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${(totalRevenue- ((campaignData.commission / 100) * totalRevenue)).toFixed(2)}</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${(totalRevenue - ((campaignData.commission / 100) * totalRevenue)).toFixed(2)}</h2>
                                 <p className="leading-relaxed">Revenue</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">
-                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${maxRevenue- ((campaignData.commission / 100) * maxRevenue)}</h2>
+                                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">${(maxRevenue - campaignData.commission / 100 * maxRevenue).toFixed(2)}</h2>
                                 <p className="leading-relaxed">Best Campaign</p>
                             </div>
                             <div className="p-4 sm:w-1/4 w-1/2">

@@ -9,8 +9,8 @@ const NavBottom = () => {
     // Assuming username is stored in cookies
     const [username, setUsername] = useState('');
     const currentPath = usePathname();
-    const checkPath = currentPath === "/" || currentPath === "/login" || currentPath === "/admin" || currentPath === "/admin/adminpanel"
-
+    //const checkPath = currentPath === "/" || currentPath === "/login" || currentPath === "/admin" || currentPath === "/admin/adminpanel"
+    const checkPath = currentPath.startsWith("/dashboard")
     // Fetch username from cookies on client-side
     useEffect(() => {
         const storedUsername = Cookies.get('username');
@@ -19,7 +19,7 @@ const NavBottom = () => {
         }
     }, []);
     return (
-        <ul className={`${checkPath ? "hidden" : "md:hidden flex"} fixed bottom-0 w-full flex-wrap justify-center text-sm font-medium text-center border-b border-gray-700 text-gray-400`}>
+        <ul className={`${!checkPath ? "hidden" : "md:hidden flex"} fixed bottom-0 w-full flex-wrap justify-center text-sm font-medium text-center border-b border-gray-700 text-gray-400`}>
             <li className="me-2">
                 <Link href={`/dashboard/${username}`} className={`inline-block p-2 sm:p-4 rounded-t-lg ${currentPath === `/dashboard/${username}` ? "bg-gray-800 text-blue-500" : "bg-gray-800 text-gray-300"}`}>
                     <div className='flex items-center justify-center'>

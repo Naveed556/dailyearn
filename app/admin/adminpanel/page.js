@@ -19,7 +19,7 @@ const Admimpanel = () => {
     useEffect(() => {
         getUsers();
     }, [])
-    // Filter table data based on search term
+    
     useEffect(() => {
         const results = usersList.filter((row) =>
             row.username.toLowerCase().includes(searchTerm.toLowerCase())
@@ -27,21 +27,10 @@ const Admimpanel = () => {
         setFilteredData(results);
     }, [searchTerm, usersList]);
 
-    // const fetchUtmData = async (utm) => {
-    //     const response = await fetch('/api/utmdata', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ utm: utm, startDate: "30daysAgo", endDate: "today" }),
-    //     });
-    //     const data = await response.json();
-    //     return data
-    // };
-    // Handle search input change
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
     };
+
     const getUsers = async () => {
         setUserFetching(true);
         const req = await fetch(`/api/getusers`, {
@@ -61,20 +50,6 @@ const Admimpanel = () => {
         }
         setUserFetching(false);
     }
-
-    // const addRevenue = async (data) => {
-    //     for (let i = 0; i < data.length; i++) {
-    //         const user = data[i];
-    //         const utmData = await fetchUtmData(user.username);
-    //         let totalRevenue = 0;
-    //         for (let j = 0; j < utmData.length; j++) {
-    //             const campaign = await utmData[j];
-    //             totalRevenue += Number(campaign.revenue)
-    //         }
-    //         user["revenue"] = totalRevenue.toFixed(2);
-    //     }
-    //     return data;
-    // }
 
     const {
         register,
@@ -154,7 +129,7 @@ const Admimpanel = () => {
                                         <h3 className="text-xl font-semibold text-white">
                                             Add New User Credentials
                                         </h3>
-                                        <button onClick={() => { setHideAddUser(true) }} type="button" className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white" data-modal-hide="authentication-modal">
+                                        <button onClick={() => { setHideAddUser(true) }} type="button" className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white">
                                             <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                             </svg>

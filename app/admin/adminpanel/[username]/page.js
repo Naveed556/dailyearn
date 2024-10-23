@@ -255,7 +255,7 @@ const UserStats = ({ params }) => {
                                     <th colSpan={2} scope="row" className="px-6 py-3 text-base">Total</th>
                                     <td className="px-6 py-3">
                                         {/* Total Earnings */}
-                                        ${campaignData.payments.reduce((total, item) => total + Number(item.revenue), 0)}
+                                        ${(campaignData.payments.reduce((total, item) => total + Number(item.revenue), 0)).toFixed(2)}
                                     </td>
                                     <td className="px-6 py-3">
                                         {/* Final Earnings */}

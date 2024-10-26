@@ -23,6 +23,8 @@ export async function POST() {
         }));
 
         await Category.bulkWrite(bulkOps); // Perform the bulk write operation
+        const newCategoryIds = Categories.map(category => category.id);
+        await Category.deleteMany({ categoryId: { $nin: newCategoryIds } });
         
         // for (const category of Categories) {
 

@@ -125,6 +125,7 @@ export default function UTMLinks() {
   }
 
   function decode(str) {
+    str = str.replace(/&amp;/g, '&');
     return str.replace(/(&#(\d+);)/g, function (match, capture, charCode) {
       return String.fromCharCode(charCode);
     });

@@ -3,6 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import NavBottom from "./components/navbottom";
 import ToastWrapper from "./components/toastwrapper";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,9 +28,11 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}>
-        <ToastWrapper />
-        {children}
-        <NavBottom />
+        <ErrorBoundary>
+          <ToastWrapper />
+          {children}
+          <NavBottom />
+        </ErrorBoundary>
       </body>
       <Script src="https://cdn.lordicon.com/lordicon.js" strategy="afterInteractive" />
     </html>

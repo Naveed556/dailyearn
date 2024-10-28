@@ -58,11 +58,11 @@ export default function UTMLinks() {
   async function fetchCategories() {
     try {
       setFetchingPosts(true);
-      const response = await fetch('/api/categories'); // Make sure the GET route is at /api/getCategories
+      const response = await fetch('/api/categories');
       const data = await response.json();
       setFetchingPosts(false);
       setCategories(data);
-      console.log("All Categories are Updated")
+      console.log("All Categories are Fetched")
 
       //Updating Categories
       console.log(`Updating Categories in DB.....`)
@@ -77,6 +77,7 @@ export default function UTMLinks() {
       console.log(error);
     }
   }
+
   async function updateDB(categoryId) {
     try {
       //Updating Links

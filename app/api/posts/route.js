@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/mongodb";
 import Category from "@/models/Category";
 import { NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
 
 const getPosts = async (categoryId) => {
     let fetchedPosts = [];
@@ -29,15 +28,7 @@ const getPosts = async (categoryId) => {
     return fetchedPosts;
 }
 
-
-// const getPosts = async (categoryId) => {
-//     const response = await fetch(`https://fashiontipstricks.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&_fields=title,link`);
-//     const data = await response.json();
-//     return data;
-// }
-
 export async function POST(req) {
-    revalidateTag("categories");
     try {
         const { categoryId } = await req.json();
         await dbConnect();

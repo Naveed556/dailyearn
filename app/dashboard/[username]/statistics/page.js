@@ -97,7 +97,7 @@ export default function Statistics() {
 
     for (let i = 0; i < utmData.length; i++) {
         const campaign = utmData[i];
-        totalRevenue += (Number(campaign.revenue)-((campaignData.commission / 100) * campaign.revenue));
+        totalRevenue += (Number(campaign.revenue) - ((campaignData.commission / 100) * campaign.revenue));
         totalRPM += Number(campaign.rpm);
         totalUsers += Number(campaign.users);
     }
@@ -182,7 +182,7 @@ export default function Statistics() {
                                             {item.campaign}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${(item.revenue-((campaignData.commission / 100) * item.revenue)).toFixed(2)}
+                                            ${(item.revenue - ((campaignData.commission / 100) * item.revenue)).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
                                             ${item.rpm}

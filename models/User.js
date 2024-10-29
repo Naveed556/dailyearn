@@ -8,6 +8,11 @@ const paymentsSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     username: {
         type: String,
         required: true,
@@ -22,6 +27,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     currentRevenue: Number,
+    otp: String,
+    otpExpires: Number,
     payments: [paymentsSchema]
 },
     { timestamps: true }

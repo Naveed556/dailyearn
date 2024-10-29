@@ -138,6 +138,10 @@ const Admimpanel = () => {
                                     <div className="p-4 md:p-5">
                                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                             <div>
+                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email Address</label>
+                                                <input type="email" onBeforeInput={() => { clearErrors("formErrors") }} {...register("email", { required: true })} className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Enter Email Address" />
+                                            </div>
+                                            <div>
                                                 <label htmlFor="username" className="block mb-2 text-sm font-medium text-white">Username</label>
                                                 <input type="text" onBeforeInput={() => { clearErrors("formErrors") }} {...register("username", { required: true })} className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Enter Username" />
                                             </div>

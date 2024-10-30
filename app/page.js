@@ -7,6 +7,7 @@ import moazzam from "../app/images/moazzam.png"
 import naveed from "../app/images/naveed.png"
 import nabeel from "../app/images/nabeel.png"
 import aftab from "../app/images/aftab.jpg"
+import comingSoon from "../app/images/coming-soon.png"
 import Link from "next/link";
 
 export default function Home() {
@@ -65,11 +66,11 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"> */}
-                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={DJlogo} width={180} alt="Daily Jugarr Logo" />
+                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={comingSoon} width={180} alt="Daily Jugarr Logo" />
                   {/* </div> */}
-                  <h6 className="text-white text-xl font-semibold">Daily Jugarr</h6>
+                  <h6 className="text-white text-xl font-semibold">Good things come to those who wait</h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                    Divide details about your product or agency work into parts. A paragraph describing a feature will be enough.
+                  Exciting things are on the horizon. So Stay tuned for something amazing!
                   </p>
                 </div>
               </div>
@@ -79,13 +80,15 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400"> */}
-                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200} alt="Fasion Tips Tricks Logo" />
+                  <Link href={"https://fashiontipstricks.com"} target="blank">
+                    <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200} alt="Fasion Tips Tricks Logo" />
+                  </Link>
                   {/* </div> */}
-                  <h6 className="text-white text-xl font-semibold">
-                    Fashion Tips & Tricks
+                  <h6 className="text-white text-xl font-semibold hover:underline">
+                    <Link href={"https://fashiontipstricks.com"} target="blank">Fashion Tips & Tricks</Link>
                   </h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                    Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious.
+                    Fashiontipstricks is a website that shares easy fashion tips and tricks to help you look your best. It covers everything from basic wardrobe advice to the latest trends. Ideal for anyone wanting to improve their style with simple, practical advice.
                   </p>
                 </div>
               </div>
@@ -95,13 +98,13 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400"> */}
-                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={WivesHubLogo} width={180} alt="Wives Hub Logo" />
+                  <Image className="p-3 inline-flex items-center justify-center mb-5" src={comingSoon} width={180} alt="Wives Hub Logo" />
                   {/* </div> */}
                   <h6 className="text-white text-xl font-semibold">
-                    Wives Hub
+                  Good things come to those who wait
                   </h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                    Write a few lines about each one. A paragraph describing a feature will be enough. Keep you user engaged!
+                  Exciting things are on the horizon. So Stay tuned for something amazing!
                   </p>
                 </div>
               </div>
@@ -212,7 +215,7 @@ export default function Home() {
                   A growing company
                 </h3>
                 <p className="mt-4 text-lg leading-relaxed text-gray-300">
-                  We generate the industrys highest conversion rates and drive over 1.5B readers yearly. FashionTips&Tricks affiliate team is looking for partners that want to launch a new and scalable revenue stream.
+                  We generate the industrys highest conversion rates and drive over 1.5B readers yearly. <strong>Daily Earn Online</strong> affiliate team is looking for partners that want to launch a new and scalable revenue stream.
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
@@ -439,7 +442,7 @@ export default function Home() {
               <h6 className="text-xl mt-5 font-semibold text-white">
                 Track Your Earnings
               </h6>
-              <p className="mt-2 mb-4 text-gray-400">
+              <p className="mt-2 mb-4 text-gray-400 text-justify">
                 To track your earnings, simply log into your account and access our user-friendly dashboard. Here, you will find detailed insights into where your clicks are coming from and the corresponding earnings. Our system provides real-time updates, ensuring you are always in the know about your earnings.
               </p>
             </div>
@@ -450,7 +453,7 @@ export default function Home() {
               <h5 className="text-xl mt-5 font-semibold text-white">
                 Payments
               </h5>
-              <p className="mt-2 mb-4 text-gray-400">
+              <p className="mt-2 mb-4 text-gray-400 text-justify">
                 We offer various payment methods to ensure convenience for our users. You can choose from options such as Bank Transfers, PayPal, Payoneer, or other electronic payment methods. When you reach the minimum threshold for payout, simply select your preferred payment method in your account settings, and we will process your earnings accordingly.
               </p>
             </div>
@@ -461,8 +464,19 @@ export default function Home() {
               <h5 className="text-xl mt-5 font-semibold text-white">
                 Average RPM
               </h5>
-              <p className="mt-2 mb-4 text-gray-400">
+              <p className="mt-2 mb-4 text-gray-400 text-justify">
                 The RPM (Revenue per Mille) for visitors on our platform ranges from a minimum of $2 to as high as $18. This range is based on the traffic arrangement and engagement levels. We aim to provide a minimum RPM of $2 to ensure a consistent earning potential, while higher RPMs up to $18 can be achieved with optimized traffic and engagement strategies.
+              </p>
+            </div>
+            <div className="w-full lg:w-3/12 px-4 text-center">
+              <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-gray-800 inline-flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#ffffff"><path d="M431-330q1-72 16.5-105t58.5-72q42-38 64.5-70.5T593-647q0-45-30-75t-84-30q-52 0-80 29.5T358-661l-84-37q22-59 74.5-100.5T479-840q100 0 154 55.5T687-651q0 48-20.5 87T601-482q-49 47-59 72t-11 80H431Zm48 250q-29 0-49.5-20.5T409-150q0-29 20.5-49.5T479-220q29 0 49.5 20.5T549-150q0 29-20.5 49.5T479-80Z" /></svg>
+              </div>
+              <h5 className="text-xl mt-5 font-semibold text-white">
+              Story Selection
+              </h5>
+              <p className="mt-2 mb-4 text-gray-400 text-justify">
+              For story selection, you have the freedom to choose narratives that resonate best with your fanbase. Consider what your followers enjoy most and share stories that align with their interests. Whether it's personal anecdotes, informative pieces, or creative tales, the choice is yours. Selecting stories that engage your audience increases the likelihood of earning from their clicks. 
               </p>
             </div>
           </div>

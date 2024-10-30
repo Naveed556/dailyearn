@@ -184,6 +184,9 @@ const Admimpanel = () => {
                                         Username
                                     </th>
                                     <th scope="col" className="px-3 py-3">
+                                        Email
+                                    </th>
+                                    <th scope="col" className="px-3 py-3">
                                         <div className="flex items-center justify-center">
                                             Pending Payments
                                             <button onClick={handleSort}>
@@ -223,6 +226,9 @@ const Admimpanel = () => {
                                     return (<tr key={index} className={`text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
                                         <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
                                             {item.username}
+                                        </th>
+                                        <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
+                                            {item.email}
                                         </th>
                                         <td className="px-3 py-4">
                                             ${(item.currentRevenue - ((item.commission / 100) * item.currentRevenue)).toFixed(2)}

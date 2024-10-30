@@ -88,7 +88,7 @@ const Login = () => {
         if (req.ok) {
             toast(res.message, {
                 position: "bottom-right",
-                autoClose: 2000,
+                autoClose: false,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

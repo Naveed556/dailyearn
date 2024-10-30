@@ -28,5 +28,5 @@ const isMatch = await bcrypt.compare(otp, user.otp)
   const newPassword = await bcrypt.hash('123456', 10);
   await User.updateOne({ email }, { password: newPassword, $unset: { otp: '', otpExpires: '' } });
 
-  return NextResponse.json({ message: 'OTP verified and Password reset to default(123456).' });
+  return NextResponse.json({ message: 'OTP Verified and Password Reset to Default (123456).' });
 }

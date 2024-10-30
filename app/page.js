@@ -476,7 +476,7 @@ export default function Home() {
               Story Selection
               </h5>
               <p className="mt-2 mb-4 text-gray-400 text-justify">
-              For story selection, you have the freedom to choose narratives that resonate best with your fanbase. Consider what your followers enjoy most and share stories that align with their interests. Whether it's personal anecdotes, informative pieces, or creative tales, the choice is yours. Selecting stories that engage your audience increases the likelihood of earning from their clicks. 
+              For story selection, you have the freedom to choose narratives that resonate best with your fanbase. Consider what your followers enjoy most and share stories that align with their interests. Whether it is personal anecdotes, informative pieces, or creative tales, the choice is yours. Selecting stories that engage your audience increases the likelihood of earning from their clicks. 
               </p>
             </div>
           </div>

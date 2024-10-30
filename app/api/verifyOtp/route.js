@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { hashOtp } from '@/utils/otp';
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from "bcrypt"
@@ -20,14 +19,14 @@ export async function POST(req) {
     return NextResponse.json({ error: 'OTP is expired.' }, { status: 400 });
   }
 
-//   const hashedOtp = hashOtp(otp);
 const isMatch = await bcrypt.compare(otp, user.otp)
   if (!isMatch) {
     return NextResponse.json({ error: 'Incorrect OTP.' }, { status: 400 });
   }
 
   // Clear OTP on successful verification
-  await User.updateOne({ email }, { $unset: { otp: '', otpExpires: '' } });
+  const newPassword = await bcrypt.hash('123456', 10);
+  await User.updateOne({ email }, { password: newPassword, $unset: { otp: '', otpExpires: '' } });
 
-  return NextResponse.json({ message: 'OTP verified. Proceed to reset password.' });
+  return NextResponse.json({ message: 'OTP verified and Password reset to default(123456).' });
 }

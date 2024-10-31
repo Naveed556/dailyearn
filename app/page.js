@@ -135,6 +135,7 @@ export default function Home() {
               <a
                 href="mailto:socialseo090@gmail.com"
                 className="font-bold text-blue-600 mt-8"
+                target="blank"
               >
                 Need More Information?
               </a>

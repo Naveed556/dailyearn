@@ -230,7 +230,7 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
-                                            <Link href={`mailto:${item.email}`} className='hover:underline'>{item.email}</Link>
+                                            <Link href={`mailto:${item.email}`} target='blank' className='hover:underline'>{item.email}</Link>
                                         </th>
                                         <td className="px-3 py-4">
                                             ${(item.currentRevenue - ((item.commission / 100) * item.currentRevenue)).toFixed(2)}

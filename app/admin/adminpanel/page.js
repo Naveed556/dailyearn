@@ -90,10 +90,10 @@ const Admimpanel = () => {
     const handleSort = () => {
         if (sortOrder === null) {
             setSortOrder('desc');
-            setFilteredData([...filteredData].sort((a, b) => b.revenue - a.revenue)); // Ascending
+            setFilteredData([...filteredData].sort((a, b) => b.currentRevenue - a.currentRevenue)); // Ascending
         } else if (sortOrder === 'desc') {
             setSortOrder('asc');
-            setFilteredData([...filteredData].sort((a, b) => a.revenue - b.revenue)); // Descending
+            setFilteredData([...filteredData].sort((a, b) => a.currentRevenue - b.currentRevenue)); // Descending
         } else {
             setSortOrder(null);
             setFilteredData(usersList);

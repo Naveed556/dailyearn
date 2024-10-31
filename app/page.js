@@ -70,7 +70,7 @@ export default function Home() {
                   {/* </div> */}
                   <h6 className="text-white text-xl font-semibold">Good things come to those who wait</h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                  Exciting things are on the horizon. So Stay tuned for something amazing!
+                    Exciting things are on the horizon. So Stay tuned for something amazing!
                   </p>
                 </div>
               </div>
@@ -101,10 +101,10 @@ export default function Home() {
                   <Image className="p-3 inline-flex items-center justify-center mb-5" src={comingSoon} width={180} alt="Wives Hub Logo" />
                   {/* </div> */}
                   <h6 className="text-white text-xl font-semibold">
-                  Good things come to those who wait
+                    Good things come to those who wait
                   </h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                  Exciting things are on the horizon. So Stay tuned for something amazing!
+                    Exciting things are on the horizon. So Stay tuned for something amazing!
                   </p>
                 </div>
               </div>
@@ -262,7 +262,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="pt-20 pb-48">
+      {/* <section className="pt-20 pb-48">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center text-center mb-24">
             <div className="w-full lg:w-6/12 px-4">
@@ -277,12 +277,6 @@ export default function Home() {
           <div className="flex flex-wrap">
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                {/* <img
-                  alt="..."
-                  src={'../assets/img/team-1-800x800.jpg'}
-                  className="shadow-lg rounded-full max-w-full mx-auto"
-                  style={{ maxWidth: "120px" }}
-                /> */}
                 <Image className="shadow-lg rounded-full max-w-full mx-auto" src={moazzam} width={180} alt="Nawab Moazzam" />
                 <div className="pt-6 text-center">
                   <h5 className="text-white text-xl font-bold">
@@ -308,12 +302,6 @@ export default function Home() {
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                {/* <img
-                  alt="..."
-                  src={'../assets/img/team-1-800x800.jpg'}
-                  className="shadow-lg rounded-full max-w-full mx-auto"
-                  style={{ maxWidth: "120px" }}
-                /> */}
                 <Image className="shadow-lg rounded-full max-w-full mx-auto" src={nabeel} width={180} alt="Nabeel Ameen" />
                 <div className="pt-6 text-center">
                   <h5 className="text-white text-xl font-bold">
@@ -339,12 +327,6 @@ export default function Home() {
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                {/* <img
-                  alt="..."
-                  src={'../assets/img/team-1-800x800.jpg'}
-                  className="shadow-lg rounded-full max-w-full mx-auto"
-                  style={{ maxWidth: "120px" }}
-                /> */}
                 <Image className="shadow-lg rounded-full max-w-full mx-auto" src={aftab} width={180} alt="Aftab Ahmad" />
                 <div className="pt-6 text-center">
                   <h5 className="text-white text-xl font-bold">
@@ -370,12 +352,6 @@ export default function Home() {
             </div>
             <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
               <div className="px-6">
-                {/* <img
-                  alt="..."
-                  src={'../assets/img/team-1-800x800.jpg'}
-                  className="shadow-lg rounded-full max-w-full mx-auto"
-                  style={{ maxWidth: "120px" }}
-                /> */}
                 <Image className="shadow-lg rounded-full max-w-full mx-auto" src={naveed} width={180} alt="Naveed Ameen" />
                 <div className="pt-6 text-center">
                   <h5 className="text-white text-xl font-bold">
@@ -401,7 +377,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="pb-20 relative block bg-gray-900">
         <div
           className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
@@ -473,10 +449,10 @@ export default function Home() {
                 <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#ffffff"><path d="M431-330q1-72 16.5-105t58.5-72q42-38 64.5-70.5T593-647q0-45-30-75t-84-30q-52 0-80 29.5T358-661l-84-37q22-59 74.5-100.5T479-840q100 0 154 55.5T687-651q0 48-20.5 87T601-482q-49 47-59 72t-11 80H431Zm48 250q-29 0-49.5-20.5T409-150q0-29 20.5-49.5T479-220q29 0 49.5 20.5T549-150q0 29-20.5 49.5T479-80Z" /></svg>
               </div>
               <h5 className="text-xl mt-5 font-semibold text-white">
-              Story Selection
+                Story Selection
               </h5>
               <p className="mt-2 mb-4 text-gray-400 text-justify">
-              For story selection, you have the freedom to choose narratives that resonate best with your fanbase. Consider what your followers enjoy most and share stories that align with their interests. Whether it is personal anecdotes, informative pieces, or creative tales, the choice is yours. Selecting stories that engage your audience increases the likelihood of earning from their clicks. 
+                For story selection, you have the freedom to choose narratives that resonate best with your fanbase. Consider what your followers enjoy most and share stories that align with their interests. Whether it is personal anecdotes, informative pieces, or creative tales, the choice is yours. Selecting stories that engage your audience increases the likelihood of earning from their clicks.
               </p>
             </div>
           </div>

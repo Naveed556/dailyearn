@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import AdminHeader from '@/app/components/adminheader'
+import Link from 'next/link'
 
 const Admimpanel = () => {
     const router = useRouter();
@@ -108,7 +109,7 @@ const Admimpanel = () => {
         <>
             <AdminHeader />
             <main className="relative">
-                <h1 className="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">Dashboard Admin’s Panel</h1>
+                <h1 className="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">Daily Earn Admin’s Panel</h1>
                 <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
                     <div className="bg-gray-900 flex justify-between items-center flex-wrap gap-2 p-1">
                         <div className="relative mx-1 w-1/2">
@@ -117,7 +118,7 @@ const Admimpanel = () => {
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users" />
+                            <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users or emails" />
                         </div>
                         <button onClick={() => { setHideAddUser(false) }} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
                             Add User
@@ -229,7 +230,7 @@ const Admimpanel = () => {
                                             {item.username}
                                         </th>
                                         <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
-                                            {item.email}
+                                            <Link href={`mailto:${item.email}`} className='hover:underline'>{item.email}</Link>
                                         </th>
                                         <td className="px-3 py-4">
                                             ${(item.currentRevenue - ((item.commission / 100) * item.currentRevenue)).toFixed(2)}

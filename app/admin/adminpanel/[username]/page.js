@@ -322,13 +322,13 @@ const UserStats = ({ params }) => {
                                     #
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                    Campaign Name
+                                    Date
                                 </th>
                                 <th scope="col" className="px-2 py-3">
                                     Total Revenue
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                    Profit(-20%)
+                                    Profit(-{campaignData.commission}%)
                                 </th>
                                 <th scope="col" className="px-2 py-3">
                                     Final Revenue
@@ -368,7 +368,7 @@ const UserStats = ({ params }) => {
                                             {index + 1}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {item.campaign}
+                                            {item.date}
                                         </td>
                                         <td className="px-6 py-4">
                                             ${item.revenue}

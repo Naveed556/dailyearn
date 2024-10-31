@@ -24,48 +24,74 @@ export async function POST(request) {
         const [response] = await analyticsDataClient.runReport({
             property: `properties/${propertyId}`,
             dimensions: [
-                { name: "firstUserCampaignName" }
+                { name: "date" }, // Get metrics grouped by day
+                { name: "firstUserCampaignName" } // Filter by campaign name (UTM source)
             ],
             metrics: [
-                { name: "newUsers" },
-                { name: "totalRevenue" }
+                { name: "newUsers" }, // Users metric
+                { name: "totalRevenue" } // Revenue metric
             ],
             dateRanges: [
-                { startDate: startDate, endDate: endDate }
+                { startDate: startDate, endDate: endDate} // Use specified or default date range
             ],
             dimensionFilter: {
                 filter: {
                     fieldName: "firstUserCampaignName",
                     stringFilter: {
                         matchType: "ENDS_WITH",
-                        value: utm // Pass utmSource dynamically
+                        value: utm // Pass UTM source dynamically
                     }
                 }
-            }
+            },
+            orderBys: [
+                {
+                    dimension: { orderType: "NUMERIC", dimensionName: "date" }
+                }
+            ]
         });
 
         // If no data is returned, handle that case
         if (!response.rows || response.rows.length === 0) {
             return NextResponse.json({ message: "No data found for the given UTM parameter." }, { DataNotFound: true });
         }
-        // Map and return the response data
-        const data = response.rows.map(row => {
-            const totalUsers = parseInt(row.metricValues[0].value, 10);   // Users for this campaign
-            const totalRevenue = parseFloat(row.metricValues[1].value);   // Revenue for this campaign
 
-            // Calculate RPM for this campaign
-            const rpm = totalUsers > 0 ? (totalRevenue / totalUsers) * 1000 : 0;
+        // Aggregate data by date
+        const dateMap = new Map();
 
+        response.rows.forEach(row => {
+            const date = row.dimensionValues[0].value; // Date for this entry
+            const newUsers = parseInt(row.metricValues[0].value, 10); // Users for this date
+            const revenue = parseFloat(row.metricValues[1].value); // Revenue for this date
+
+            if (!dateMap.has(date)) {
+                dateMap.set(date, { totalUsers: 0, totalRevenue: 0 });
+            }
+
+            const dateData = dateMap.get(date);
+            dateData.totalUsers += newUsers;
+            dateData.totalRevenue += revenue;
+        });
+
+        function formatDate(dateStr) {
+            const year = dateStr.slice(0, 4);
+            const month = dateStr.slice(4, 6);
+            const day = dateStr.slice(6, 8);
+            return `${day}-${month}-${year}`;
+        }
+
+        // Map the aggregated data to the required format
+        const data = Array.from(dateMap, ([date, { totalUsers, totalRevenue }]) => {
+            const avgRpm = totalUsers > 0 ? (totalRevenue / totalUsers) * 1000 : 0;
             return {
-                campaign: row.dimensionValues[0].value, // Second dimension (firstUserCampaignName)
-                users: totalUsers,                      // Users for this campaign
-                revenue: totalRevenue.toFixed(2),                  // Revenue for this campaign
-                rpm: rpm.toFixed(2)                     // RPM for this campaign, rounded to 2 decimal places
+                date: formatDate(date),
+                users: totalUsers,
+                revenue: totalRevenue.toFixed(2),
+                rpm: avgRpm.toFixed(2)
             };
         });
 
         // Return the response using NextResponse
-        return NextResponse.json(data, {DataNotFound: false});
+        return NextResponse.json(data, { DataNotFound: false });
     } catch (error) {
         console.error('Error fetching UTM Campaign Data:', error);
         return NextResponse.json({ error: 'No Data Found' }, { status: 500 });

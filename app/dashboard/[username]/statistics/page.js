@@ -139,7 +139,7 @@ export default function Statistics() {
                                     #
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Campaign Name
+                                    Date
                                 </th>
                                 <th scope="col" className="px-6 py-3">
                                     Revenue
@@ -179,7 +179,7 @@ export default function Statistics() {
                                             {index + 1}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {item.campaign}
+                                            {item.date}
                                         </td>
                                         <td className="px-6 py-4">
                                             ${(item.revenue - ((campaignData.commission / 100) * item.revenue)).toFixed(2)}

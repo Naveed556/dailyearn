@@ -4,7 +4,7 @@ import React from 'react'
 import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react';
-import logo from "../images/logo.png"
+import logo from "../images/DailyEarn.png"
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 
@@ -50,12 +50,12 @@ const Header = () => {
     return (
         <header className="text-gray-400 bg-[#11182770] body-font relative z-50">
             <div className="container mx-auto flex flex-wrap p-5 md:flex-row items-center justify-between">
-                <Link href={"/"} className="flex title-font font-medium items-center text-white md:mb-0">
+                <Link href={"/"} className="flex title-font font-medium items-center gap-4 text-white md:mb-0">
                     {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                     <span className="ml-3 text-xl">FTT Dashboard</span> */}
-                    <Image src={logo} alt='Logo' width={180}/>
+                    <Image src={logo} alt='Logo' height={40}/>
                 </Link>
 
                 {(currentPath == "/login" || currentPath == "/") &&

@@ -185,10 +185,10 @@ export default function Statistics() {
                                             ${(item.revenue - ((campaignData.commission / 100) * item.revenue)).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ${item.rpm}
+                                            ${(item.rpm - campaignData.commission / 100 * item.rpm).toFixed(2)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.users}
+                                            {(item.users - campaignData.commission / 100 * item.users).toFixed(0)}
                                         </td>
                                     </tr>
                                 )
@@ -198,8 +198,8 @@ export default function Statistics() {
                             <tr className="font-semibold text-white">
                                 <th colSpan={"2"} scope="row" className="px-6 py-3 text-base">Total</th>
                                 <td className="px-6 py-3">${totalRevenue.toFixed(2)}</td>
-                                <td className="px-6 py-3">${(totalRPM / utmData.length).toFixed(2)}</td>
-                                <td className="px-6 py-3">{totalUsers}</td>
+                                <td className="px-6 py-3">${((totalRPM - campaignData.commission / 100 * totalRPM) / utmData.length).toFixed(2)}</td>
+                                <td className="px-6 py-3">{(totalUsers - campaignData.commission / 100 * totalUsers).toFixed(0)}</td>
                             </tr>
                         </tfoot>
                     </table>

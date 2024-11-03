@@ -14,6 +14,9 @@ export default function Home() {
   return (
     <>
       <Header />
+      <span className="fixed bottom-2 right-4 z-50 font-bold text-xs text-transparent hover:text-gray-500">
+        Developed By: <Link className="underline hover:text-blue-600" href={"https://www.instagram.com/nawab_webdev"} target="blank">Nawab Moazzam</Link>
+      </span>
       <div className="relative pt-16 pb-32 flex content-center items-center justify-center top-[-100px]"
         style={{
           minHeight: "75vh"

@@ -16,6 +16,7 @@ const Admimpanel = () => {
     const [filteredData, setFilteredData] = useState(usersList);
     const [sortOrder, setSortOrder] = useState(null);
     const [tempIndex, setTempIndex] = useState(null);
+    const [showCommission, setshowCommission] = useState(false);
 
     useEffect(() => {
         getUsers();
@@ -120,9 +121,33 @@ const Admimpanel = () => {
                             </div>
                             <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users or emails" />
                         </div>
-                        <button onClick={() => { setHideAddUser(false) }} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-                            Add User
-                        </button>
+                        <div className='flex items-center gap-4'>
+                            <button onClick={() => { setshowCommission(!showCommission) }} className='pt-2' title='Show Commision'>
+                                {showCommission &&
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/fmjvulyw.json"
+                                        trigger="hover"
+                                        stroke="light"
+                                        state="hover-look-around"
+                                        style={{ "width": "30px", "height": "30px" }}>
+                                    </lord-icon>
+                                }
+                                {!showCommission &&
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/fmjvulyw.json"
+                                        trigger="hover"
+                                        stroke="bold"
+                                        state="hover-lashes"
+                                        colors="primary:#ffffff,secondary:#ebe6ef,tertiary:#3a3347,quaternary:#4bb3fd,quinary:#f9c9c0,senary:#f24c00"
+                                        style={{ "width": "30px", "height": "30px" }}>
+                                    </lord-icon>
+                                }
+
+                            </button>
+                            <button onClick={() => { setHideAddUser(false) }} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                                Add User
+                            </button>
+                        </div>
 
                         <div className={`bg-[#37415180] ${hideAddUser ? "hidden" : "flex"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full`}>
                             <div className="relative p-4 w-full max-w-md max-h-full">
@@ -203,9 +228,11 @@ const Admimpanel = () => {
                                             </button>
                                         </div>
                                     </th>
-                                    <th scope="col" className="px-3 py-3">
+                                    {showCommission &&
+                                        <th scope="col" className="px-3 py-3">
                                         Commission
                                     </th>
+                                    }
                                     <th scope="col" className="px-3 py-3">
                                         Action
                                     </th>
@@ -226,18 +253,20 @@ const Admimpanel = () => {
                                 }
                                 {filteredData.map((item, index) => {
                                     return (<tr key={index} className={`text-center border-b bg-gray-800 border-gray-700 ${hideDelPanel ? "hover:bg-gray-600" : ""}`}>
-                                        <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
+                                        <th scope="row" className="px-3 py-4 font-bold whitespace-nowrap text-white">
                                             {item.username}
                                         </th>
-                                        <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap text-white">
-                                            <Link href={`mailto:${item.email}`} target='blank' className='hover:underline'>{item.email}</Link>
+                                        <th scope="row" className="px-3 py-4 font-medium whitespace-nowrap">
+                                            <Link href={`mailto:${item.email}`} target='blank' className='hover:underline hover:text-white'>{item.email}</Link>
                                         </th>
                                         <td className="px-3 py-4">
                                             ${(item.currentRevenue - ((item.commission / 100) * item.currentRevenue)).toFixed(2)}
                                         </td>
-                                        <td className="px-3 py-4">
+                                        {showCommission &&
+                                            <td className="px-3 py-4">
                                             {item.commission}%
                                         </td>
+                                        }
                                         <td className="px-3 py-2">
                                             <button onClick={() => { setHideDelPanel(false); setTempIndex(item.username) }} className="font-medium text-blue-500 hover:underline p-2">
                                                 <lord-icon

@@ -64,6 +64,7 @@ const Admimpanel = () => {
 
     const onSubmit = async (data) => {
         data.username = data.username.toLowerCase();
+        data.email = data.email.toLowerCase();
         data.commission = Number(data.commission);
         const req = await fetch("/api/adduser", {
             method: "POST",

@@ -170,11 +170,11 @@ const Login = () => {
                         <h2 className="text-white text-lg font-medium title-font mb-5">Sign In</h2>
                         <div className="relative mb-4">
                             <label htmlFor="username" className="leading-7 text-sm text-gray-400">Username</label>
-                            <input onBeforeInput={() => { clearErrors("formErrors") }} type="text" {...register("username", { required: true })} className="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-blue-900 rounded border border-gray-600 focus:border-blue-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            <input onFocus={() => { clearErrors("formErrors") }} type="text" {...register("username", { required: true })} className="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-blue-900 rounded border border-gray-600 focus:border-blue-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                         </div>
                         <div className="relative">
                             <label htmlFor="password" className="leading-7 text-sm text-gray-400">Password</label>
-                            <input onBeforeInput={() => { clearErrors("formErrors") }} type={showPass ? "text" : "password"} {...register("password", { required: true })} className="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-blue-900 rounded border border-gray-600 focus:border-blue-500 text-base outline-none text-gray-100 py-1 pl-3 pr-10 leading-8 transition-colors duration-200 ease-in-out" />
+                            <input onFocus={() => { clearErrors("formErrors") }} type={showPass ? "text" : "password"} {...register("password", { required: true })} className="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-blue-900 rounded border border-gray-600 focus:border-blue-500 text-base outline-none text-gray-100 py-1 pl-3 pr-10 leading-8 transition-colors duration-200 ease-in-out" />
                             <span onClick={(e) => { e.preventDefault(); setShowPass(!showPass) }} className='absolute top-1/2 right-2 cursor-pointer'>
                                 {!showPass &&
                                     <lord-icon
@@ -241,7 +241,7 @@ const Login = () => {
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email Address</label>
                                     <div className='relative'>
-                                        <input type="email" onBeforeInput={() => { clearErrors2("formErrors") }} {...register2("email", { required: true })} className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-24 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Enter Email Address" />
+                                        <input type="email" onFocus={() => { clearErrors2("formErrors") }} {...register2("email", { required: true })} className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-24 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Enter Email Address" />
 
                                         {!isSubmitting2 &&
                                             <button className='cursor-pointer font-bold text-sm text-gray-200 hover:text-gray-400 px-3 border-l absolute top-1/4 right-0'>Get Code</button>
@@ -262,7 +262,7 @@ const Login = () => {
                             <form onSubmit={handleSubmit3(resetPass)} className={`space-y-4 ${otp ? "block" : "hidden"}`}>
                                 <div>
                                     <label htmlFor="otp" className="block mb-2 text-sm font-medium text-white">One Time Password (OTP)</label>
-                                    <input type="text" onBeforeInput={() => { clearErrors3("formErrors") }} {...register3("otp", { required: true })} className="border text-center text-2xl font-extrabold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-14 p-4 bg-gray-600 border-gray-500 placeholder-gray-400 text-white tracking-widest" placeholder="Enter OTP" pattern="\d*" maxLength={6} title="6-Digit Code" />
+                                    <input type="text" onFocus={() => { clearErrors3("formErrors") }} {...register3("otp", { required: true })} className="border text-center text-2xl font-extrabold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-14 p-4 bg-gray-600 border-gray-500 placeholder-gray-400 text-white tracking-widest" placeholder="Enter OTP" pattern="\d*" maxLength={6} title="6-Digit Code" />
                                     <div className="text-sm text-right text-slate-300 mt-1">Did not receive code?
                                         {!sendingOtp && timeLeft <= 0 &&
                                             <span onClick={() => { Resend() }} className="cursor-pointer font-medium text-blue-400 hover:text-blue-500 mx-1">Resend</span>

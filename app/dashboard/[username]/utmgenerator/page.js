@@ -13,6 +13,10 @@ export default function UtmGenerator() {
     const [copiedIndexes, setCopiedIndexes] = useState([]);
 
     useEffect(() => {
+        document.title = "UTM Generator | Daily Earn Online"
+    }, [])
+
+    useEffect(() => {
         if (typeof window !== 'undefined' && params?.username) {
             // Only set the username after the component has mounted
             setUsername(params.username);

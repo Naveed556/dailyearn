@@ -2,12 +2,15 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 const Admin = () => {
     const router = useRouter();
     const [showPass, setShowPass] = useState(false)
+    useEffect(() => {
+        document.title = "Admin Login | Daily Earn Online"
+    }, [])
 
     const {
         register,

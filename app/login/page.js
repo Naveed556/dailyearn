@@ -14,6 +14,10 @@ const Login = () => {
     const [sendingOtp, setSendingOtp] = useState(false);
     const [otp, setOtp] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60); // 60 seconds
+    
+    useEffect(() => {
+        document.title = "Login | Daily Earn Online"
+    }, [])
 
     useEffect(() => {
         // Exit if time is zero

@@ -19,6 +19,7 @@ const Admimpanel = () => {
     const [showCommission, setshowCommission] = useState(false);
 
     useEffect(() => {
+        document.title = "Admin Panel | Daily Earn Online"
         getUsers();
     }, [])
 

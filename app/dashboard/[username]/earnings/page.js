@@ -10,6 +10,7 @@ export default function Earnings() {
     const [paymentsLoading, setPaymentsLoading] = useState(false);
 
     useEffect(() => {
+        document.title = "Earnings | Daily Earn Online"
         const storedUsername = Cookies.get('username');
         if (storedUsername) {
             setUsername(storedUsername);

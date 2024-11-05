@@ -20,6 +20,7 @@ export default function Statistics() {
     };
 
     useEffect(() => {
+        document.title = "Statistics | Daily Earn Online"
         // Get the username from cookies after the component has mounted
         const storedUsername = Cookies.get('username');
         if (storedUsername) {

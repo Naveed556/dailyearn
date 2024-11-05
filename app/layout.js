@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Daily Earn Online",
+  title: `Daily Earn Online`,
   description: "We provide a platform for you to share your stories with your followers. When your fans click on and engage with your stories, you earn compensation for each click",
 };
 

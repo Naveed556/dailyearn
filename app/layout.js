@@ -17,22 +17,31 @@ const geistMono = localFont({
 
 export const metadata = {
   title: `Daily Earn Online`,
-  description: "We provide a platform for you to share your stories with your followers. When your fans click on and engage with your stories, you earn compensation for each click",
+  description:
+    "We provide a platform for you to share your stories with your followers. When your fans click on and engage with your stories, you earn compensation for each click",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
         <link rel="icon" sizes="32x32" href="/favicon.ico" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}
+      >
         <ToastWrapper />
         {children}
         <NavBottom />
       </body>
-      <Script src="https://cdn.lordicon.com/lordicon.js" strategy="afterInteractive" />
+      <Script
+        src="https://cdn.lordicon.com/lordicon.js"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }

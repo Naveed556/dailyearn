@@ -74,7 +74,7 @@ export default function Earnings() {
             <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
                 <div className="relative overflow-auto shadow-md sm:rounded-lg max-h-[70vh]">
                     <table className="w-full text-sm text-center rtl:text-right text-gray-400">
-                        <thead className="text-xs uppercase bg-gray-700 text-gray-400 sticky top-0">
+                        <thead className="text-xs uppercase bg-gray-700 text-gray-400 sticky top-0 z-10">
                             <tr>
                                 <th scope="col" className="px-2 py-3">
                                     #

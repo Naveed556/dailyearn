@@ -108,23 +108,23 @@ export default function Statistics() {
             <h1 className='font-bold text-5xl text-white text-center m-4'>Statistics</h1>
             <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
                 <div className='flex items-center justify-between flex-wrap gap-2 mb-4'>
-                    <div className="flex items-center flex-wrap gap-2">
+                    <div className="flex items-center gap-1">
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                 </svg>
                             </div>
-                            <input value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" className="border text-sm rounded-lg block w-full ps-10 p-2.5 bg-gray-700 border-gray-60 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date start" />
+                            <input value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" className="border text-xs sm:text-sm rounded-lg block w-full ps-10 p-2.5 bg-gray-700 border-gray-60 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date start" />
                         </div>
-                        <span className="mx-4 text-gray-500">to</span>
+                        <span className="mx-4 text-gray-500 hidden sm:block">to</span>
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                 </svg>
                             </div>
-                            <input value={endDate} onChange={(e) => setEndDate(e.target.value)} type='date' className="border text-sm rounded-lg block w-full ps-10 p-2.5 bg-gray-700 border-gray-60 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date end" />
+                            <input value={endDate} onChange={(e) => setEndDate(e.target.value)} type='date' className="border text-xs sm:text-sm rounded-lg block w-full ps-10 p-2.5 bg-gray-700 border-gray-60 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date end" />
                         </div>
                     </div>
                     <button onClick={applyDateRange} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">

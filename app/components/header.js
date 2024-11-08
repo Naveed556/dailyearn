@@ -55,12 +55,12 @@ const Header = () => {
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                     <span className="ml-3 text-xl">FTT Dashboard</span> */}
-                    <Image src={logo} alt='Logo' height={40}/>
+                    <Image src={logo} alt='Logo' className='h-5 sm:h-10 w-auto'/>
                 </Link>
 
                 {(currentPath == "/login" || currentPath == "/") &&
                     <Link href={"/login"} className='md:ml-auto flex flex-wrap items-center justify-center'>
-                        <button className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base  md:mt-0">Go to Dashboard
+                        <button className="inline-flex items-center bg-gray-800 border border-gray-500 py-1 px-3 focus:outline-none hover:bg-gray-700 focus:ring-gray-500 focus:ring-2 rounded text-xs sm:text-base md:mt-0">Go to Dashboard
                             <lord-icon
                                 src="https://cdn.lordicon.com/vduvxizq.json"
                                 trigger="hover"
@@ -80,7 +80,7 @@ const Header = () => {
                             <Link href={`/dashboard/${username}/statistics`} className="mr-5 hover:text-white">Statistics</Link>
                             <Link href={`/dashboard/${username}/earnings`} className="mr-5 hover:text-white">Earnings</Link>
                         </nav>
-                        <button onClick={() => { setHideSignout(false) }} className="inline-flex items-center border-0 py-1 px-3 rounded text-base font-bold md:mt-0 text-white focus:ring-4 focus:outline-none bg-red-600 hover:bg-red-700 focus:ring-red-800">Log Out
+                        <button onClick={() => { setHideSignout(false) }} className="inline-flex items-center border-0 py-1 px-3 rounded text-xs md:text-base font-bold md:mt-0 text-white focus:ring-4 focus:outline-none bg-red-600 hover:bg-red-700 focus:ring-red-800">Log Out
                             <lord-icon
                                 src="https://cdn.lordicon.com/vduvxizq.json"
                                 trigger="hover"

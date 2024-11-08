@@ -75,15 +75,15 @@ const AdminHeader = () => {
             <header>
                 <nav className="border-gray-200 bg-gray-900">
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                        <Link href="/admin/adminpanel" className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <Image src={logo} className="w-auto h-auto" alt="Logo" width="40" height="40" />
-                            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Admin Panel</span>
+                        <Link href="/admin/adminpanel" className="flex items-center sm:space-x-3 sm:rtl:space-x-reverse">
+                            <Image src={logo} className="w-auto h-7 sm:h-10" alt="Logo" />
+                            <span className="self-center text-sm sm:text-2xl font-semibold whitespace-nowrap text-white">Admin Panel</span>
                         </Link>
-                        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                            <button onClick={() => { setHideReset(false) }} className="text-blue-700 font-bold text-sm text-center px-2 hover:text-red-700">
+                        <div className="flex md:order-2 sm:space-x-3 md:space-x-0 sm:rtl:space-x-reverse">
+                            <button onClick={() => { setHideReset(false) }} className="text-blue-700 font-bold text-xs sm:text-sm text-center px-2 hover:text-red-700">
                                 Reset Password?
                             </button>
-                            <button onClick={() => { setHideSignout(false) }} className="inline-flex items-center text-white focus:ring-4 focus:outline-none font-bold rounded-lg text-sm px-4 py-2 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">
+                            <button onClick={() => { setHideSignout(false) }} className="inline-flex items-center text-white focus:ring-4 focus:outline-none font-bold rounded-lg text-xs sm:text-sm px-1 sm:px-4 sm:py-2 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">
                                 Sign Out
                                 <lord-icon
                                     src="https://cdn.lordicon.com/vduvxizq.json"

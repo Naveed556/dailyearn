@@ -115,7 +115,7 @@ const Admimpanel = () => {
                 <h1 className="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">Daily Earn Admin’s Panel</h1>
                 <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
                     <div className="bg-gray-900 flex justify-between items-center flex-wrap gap-2 p-1">
-                        <div className="relative mx-1 w-1/2">
+                        <div className="relative mx-1 w-full sm:w-1/2">
                             <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -123,7 +123,7 @@ const Admimpanel = () => {
                             </div>
                             <input value={searchTerm} onChange={handleSearch} type="text" className="py-1 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users or emails" />
                         </div>
-                        <div className='flex items-center gap-4'>
+                        <div className='flex items-center justify-end gap-4 w-full sm:w-auto'>
                             <button onClick={() => { setshowCommission(!showCommission) }} className='pt-2' title='Show Commision'>
                                 {showCommission &&
                                     <lord-icon

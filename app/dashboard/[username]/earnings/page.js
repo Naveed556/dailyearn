@@ -137,9 +137,9 @@ export default function Earnings() {
                                             {!item.isPaid &&
                                                 <div className='flex items-center justify-center gap-2'>
                                                     <lord-icon
-                                                        src="https://cdn.lordicon.com/zxvuvcnc.json"
+                                                        src="https://cdn.lordicon.com/kgdqzapd.json"
                                                         trigger="hover"
-                                                        colors="primary:#dc2626"
+                                                        colors="primary:#e8e230"
                                                         style={{ "width": "25px", "height": "25px" }}>
                                                     </lord-icon>
                                                     Pending

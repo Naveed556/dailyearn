@@ -39,10 +39,7 @@ const AdminHeader = () => {
           progress: undefined,
           theme: "dark",
         });
-        setTimeout(() => {
-          router.push("/admin");
-        }, 1000);
-        // router.refresh()
+        window.location.href = "/admin";
       }
     } catch (err) {
       console.error("Failed to logout:", err);

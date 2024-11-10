@@ -40,8 +40,7 @@ const Header = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.replace("/login");
-        router.refresh();
+        window.location.href = "/login";
       }
     } catch (err) {
       console.error("Failed to logout:", err);

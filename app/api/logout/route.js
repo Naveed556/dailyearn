@@ -7,7 +7,9 @@ export async function GET(req) {
         const baseUrl = `${protocol}//${host}`; // Construct the base URL
 
         // Create a response object and redirect using absolute URL
-        const response = NextResponse.redirect(`${baseUrl}/login`); // Absolute URL for redirection
+        const response = NextResponse.redirect(`${baseUrl}/login`, {
+            status: 302,
+          }); // Absolute URL for redirection
 
         // Clear the token cookie by setting it with an expired date
         response.cookies.set('token', '', {

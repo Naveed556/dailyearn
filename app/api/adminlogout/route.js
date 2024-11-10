@@ -5,9 +5,12 @@ export async function GET(req) {
         // Get the base URL of your site
         const { protocol, host } = req.nextUrl; // This gives the full URL components
         const baseUrl = `${protocol}//${host}`; // Construct the base URL
-
+        
         // Create a response object and redirect using absolute URL
-        const response = NextResponse.redirect(`${baseUrl}/admin`); // Absolute URL for redirection
+        const response = NextResponse.redirect(`${baseUrl}/admin`, {
+            status: 302,
+          }); // Absolute URL for redirection
+        console.log(response)
 
         // Clear the token cookie by setting it with an expired date
         response.cookies.set('admintoken', '', {

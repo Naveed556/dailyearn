@@ -200,7 +200,7 @@ const UserStats = ({ params }) => {
                                 return (
                                     <tr key={index} className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
-                                            1
+                                            {index+1}
                                         </th>
                                         <td className="px-6 py-4">
                                             {item.dateRange}({item.month})

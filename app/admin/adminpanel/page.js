@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import AdminHeader from '@/app/components/adminheader'
 import Link from 'next/link'
+import { toast } from "react-toastify";
 
 const Admimpanel = () => {
     const router = useRouter();
@@ -73,20 +74,43 @@ const Admimpanel = () => {
             body: JSON.stringify(data)
         });
         const res = await req.json();
-        if (!req.ok) {
-            setError("formErrors", { message: res.error })
-        } else {
+        if (req.ok) {
+            toast("User have been added Succeessfully", {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
             setHideAddUser(true);
+        } else {
+            setError("formErrors", { message: res.error })
         }
         getUsers();
     }
 
     const deleteUser = async () => {
-        await fetch("/api/deleteuser", {
+        const response = await fetch("/api/deleteuser", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: tempIndex })
         });
+        if(response.ok)
+            {
+            toast("User have been Deleted!!!", {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+        }
         getUsers();
     }
 
@@ -279,14 +303,14 @@ const Admimpanel = () => {
                                                     style={{ "width": "25px", "height": "25px" }}>
                                                 </lord-icon>
                                             </button>
-                                            <button onClick={() => { userStats(item.username) }} className="font-medium text-blue-500 hover:underline p-2">
+                                            <Link href={`/admin/adminpanel/${item.username}`} className="font-medium text-blue-500 hover:underline p-2">
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/qhkvfxpn.json"
                                                     trigger="hover"
                                                     colors="primary:#2563eb"
                                                     style={{ "width": "25px", "height": "25px" }}>
                                                 </lord-icon>
-                                            </button>
+                                            </Link>
                                             <div className={`bg-[#37415130] ${hideDelPanel ? "hidden" : "flex"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full`}>
                                                 <div className="h-screen flex items-center justify-center relative p-4 w-full max-w-md md:h-auto">
                                                     <div className="relative p-4 text-center rounded-lg shadow bg-gray-800 sm:p-5">

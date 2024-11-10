@@ -39,7 +39,8 @@ const AdminHeader = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.replace("/admin");
+        // router.replace("/admin");
+        window.location.reload();
       }
     } catch (err) {
       console.error("Failed to logout:", err);

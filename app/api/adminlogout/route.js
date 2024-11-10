@@ -10,7 +10,6 @@ export async function GET(req) {
         const response = NextResponse.redirect(`${baseUrl}/admin`, {
             status: 302,
           }); // Absolute URL for redirection
-        console.log(response)
 
         // Clear the token cookie by setting it with an expired date
         response.cookies.set('admintoken', '', {

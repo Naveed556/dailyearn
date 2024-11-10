@@ -39,8 +39,8 @@ const AdminHeader = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.refresh()
         router.push("/admin");
+        router.refresh()
       }
     } catch (err) {
       console.error("Failed to logout:", err);

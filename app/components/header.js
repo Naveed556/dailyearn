@@ -40,7 +40,7 @@ const Header = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.push("/login");
+        router.replace("/login");
         router.refresh();
       }
     } catch (err) {

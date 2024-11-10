@@ -3,6 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import NavBottom from "./components/navbottom";
 import ToastWrapper from "./components/toastwrapper";
+import LoadingBar from "./components/loadingBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 pb-14`}
       >
+        <LoadingBar />
         <ToastWrapper />
         {children}
         <NavBottom />

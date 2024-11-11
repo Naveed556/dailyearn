@@ -2,7 +2,8 @@
 import Link from "next/link";
 import React from "react";
 import Cookies from "js-cookie";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useState, useEffect } from "react";
 import logo from "../images/DailyEarn.png";
 import Image from "next/image";

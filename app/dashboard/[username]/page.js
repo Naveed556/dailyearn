@@ -1,5 +1,5 @@
 "use client"
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'
 import Header from '@/app/components/header';
 import Cookies from 'js-cookie';
 import Link from 'next/link';

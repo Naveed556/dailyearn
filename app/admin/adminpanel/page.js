@@ -2,7 +2,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'
 import AdminHeader from '@/app/components/adminheader'
 import Link from 'next/link'
 import { toast } from "react-toastify";

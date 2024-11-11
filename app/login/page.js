@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
 import { useForm } from "react-hook-form"
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'
 import { useState } from 'react'
 import Header from '../components/header'
 import { toast } from 'react-toastify'

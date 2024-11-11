@@ -28,7 +28,6 @@ const AdminHeader = () => {
       const response = await fetch("/api/adminlogout", {
         method: "GET",
       });
-      console.log(response);
       if (response.ok) {
         toast("You have been Signed Out!", {
           position: "bottom-right",
@@ -40,7 +39,7 @@ const AdminHeader = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.replace("/admin");
+        router.push("/admin");
       }
     } catch (err) {
       console.error("Failed to logout:", err);

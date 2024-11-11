@@ -41,7 +41,7 @@ const Header = () => {
           progress: undefined,
           theme: "dark",
         });
-        router.replace("/login")
+        router.push("/login")
       }
     } catch (err) {
       console.error("Failed to logout:", err);

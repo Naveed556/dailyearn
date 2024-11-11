@@ -41,7 +41,6 @@ const AdminHeader = () => {
           theme: "dark",
         });
         router.replace("/admin");
-        // window.location.reload();
       }
     } catch (err) {
       console.error("Failed to logout:", err);

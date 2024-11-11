@@ -1,13 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req) {
+export async function GET() {
   try {
-    // Get the base URL of your site
-    const { protocol, host } = req.nextUrl; // This gives the full URL components
-    const baseUrl = `${protocol}//${host}`; // Construct the base URL
-
-    // Create a response object and redirect using absolute URL
-    // const response = NextResponse.redirect(`${baseUrl}/admin`, { status: 302 });
     const response = NextResponse.json({ message: "Logout successful" });
 
     // Clear the token cookie by setting it with an expired date

@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 
 export async function GET() {
   try {
+    revalidateTag("logout");
     const response = NextResponse.json({ message: "Logout successful" });
 
     // Clear the token cookie by setting it with an expired date

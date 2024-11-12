@@ -27,8 +27,7 @@ const AdminHeader = () => {
       // Make a request to the logout API route
       const response = await fetch("/api/adminlogout", {
             next: {
-                tags: ['adminlogout'], // Invalidate with revalidateTag('users') on-demand
-                revalidate: 300, // 5 min
+                tags: ['adminlogout']
             },
         });
       if (response.ok) {

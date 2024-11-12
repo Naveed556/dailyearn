@@ -28,8 +28,10 @@ const Header = () => {
     try {
       // Make a request to the logout API route
       const response = await fetch("/api/logout", {
-        method: "GET",
-      });
+            next: {
+                tags: ['logout']
+            },
+        });
       if (response.ok) {
         toast("You have been Logged Out!", {
           position: "bottom-right",

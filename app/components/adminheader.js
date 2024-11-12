@@ -26,8 +26,11 @@ const AdminHeader = () => {
     try {
       // Make a request to the logout API route
       const response = await fetch("/api/adminlogout", {
-        method: "GET",
-      });
+            next: {
+                tags: ['adminlogout'], // Invalidate with revalidateTag('users') on-demand
+                revalidate: 300, // 5 min
+            },
+        });
       if (response.ok) {
         toast("You have been Signed Out!", {
           position: "bottom-right",

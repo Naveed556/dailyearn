@@ -18,7 +18,6 @@ const Footer = () => {
           <Link
             href="/admin"
             className="text-gray-500 ml-1"
-            target="_blank"
             rel="noopener noreferrer"
           >
             Are you an Admin?

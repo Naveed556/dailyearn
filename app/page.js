@@ -9,6 +9,7 @@ import nabeel from "../app/images/nabeel.png"
 import aftab from "../app/images/aftab.jpg"
 import comingSoon from "../app/images/coming-soon.png"
 import Link from "next/link";
+import Footer from "./components/footer";
 
 export default function Home() {
   return (
@@ -462,7 +463,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      <Footer />
     </>
   );
 }

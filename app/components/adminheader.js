@@ -26,10 +26,10 @@ const AdminHeader = () => {
     try {
       // Make a request to the logout API route
       const response = await fetch("/api/adminlogout", {
-            next: {
-                tags: ['adminlogout']
-            },
-        });
+        next: {
+          tags: ["adminlogout"],
+        },
+      });
       if (response.ok) {
         toast("You have been Signed Out!", {
           position: "bottom-right",
@@ -78,15 +78,16 @@ const AdminHeader = () => {
       <header>
         <nav className="border-gray-200 bg-gray-900">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <Link
-              href="/admin/adminpanel"
-              className="flex items-center sm:space-x-3 sm:rtl:space-x-reverse"
-            >
-              <Image src={logo} className="w-auto h-7 sm:h-10" alt="Logo" />
-              <span className="self-center text-sm sm:text-2xl font-semibold whitespace-nowrap text-white">
-                Admin Panel
-              </span>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/">
+                <Image src={logo} className="w-auto h-7 sm:h-10" alt="Logo" />
+              </Link>
+              <Link href="/admin/adminpanel">
+                <span className="self-center text-sm sm:text-2xl font-semibold whitespace-nowrap text-white">
+                  Admin Panel
+                </span>
+              </Link>
+            </div>
             <div className="flex md:order-2 sm:space-x-3 md:space-x-0 sm:rtl:space-x-reverse">
               <button
                 onClick={() => {

@@ -12,6 +12,7 @@ const Admimpanel = () => {
   const [usersList, setUsersList] = useState([]);
   const [hideAddUser, setHideAddUser] = useState(true);
   const [hideDelPanel, setHideDelPanel] = useState(true);
+  const [showEditPanel, setShowEditPanel] = useState(false);
   const [userFetching, setUserFetching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState(usersList);
@@ -65,6 +66,15 @@ const Admimpanel = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const {
+    register: editRegister,
+    handleSubmit: editHandleSubmit,
+    setError: editSetError,
+    clearErrors: editClearErrors,
+    setValue: editSetValue,
+    formState: { errors: editErrors, isSubmitting: editIsSubmitting },
+  } = useForm();
+
   const onSubmit = async (data) => {
     data.username = data.username.toLowerCase();
     data.email = data.email.toLowerCase();
@@ -91,6 +101,31 @@ const Admimpanel = () => {
       setError("formErrors", { message: res.error });
     }
     getUsers();
+  };
+
+  const editUser = async (data) => {
+    console.log(data);
+    data.username = data.username.toLowerCase();
+    await fetch("/api/updateUser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        toast(res.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        getUsers();
+        setShowEditPanel(false);
+      }
+    }).catch((err) => editSetError("editErrors", { message: err.error }));
   };
 
   const deleteUser = async () => {
@@ -139,10 +174,6 @@ const Admimpanel = () => {
       setSortOrder(null);
       setFilteredData(usersList);
     }
-  };
-
-  const userStats = (useranme) => {
-    router.push(`/admin/adminpanel/${useranme}`);
   };
 
   return (
@@ -233,7 +264,7 @@ const Admimpanel = () => {
                         setHideAddUser(true);
                       }}
                       type="button"
-                      className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                      className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-900 hover:text-white"
                     >
                       <svg
                         className="w-3 h-3"
@@ -340,7 +371,7 @@ const Admimpanel = () => {
                         <button
                           disabled
                           type="button"
-                          className="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 inline-flex items-center justify-center"
+                          className="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-900 inline-flex items-center justify-center"
                         >
                           <svg
                             role="status"
@@ -422,7 +453,7 @@ const Admimpanel = () => {
               </thead>
               <tbody>
                 {userFetching && (
-                  <tr className="text-center border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
+                  <tr className="text-center border-b bg-gray-800 border-gray-700 hover:bg-gray-900">
                     <td colSpan={"100"} className="px-3 py-4">
                       <div className="w-full flex justify-center items-center">
                         <svg
@@ -450,14 +481,19 @@ const Admimpanel = () => {
                     <tr
                       key={index}
                       className={`text-center border-b bg-gray-800 border-gray-700 ${
-                        hideDelPanel ? "hover:bg-gray-600" : ""
+                        hideDelPanel ? "hover:bg-gray-900" : ""
                       }`}
                     >
                       <th
                         scope="row"
-                        className="px-3 py-4 font-bold whitespace-nowrap text-white"
+                        className="px-3 py-4 font-bold whitespace-nowrap"
                       >
-                        {item.username}
+                        <Link
+                          href={`/admin/adminpanel/${item.username}`}
+                          className="hover:underline hover:text-white"
+                        >
+                          {item.username}
+                        </Link>
                       </th>
                       <th
                         scope="row"
@@ -482,32 +518,40 @@ const Admimpanel = () => {
                         <td className="px-3 py-4">{item.commission}%</td>
                       )}
                       <td className="px-3 py-2">
-                        <button
-                          onClick={() => {
-                            setHideDelPanel(false);
-                            setTempIndex(item.username);
-                          }}
-                          className="font-medium text-blue-500 hover:underline p-2"
-                        >
-                          <lord-icon
-                            src="https://cdn.lordicon.com/skkahier.json"
-                            trigger="morph"
-                            state="morph-trash-full"
-                            colors="primary:#dc2626"
-                            style={{ width: "25px", height: "25px" }}
-                          ></lord-icon>
-                        </button>
-                        <Link
-                          href={`/admin/adminpanel/${item.username}`}
-                          className="font-medium text-blue-500 hover:underline p-2"
-                        >
-                          <lord-icon
-                            src="https://cdn.lordicon.com/qhkvfxpn.json"
-                            trigger="hover"
-                            colors="primary:#2563eb"
-                            style={{ width: "25px", height: "25px" }}
-                          ></lord-icon>
-                        </Link>
+                        <div className="flex items-center justify-center gap-2">
+                          <button
+                            onClick={() => {
+                              setHideDelPanel(false);
+                              setTempIndex(item.username);
+                            }}
+                            title="Delete User"
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/skkahier.json"
+                              trigger="morph"
+                              state="morph-trash-full"
+                              colors="primary:#dc2626"
+                              style={{ width: "28px", height: "28px" }}
+                            ></lord-icon>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setShowEditPanel(true);
+                              editSetValue("username", item.username);
+                              editSetValue("commission", item.commission);
+                            }}
+                            title="Edit User"
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/zfzufhzk.json"
+                              trigger="hover"
+                              stroke="bold"
+                              state="hover-line"
+                              colors="primary:#000000,secondary:#ffc738,tertiary:#ebe6ef,quaternary:#f9c9c0,quinary:#e4e4e4"
+                              style={{ width: "28px", height: "28px" }}
+                            ></lord-icon>
+                          </button>
+                        </div>
                         <div
                           className={`bg-[#37415130] ${
                             hideDelPanel ? "hidden" : "flex"
@@ -520,7 +564,7 @@ const Admimpanel = () => {
                                   setHideDelPanel(true);
                                   setTempIndex(null);
                                 }}
-                                className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-600 hover:text-white"
+                                className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-900 hover:text-white"
                                 data-modal-toggle="deleteModal"
                               >
                                 <svg
@@ -559,7 +603,7 @@ const Admimpanel = () => {
                                     setHideDelPanel(true);
                                     setTempIndex(null);
                                   }}
-                                  className="py-2 px-3 text-sm font-medium rounded-lg border focus:ring-4 focus:outline-none focus:ring-primary-300 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600"
+                                  className="py-2 px-3 text-sm font-medium rounded-lg border focus:ring-4 focus:outline-none focus:ring-primary-300 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-900 focus:ring-gray-600"
                                 >
                                   No, cancel
                                 </button>
@@ -577,6 +621,110 @@ const Admimpanel = () => {
                             </div>
                           </div>
                         </div>
+                        {showEditPanel && (
+                          <div className="bg-black bg-opacity-5 w-screen h-screen fixed top-0 left-0 flex items-center justify-center">
+                            <div className="relative p-4 w-full max-w-md max-h-full">
+                              <div className="relative rounded-lg shadow bg-gray-700">
+                                <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                                  <h3 className="text-xl font-semibold text-white">
+                                    Update User Details
+                                  </h3>
+                                  <button
+                                    onClick={() => {
+                                      setShowEditPanel(false);
+                                    }}
+                                    className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-900 hover:text-white"
+                                  >
+                                    <svg
+                                      className="w-3 h-3"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 14 14"
+                                    >
+                                      <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div className="p-4 md:p-5">
+                                  <form
+                                    onSubmit={editHandleSubmit(editUser)}
+                                    className="space-y-4 text-left"
+                                  >
+                                    <div>
+                                      Edit details for&nbsp;
+                                      <input
+                                        type="text"
+                                        readOnly
+                                        {...editRegister("username")}
+                                        className="bg-transparent w-fit focus:outline-none"
+                                        />
+                                        </div>
+                                    <div className="flex items-center gap-2">
+                                      <label
+                                        htmlFor="commission"
+                                        className="block text-sm font-bold text-white"
+                                      >
+                                        Commission:
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        onFocus={() => {
+                                          editClearErrors("editErrors");
+                                        }}
+                                        {...editRegister("commission")}
+                                        className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                                        placeholder="Enter Commission"
+                                      />
+                                    </div>
+                                    {editErrors.editErrors && (
+                                      <span className="text-red-600 font-bold">
+                                        {editErrors.editErrors.message}
+                                      </span>
+                                    )}
+                                    {!editIsSubmitting && (
+                                      <button className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                                        Update
+                                      </button>
+                                    )}
+                                    {editIsSubmitting && (
+                                      <button
+                                        disabled
+                                        type="button"
+                                        className="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-900 inline-flex items-center justify-center"
+                                      >
+                                        <svg
+                                          role="status"
+                                          className="inline w-4 h-4 me-3 animate-spin text-gray-600"
+                                          viewBox="0 0 100 101"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                            fill="currentColor"
+                                          />
+                                          <path
+                                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                            fill="#1C64F2"
+                                          />
+                                        </svg>
+                                        Updating...
+                                      </button>
+                                    )}
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );

@@ -104,7 +104,6 @@ const Admimpanel = () => {
   };
 
   const editUser = async (data) => {
-    console.log(data);
     data.username = data.username.toLowerCase();
     await fetch("/api/updateUser", {
       method: "POST",

@@ -136,21 +136,61 @@ const UserStats = ({ params }) => {
       },
       body: JSON.stringify(data),
     })
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((data) => {
-          setShowWarningModal(false);
-          toast(data.message, {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+        setShowWarningModal(false);
+        getPaymentsData(username);
+        toast(data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       })
       .catch((error) => setError("formErrors", { message: error.error }));
+  };
+
+  const removeWarning = async () => {
+    await fetch("/api/sendWarning", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        enableWarning: false,
+        warningMessage: "",
+      }),
+    })
+      .then(() => {
+        getPaymentsData(username);
+        toast("Warning Removed Successfully", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      })
+      .catch((error) => {
+        toast(error, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      });
   };
 
   // Conditionally render the content once the username is set
@@ -202,26 +242,41 @@ const UserStats = ({ params }) => {
     <>
       <AdminHeader />
       {/* Payments */}
-
       <h1 className="font-bold text-5xl text-white text-center m-4">
         {username} Payments
       </h1>
       <div className="w-[80vw] mx-auto mt-4 relative shadow-md sm:rounded-lg">
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
-          <div className="flex items-center sm:flex-wrap gap-2"></div>
-          <button
-            onClick={() => setShowWarningModal(true)}
-            title="Send Warning"
-            className="flex items-center gap-2 text-[#ffc738] font-bold text-sm rounded-xl p-2 border-4 border-[#ffc738] hover:bg-[#ffc738] hover:bg-opacity-20"
-          >
-            Send Warning
-            <lord-icon
-              src="https://cdn.lordicon.com/abvsilxn.json"
-              trigger="hover"
-              colors="primary:#ffc738"
-              style={{ width: "25px", height: "25px" }}
-            ></lord-icon>
-          </button>
+        <div className="mb-4">
+          {campaignData?.enableWarning && (
+            <div className="bg-red-500 border-2 border-red-500 bg-opacity-30 text-white p-2 rounded-md mb-2 relative">
+              <p>
+                <span className="font-bold text-red-500">Warning:</span>{" "}
+                {campaignData.warningMessage}
+              </p>
+              <button
+                title="Remove Warning"
+                onClick={() => removeWarning()}
+                className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full w-6 h-6 font-bold transition-all hover:bg-red-600 hover:text-white"
+              >
+                x
+              </button>
+            </div>
+          )}
+          {!campaignData?.enableWarning && (
+            <button
+              onClick={() => setShowWarningModal(true)}
+              title="Send Warning"
+              className="flex items-center gap-2 text-[#ffc738] font-bold text-sm rounded-xl p-2 border-4 border-[#ffc738] hover:bg-[#ffc738] hover:bg-opacity-20"
+            >
+              Send Warning
+              <lord-icon
+                src="https://cdn.lordicon.com/abvsilxn.json"
+                trigger="hover"
+                colors="primary:#ffc738"
+                style={{ width: "25px", height: "25px" }}
+              ></lord-icon>
+            </button>
+          )}
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg max-h-[70vh]">
           <table className="w-full text-sm text-center rtl:text-right text-gray-400">

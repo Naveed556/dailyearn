@@ -210,8 +210,8 @@ export default function Dashboard() {
           </div>
           {campaignData.enableWarning && (
             <>
-              <div className="bg-[#ffc738] bg-opacity-20 text-[#ffc738] border-2 border-[#ffc738] p-2 rounded-xl">
-                <p className="font-bold">Your Account is at Risk: </p>
+              <div className="bg-red-500 bg-opacity-30 text-white border-2 border-red-500 p-2 rounded-xl">
+                <p className="font-bold text-red-500">Your Account is at Risk: </p>
                 <p className="ml-10">{campaignData.warningMessage}</p>
               </div>
               <div title="Your Account is at Risk" className="fixed bottom-5 left-5">

@@ -109,22 +109,24 @@ const Admimpanel = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        toast(res.message, {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        getUsers();
-        setShowEditPanel(false);
-      }
-    }).catch((err) => editSetError("editErrors", { message: err.error }));
+    })
+      .then((res) => {
+        if (res.ok) {
+          toast(res.message, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          getUsers();
+          setShowEditPanel(false);
+        }
+      })
+      .catch((err) => editSetError("editErrors", { message: err.error }));
   };
 
   const deleteUser = async () => {
@@ -402,6 +404,9 @@ const Admimpanel = () => {
               <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                   <th scope="col" className="px-3 py-3">
+                    #
+                  </th>
+                  <th scope="col" className="px-3 py-3">
                     Username
                   </th>
                   <th scope="col" className="px-3 py-3">
@@ -483,7 +488,24 @@ const Admimpanel = () => {
                         hideDelPanel ? "hover:bg-gray-900" : ""
                       }`}
                     >
-                      <th
+                      <td
+                        scope="row"
+                        className="px-3 py-2 font-bold whitespace-nowrap flex items-center justify-center gap-2"
+                      >
+                        {index + 1}
+                        {item.enableWarning && <div
+                          title="This User is Under Warning"
+                          className=""
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/abvsilxn.json"
+                            trigger="hover"
+                            colors="primary:#ffc738"
+                            style={{ width: "25px", height: "25px" }}
+                          ></lord-icon>
+                        </div>}
+                      </td>
+                      <td
                         scope="row"
                         className="px-3 py-4 font-bold whitespace-nowrap"
                       >
@@ -493,8 +515,8 @@ const Admimpanel = () => {
                         >
                           {item.username}
                         </Link>
-                      </th>
-                      <th
+                      </td>
+                      <td
                         scope="row"
                         className="px-3 py-4 font-medium whitespace-nowrap"
                       >
@@ -505,7 +527,7 @@ const Admimpanel = () => {
                         >
                           {item.email}
                         </Link>
-                      </th>
+                      </td>
                       <td className="px-3 py-4">
                         $
                         {(
@@ -662,8 +684,8 @@ const Admimpanel = () => {
                                         readOnly
                                         {...editRegister("username")}
                                         className="bg-transparent w-fit focus:outline-none"
-                                        />
-                                        </div>
+                                      />
+                                    </div>
                                     <div className="flex items-center gap-2">
                                       <label
                                         htmlFor="commission"

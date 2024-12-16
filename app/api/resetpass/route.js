@@ -26,6 +26,6 @@ export async function POST(request) {
         }
         return NextResponse.json({ message: "Credentials Reset Successfully" })
     } catch (error) {
-        return NextResponse.json({ message: "Something Went Wrong!" }, { status: 500 })
+        return NextResponse.json({ message: `Something Went Wrong! ${error}` }, { status: 500 })
     }
 }

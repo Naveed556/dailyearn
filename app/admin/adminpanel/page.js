@@ -19,11 +19,17 @@ const Admimpanel = () => {
   const [sortOrder, setSortOrder] = useState(null);
   const [tempIndex, setTempIndex] = useState(null);
   const [showCommission, setshowCommission] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(true);
+  const [adminUsername, setAdminUsername] = useState("");
 
   useEffect(() => {
     document.title = "Admin Panel | Daily Earn Online";
     getUsers();
   }, []);
+
+  useEffect(() => {
+    getAdmin();
+  }, [showDashboard]);
 
   useEffect(() => {
     const results = usersList.filter(
@@ -177,6 +183,30 @@ const Admimpanel = () => {
     }
   };
 
+  const getAdmin = async () => {
+    const response = await fetch("/api/dashboard");
+    const admin = await response.json();
+    setShowDashboard(admin.enableDashboard);
+    setAdminUsername(admin.username);
+  };
+
+  const handleDashboard = async () => {
+    await fetch("/api/dashboard", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: adminUsername,
+        enableDashboard: !showDashboard,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          getAdmin();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <AdminHeader />
@@ -212,6 +242,31 @@ const Admimpanel = () => {
               />
             </div>
             <div className="flex items-center justify-end gap-4 w-full sm:w-auto">
+              <button
+                onClick={() => {
+                  handleDashboard();
+                }}
+                className=""
+                title="Start/Stop Dashboard"
+              >
+                {showDashboard ? (
+                <lord-icon
+                    src="https://cdn.lordicon.com/lomfljuq.json"
+                    trigger="morph"
+                    state="morph-check-out-2"
+                    colors="primary:#30e849"
+                    style={{ width: "30px", height: "30px" }}
+                  ></lord-icon>
+                ) : (
+                  <lord-icon
+                    src="https://cdn.lordicon.com/zxvuvcnc.json"
+                    trigger="morph"
+                    state="morph-cross"
+                    colors="primary:#e83a30"
+                    style={{ width: "30px", height: "30px" }}
+                  ></lord-icon>
+                )}
+              </button>
               <button
                 onClick={() => {
                   setshowCommission(!showCommission);
@@ -493,17 +548,16 @@ const Admimpanel = () => {
                         className="px-3 py-2 font-bold whitespace-nowrap flex items-center justify-center gap-2"
                       >
                         {index + 1}
-                        {item.enableWarning && <div
-                          title="This User is Under Warning"
-                          className=""
-                        >
-                          <lord-icon
-                            src="https://cdn.lordicon.com/abvsilxn.json"
-                            trigger="hover"
-                            colors="primary:#ffc738"
-                            style={{ width: "25px", height: "25px" }}
-                          ></lord-icon>
-                        </div>}
+                        {item.enableWarning && (
+                          <div title="This User is Under Warning" className="">
+                            <lord-icon
+                              src="https://cdn.lordicon.com/abvsilxn.json"
+                              trigger="hover"
+                              colors="primary:#ffc738"
+                              style={{ width: "25px", height: "25px" }}
+                            ></lord-icon>
+                          </div>
+                        )}
                       </td>
                       <td
                         scope="row"

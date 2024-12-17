@@ -250,21 +250,27 @@ const Admimpanel = () => {
                 title="Start/Stop Dashboard"
               >
                 {showDashboard ? (
-                <lord-icon
-                    src="https://cdn.lordicon.com/lomfljuq.json"
-                    trigger="morph"
-                    state="morph-check-out-2"
-                    colors="primary:#30e849"
-                    style={{ width: "30px", height: "30px" }}
-                  ></lord-icon>
+                  <div className="flex items-center">
+                    Dashboard is Running
+                    <lord-icon
+                      src="https://cdn.lordicon.com/lomfljuq.json"
+                      trigger="morph"
+                      state="morph-check-out-2"
+                      colors="primary:#30e849"
+                      style={{ width: "30px", height: "30px" }}
+                    ></lord-icon>
+                  </div>
                 ) : (
-                  <lord-icon
-                    src="https://cdn.lordicon.com/zxvuvcnc.json"
-                    trigger="morph"
-                    state="morph-cross"
-                    colors="primary:#e83a30"
-                    style={{ width: "30px", height: "30px" }}
-                  ></lord-icon>
+                  <div className="flex items-center">
+                    Dashboard is Stoped
+                    <lord-icon
+                      src="https://cdn.lordicon.com/zxvuvcnc.json"
+                      trigger="morph"
+                      state="morph-cross"
+                      colors="primary:#e83a30"
+                      style={{ width: "30px", height: "30px" }}
+                    ></lord-icon>
+                  </div>
                 )}
               </button>
               <button

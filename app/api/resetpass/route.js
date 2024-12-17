@@ -2,7 +2,6 @@ import dbConnect from '@/lib/mongodb';
 import Admin from '@/models/Admin';
 import { NextResponse } from 'next/server';
 import bcrypt from "bcrypt"
-import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
     try {
@@ -19,10 +18,7 @@ export async function POST(request) {
             return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
         }
         if (admin && isMatch) {
-
-            const newadmin = new Admin({ username: newUsername, password: bcrypt.hashSync(newPassword, 10) })
-            await newadmin.save()
-            await Admin.deleteOne({ username: oldUsername })
+            await admin.updateOne({ username: newUsername, password: bcrypt.hashSync(newPassword, 10) })
         }
         return NextResponse.json({ message: "Credentials Reset Successfully" })
     } catch (error) {

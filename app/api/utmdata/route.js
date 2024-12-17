@@ -39,7 +39,7 @@ export async function POST(request) {
                     fieldName: "firstUserCampaignName",
                     stringFilter: {
                         matchType: "ENDS_WITH",
-                        value: utm // Pass UTM source dynamically
+                        value: `_${utm}` // Pass UTM source dynamically
                     }
                 }
             },

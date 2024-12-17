@@ -21,6 +21,7 @@ const Admimpanel = () => {
   const [showCommission, setshowCommission] = useState(false);
   const [showDashboard, setShowDashboard] = useState(true);
   const [adminUsername, setAdminUsername] = useState("");
+  const [dashboardLoading, setDashboardLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Admin Panel | Daily Earn Online";
@@ -191,6 +192,7 @@ const Admimpanel = () => {
   };
 
   const handleDashboard = async () => {
+    setDashboardLoading(true);
     await fetch("/api/dashboard", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -203,6 +205,7 @@ const Admimpanel = () => {
         if (response.ok) {
           getAdmin();
         }
+        setDashboardLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -249,7 +252,17 @@ const Admimpanel = () => {
                 className=""
                 title="Start/Stop Dashboard"
               >
-                {showDashboard ? (
+                {dashboardLoading ? (
+                  <div className="flex items-center">
+                    <lord-icon
+                      src="https://cdn.lordicon.com/mgtqmgmg.json"
+                      trigger="loop"
+                      state="loop-snake"
+                      colors="primary:#e8e230"
+                      style={{ width: "30px", height: "30px" }}
+                    ></lord-icon>
+                  </div>
+                ) : (showDashboard ? (
                   <div className="flex items-center">
                     Dashboard is Running
                     <lord-icon
@@ -271,7 +284,7 @@ const Admimpanel = () => {
                       style={{ width: "30px", height: "30px" }}
                     ></lord-icon>
                   </div>
-                )}
+                ))}
               </button>
               <button
                 onClick={() => {

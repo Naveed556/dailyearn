@@ -4,6 +4,7 @@ import { jwtVerify } from "jose";
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function middleware(req) {
+  const username = req.cookies.get("username")?.value;
   const token = req.cookies.get("token")?.value;
   const adminToken = req.cookies.get("admintoken")?.value;
   const url = req.nextUrl.clone();
@@ -96,7 +97,10 @@ export async function middleware(req) {
   }
 
   if (!admin.enableDashboard && url.pathname.startsWith("/dashboard")){
-    return NextResponse.redirect(new URL("/maintanence", req.url));
+    return NextResponse.rewrite(new URL("/maintanence", req.url));
+  }
+  if(url.pathname.endsWith("/statistics") || url.pathname.endsWith("/earnings")){
+    return NextResponse.rewrite(new URL(`/dashboard/${username}/not-available`, req.url));
   }
 
   // Handle user dashboard subpage access

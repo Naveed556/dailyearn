@@ -19,9 +19,12 @@ const Admimpanel = () => {
   const [sortOrder, setSortOrder] = useState(null);
   const [tempIndex, setTempIndex] = useState(null);
   const [showCommission, setshowCommission] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(true);
   const [adminUsername, setAdminUsername] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(true);
   const [dashboardLoading, setDashboardLoading] = useState(false);
+  const [showStats, setShowStats] = useState(true);
+  const [showEarnings, setShowEarnings] = useState(true);
 
   useEffect(() => {
     document.title = "Admin Panel | Daily Earn Online";
@@ -187,18 +190,58 @@ const Admimpanel = () => {
   const getAdmin = async () => {
     const response = await fetch("/api/dashboard");
     const admin = await response.json();
-    setShowDashboard(admin.enableDashboard);
     setAdminUsername(admin.username);
+    setShowDashboard(admin.enableDashboard);
+    setShowStats(admin.enableStatistics);
+    setShowEarnings(admin.enableEarnings);
   };
 
-  const handleDashboard = async () => {
+  const ToogleDashboard = async () => {
     setDashboardLoading(true);
     await fetch("/api/dashboard", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: adminUsername,
-        enableDashboard: !showDashboard,
+        enableDashboard: !showDashboard
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          getAdmin();
+        }
+        setDashboardLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const ToogleStats = async () => {
+    setDashboardLoading(true);
+    await fetch("/api/dashboard", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: adminUsername,
+        enableStatistics: !showStats
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          getAdmin();
+        }
+        setDashboardLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const ToogleEarnings = async () => {
+    setDashboardLoading(true);
+    await fetch("/api/dashboard", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: adminUsername,
+        enableEarnings: !showEarnings
       }),
     })
       .then((response) => {
@@ -245,47 +288,153 @@ const Admimpanel = () => {
               />
             </div>
             <div className="flex items-center justify-end gap-4 w-full sm:w-auto">
-              <button
-                onClick={() => {
-                  handleDashboard();
-                }}
-                className=""
-                title="Start/Stop Dashboard"
-              >
-                {dashboardLoading ? (
-                  <div className="flex items-center">
-                    <lord-icon
-                      src="https://cdn.lordicon.com/mgtqmgmg.json"
-                      trigger="loop"
-                      state="loop-snake"
-                      colors="primary:#e8e230"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
+              <div className="relative">
+                <button
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => {
+                    setShowDropdown(!showDropdown);
+                  }}
+                >
+                  Options{" "}
+                  <svg
+                    className="w-2.5 h-2.5 ms-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+
+                {showDropdown && (
+                  <div onBlur={() => setShowDropdown(false)} className="absolute top-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                      <li>
+                        <button
+                          onClick={() => {
+                            ToogleDashboard();
+                          }}
+                          className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          title="Start/Stop Dashboard"
+                        >
+                          <div className="flex items-center justify-between">
+                            Dashboard
+                          {dashboardLoading ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/mgtqmgmg.json"
+                                trigger="loop"
+                                state="loop-snake"
+                                colors="primary:#e8e230"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : showDashboard ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/lomfljuq.json"
+                                trigger="morph"
+                                state="morph-check-out-2"
+                                colors="primary:#30e849"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/zxvuvcnc.json"
+                                trigger="morph"
+                                state="morph-cross"
+                                colors="primary:#e83a30"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          )}
+                            </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            ToogleStats();
+                          }}
+                          className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          title="Start/Stop Dashboard"
+                        >
+                          <div className="flex items-center justify-between">
+                            Statistics
+                          {dashboardLoading ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/mgtqmgmg.json"
+                                trigger="loop"
+                                state="loop-snake"
+                                colors="primary:#e8e230"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : showStats ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/lomfljuq.json"
+                                trigger="morph"
+                                state="morph-check-out-2"
+                                colors="primary:#30e849"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/zxvuvcnc.json"
+                                trigger="morph"
+                                state="morph-cross"
+                                colors="primary:#e83a30"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          )}
+                            </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            ToogleEarnings();
+                          }}
+                          className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          title="Start/Stop Dashboard"
+                        >
+                          <div className="flex items-center justify-between">
+                            Earnings
+                          {dashboardLoading ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/mgtqmgmg.json"
+                                trigger="loop"
+                                state="loop-snake"
+                                colors="primary:#e8e230"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : showEarnings ? (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/lomfljuq.json"
+                                trigger="morph"
+                                state="morph-check-out-2"
+                                colors="primary:#30e849"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          ) : (
+                              <lord-icon
+                                src="https://cdn.lordicon.com/zxvuvcnc.json"
+                                trigger="morph"
+                                state="morph-cross"
+                                colors="primary:#e83a30"
+                                style={{ width: "30px", height: "30px" }}
+                              ></lord-icon>
+                          )}
+                            </div>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
-                ) : (showDashboard ? (
-                  <div className="flex items-center">
-                    Dashboard is Running
-                    <lord-icon
-                      src="https://cdn.lordicon.com/lomfljuq.json"
-                      trigger="morph"
-                      state="morph-check-out-2"
-                      colors="primary:#30e849"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                  </div>
-                ) : (
-                  <div className="flex items-center">
-                    Dashboard is Stoped
-                    <lord-icon
-                      src="https://cdn.lordicon.com/zxvuvcnc.json"
-                      trigger="morph"
-                      state="morph-cross"
-                      colors="primary:#e83a30"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                  </div>
-                ))}
-              </button>
+                )}
+              </div>
+
               <button
                 onClick={() => {
                   setshowCommission(!showCommission);

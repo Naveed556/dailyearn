@@ -8,7 +8,7 @@ export async function middleware(req) {
   const token = req.cookies.get("token")?.value;
   const adminToken = req.cookies.get("admintoken")?.value;
   const url = req.nextUrl.clone();
-  const res = await fetch(`${url.origin}\\api\\dashboard`);
+  const res = await fetch(`${url.origin}/api/dashboard`);
   const admin = await res.json();
 
   // --- Admin Page and Admin Panel Handling ---
@@ -96,11 +96,16 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (!admin.enableDashboard && url.pathname.startsWith("/dashboard")){
+  if (!admin.enableDashboard && url.pathname.startsWith("/dashboard")) {
     return NextResponse.rewrite(new URL("/maintanence", req.url));
   }
-  if(url.pathname.endsWith("/statistics") || url.pathname.endsWith("/earnings")){
-    return NextResponse.rewrite(new URL(`/dashboard/${username}/not-available`, req.url));
+  if (
+    (url.pathname.endsWith("/statistics") && !admin.enableStatistics) ||
+    (url.pathname.endsWith("/earnings") && !admin.enableEarnings)
+  ) {
+    return NextResponse.rewrite(
+      new URL(`/dashboard/${username}/not-available`, req.url)
+    );
   }
 
   // Handle user dashboard subpage access

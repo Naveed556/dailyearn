@@ -15,10 +15,12 @@ export default function Dashboard() {
   const [totalRPM, setTotalRPM] = useState(0);
   const [maxRevenue, setMaxRevenue] = useState(0.0);
   const [maxRPM, setMaxRPM] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [dataLegth, setDataLegth] = useState(0);
   const [campaignData, setCampaignData] = useState([]);
   const [hideReset, setHideReset] = useState(true);
   const [showPass, setShowPass] = useState(false);
+  const [showStats, setShowStats] = useState(true);
   const utm = username;
 
   const {
@@ -45,6 +47,7 @@ export default function Dashboard() {
     if (storedUsername) {
       setUsername(storedUsername);
     }
+    getAdmin();
     setTotalRevenue(Number(localStorage.getItem("totalRevenue")));
     setTotalRPM(Number(localStorage.getItem("totalRPM")));
     setMaxRevenue(Number(localStorage.getItem("MaxRevenue")));
@@ -96,32 +99,36 @@ export default function Dashboard() {
     const data = await response.json();
     setDataLegth(data.length);
     if (data.length > 0) {
-      setTotalRevenue(
+      setTotalUsers(
         await data.reduce(
-          (total, campaign) => total + Number(campaign.revenue),
+          (total, campaign) => total + Number(campaign.users),
           0
         )
       );
-      setTotalRPM(
-        await data.reduce((total, campaign) => total + Number(campaign.rpm), 0)
+      setTotalRevenue(
+        await data.reduce(
+          (total, campaign) => total + Number(campaign.revenue),
+          0.0
+        )
       );
+      setTotalRPM((totalRevenue / totalUsers) * 1000);
       setMaxRevenue(
         await data.reduce(
           (max, campaign) => Math.max(max, Number(campaign.revenue)),
-          0
+          0.0
         )
       );
       setMaxRPM(
         await data.reduce(
           (max, campaign) => Math.max(max, Number(campaign.rpm)),
-          0
+          0.0
         )
       );
     } else {
-      setTotalRevenue(0);
-      setTotalRPM(0);
-      setMaxRevenue(0);
-      setMaxRPM(0);
+      setTotalRevenue(0.0);
+      setTotalRPM(0.0);
+      setMaxRevenue(0.0);
+      setMaxRPM(0.0);
     }
   };
 
@@ -168,13 +175,16 @@ export default function Dashboard() {
     }
   };
 
+  const getAdmin = async () => {
+    const response = await fetch("/api/dashboard");
+    const admin = await response.json();
+    setShowStats(admin.enableStatistics && admin.enableEarnings);
+  };
+
   // Conditionally render the content once the username is set
   if (!username) {
     return (
-      <div
-        role="status"
-        className="w-screen h-screen flex justify-center items-center"
-      >
+      <div className="w-screen h-screen flex justify-center items-center">
         <svg
           aria-hidden="true"
           className="inline w-20 h-20 animate-spin text-gray-600 fill-blue-600"
@@ -211,10 +221,15 @@ export default function Dashboard() {
           {campaignData.enableWarning && (
             <>
               <div className="bg-red-500 bg-opacity-30 text-white border-2 border-red-500 p-2 rounded-xl">
-                <p className="font-bold text-red-500">Your Account is at Risk: </p>
+                <p className="font-bold text-red-500">
+                  Your Account is at Risk:{" "}
+                </p>
                 <p className="ml-10">{campaignData.warningMessage}</p>
               </div>
-              <div title="Your Account is at Risk" className="fixed bottom-5 left-5">
+              <div
+                title="Your Account is at Risk"
+                className="fixed bottom-5 left-5"
+              >
                 <lord-icon
                   src="https://cdn.lordicon.com/abvsilxn.json"
                   trigger="hover"
@@ -225,40 +240,45 @@ export default function Dashboard() {
             </>
           )}
           <div className="container px-5 py-2 mx-auto mt-10">
-            <div className="flex flex-wrap -m-4 text-center">
-              <div className="p-4 sm:w-1/4 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  $
-                  {(
-                    totalRevenue -
-                    (campaignData.commission / 100) * totalRevenue
-                  ).toFixed(2)}
-                </h2>
-                <p className="leading-relaxed">Revenue</p>
+            {showStats && (
+              <div className="flex flex-wrap -m-4 text-center">
+                <div className="p-4 sm:w-1/4 w-1/2">
+                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
+                    $
+                    {(
+                      totalRevenue -
+                      (campaignData.commission / 100) * totalRevenue
+                    ).toFixed(2)}
+                  </h2>
+                  <p className="leading-relaxed">Revenue</p>
+                </div>
+                <div className="p-4 sm:w-1/4 w-1/2">
+                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
+                    $
+                    {(
+                      maxRevenue -
+                      (campaignData.commission / 100) * maxRevenue
+                    ).toFixed(2)}
+                  </h2>
+                  <p className="leading-relaxed">Best Campaign</p>
+                </div>
+                <div className="p-4 sm:w-1/4 w-1/2">
+                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
+                    ${((
+                      totalRevenue -
+                      (campaignData.commission / 100) * totalRevenue
+                    )/totalUsers*1000).toFixed(2)}
+                  </h2>
+                  <p className="leading-relaxed">Average RPM</p>
+                </div>
+                <div className="p-4 sm:w-1/4 w-1/2">
+                  <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
+                    ${maxRPM}
+                  </h2>
+                  <p className="leading-relaxed">Best RPM</p>
+                </div>
               </div>
-              <div className="p-4 sm:w-1/4 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  $
-                  {(
-                    maxRevenue -
-                    (campaignData.commission / 100) * maxRevenue
-                  ).toFixed(2)}
-                </h2>
-                <p className="leading-relaxed">Best Campaign</p>
-              </div>
-              <div className="p-4 sm:w-1/4 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  ${(totalRPM / dataLegth).toFixed(2)}
-                </h2>
-                <p className="leading-relaxed">Average RPM</p>
-              </div>
-              <div className="p-4 sm:w-1/4 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  ${maxRPM}
-                </h2>
-                <p className="leading-relaxed">Best RPM</p>
-              </div>
-            </div>
+            )}
           </div>
           <div className="flex flex-wrap -m-4">
             <Link

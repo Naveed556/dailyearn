@@ -16,6 +16,8 @@ const AdminSchema = new mongoose.Schema(
       required: true,
     },
     enableDashboard: Boolean,
+    enableStatistics: Boolean,
+    enableEarnings: Boolean,
   },
   { timestamps: true }
 );

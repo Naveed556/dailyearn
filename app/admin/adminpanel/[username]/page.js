@@ -229,15 +229,15 @@ const UserStats = ({ params }) => {
     fetchUtmData();
   };
   let totalRevenue = 0;
-  let totalRPM = 0;
   let totalUsers = 0;
 
   for (let i = 0; i < utmData.length; i++) {
     const campaign = utmData[i];
     totalRevenue += Number(campaign.revenue);
-    totalRPM += Number(campaign.rpm);
+    // totalRPM += Number(campaign.rpm);
     totalUsers += Number(campaign.users);
   }
+  let totalRPM = (totalRevenue / totalUsers) * 1000 || 0;
   return (
     <>
       <AdminHeader />
@@ -656,17 +656,10 @@ const UserStats = ({ params }) => {
                         ).toFixed(2)}
                       </td>
                       <td className="px-6 py-4">
-                        $
-                        {(
-                          item.rpm -
-                          (campaignData.commission / 100) * item.rpm
-                        ).toFixed(2)}
+                        ${item.rpm}
                       </td>
                       <td className="px-6 py-4">
-                        {(
-                          item.users -
-                          (campaignData.commission / 100) * item.users
-                        ).toFixed(0)}
+                        {item.users}
                       </td>
                     </tr>
                   );
@@ -688,19 +681,8 @@ const UserStats = ({ params }) => {
                     (campaignData.commission / 100) * totalRevenue
                   ).toFixed(2)}
                 </td>
-                <td className="px-6 py-3">
-                  $
-                  {(
-                    (totalRPM - (campaignData.commission / 100) * totalRPM) /
-                    utmData.length
-                  ).toFixed(2)}
-                </td>
-                <td className="px-6 py-3">
-                  {(
-                    totalUsers -
-                    (campaignData.commission / 100) * totalUsers
-                  ).toFixed(0)}
-                </td>
+                <td className="px-6 py-3">${totalRPM.toFixed(2)}</td>
+                <td className="px-6 py-3">{totalUsers}</td>
               </tr>
             </tfoot>
           </table>

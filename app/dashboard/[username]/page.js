@@ -16,7 +16,6 @@ export default function Dashboard() {
   const [maxRevenue, setMaxRevenue] = useState(0.0);
   const [maxRPM, setMaxRPM] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [dataLegth, setDataLegth] = useState(0);
   const [campaignData, setCampaignData] = useState([]);
   const [hideReset, setHideReset] = useState(true);
   const [showPass, setShowPass] = useState(false);
@@ -52,7 +51,6 @@ export default function Dashboard() {
     setTotalRPM(Number(localStorage.getItem("totalRPM")));
     setMaxRevenue(Number(localStorage.getItem("MaxRevenue")));
     setMaxRPM(Number(localStorage.getItem("MaxRPM")));
-    setDataLegth(Number(localStorage.getItem("dataLength")));
   }, []);
 
   useEffect(() => {
@@ -67,9 +65,8 @@ export default function Dashboard() {
       localStorage.setItem("totalRPM", totalRPM);
       localStorage.setItem("MaxRevenue", maxRevenue);
       localStorage.setItem("MaxRPM", maxRPM);
-      localStorage.setItem("dataLength", dataLegth);
     }
-  }, [totalRevenue, totalRPM, maxRevenue, maxRPM, dataLegth]);
+  }, [totalRevenue, totalRPM, maxRevenue, maxRPM]);
 
   const getPaymentsData = async (username) => {
     // console.log("Fetching Payments Details....")
@@ -97,7 +94,6 @@ export default function Dashboard() {
       }),
     });
     const data = await response.json();
-    setDataLegth(data.length);
     if (data.length > 0) {
       setTotalUsers(
         await data.reduce(

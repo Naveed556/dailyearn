@@ -16,10 +16,10 @@ export default function NotAvailable() {
             </p>
             <p className="mb-4 text-lg font-light text-gray-400">
               We are working hard to solve the issue.{" "}
-              <Link className="text-blue-500" href={"/"}>
-                Go To Home Page
+              <Link className="text-blue-500" href={"mailto:socialseo090@gmail.com"}>
+                Contact Admin
               </Link>
-              .
+              {" "}For Further Details.
             </p>
           </div>
         </div>

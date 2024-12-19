@@ -44,6 +44,19 @@ const Admimpanel = () => {
     setFilteredData(results);
   }, [searchTerm, usersList]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showDropdown && !event.target.closest('.dropdown-menu')) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -287,22 +300,52 @@ const Admimpanel = () => {
                 placeholder="Search for users or emails"
               />
             </div>
+            
             <div className="flex items-center justify-end gap-4 w-full sm:w-auto">
+
+              <button
+                onClick={() => {
+                  setshowCommission(!showCommission);
+                }}
+                className="pt-2"
+                title="Show Commision"
+              >
+                {showCommission && (
+                  <lord-icon
+                    src="https://cdn.lordicon.com/fmjvulyw.json"
+                    trigger="hover"
+                    stroke="light"
+                    state="hover-look-around"
+                    style={{ width: "30px", height: "30px" }}
+                  ></lord-icon>
+                )}
+                {!showCommission && (
+                  <lord-icon
+                    src="https://cdn.lordicon.com/fmjvulyw.json"
+                    trigger="hover"
+                    stroke="bold"
+                    state="hover-lashes"
+                    colors="primary:#ffffff,secondary:#ebe6ef,tertiary:#3a3347,quaternary:#4bb3fd,quinary:#f9c9c0,senary:#f24c00"
+                    style={{ width: "30px", height: "30px" }}
+                  ></lord-icon>
+                )}
+              </button>
+
               <div className="relative">
                 <button
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   onClick={() => {
                     setShowDropdown(!showDropdown);
-                  }}
-                >
-                  Options{" "}
-                  <svg
+                    }}
+                  >
+                    Toggle Options{" "}
+                    <svg
                     className="w-2.5 h-2.5 ms-3"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 10 6"
-                  >
+                    >
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
@@ -310,19 +353,19 @@ const Admimpanel = () => {
                       strokeWidth="2"
                       d="m1 1 4 4 4-4"
                     />
-                  </svg>
-                </button>
+                    </svg>
+                  </button>
 
-                {showDropdown && (
-                  <div onBlur={() => setShowDropdown(false)} className="absolute top-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                  {showDropdown && (
+                    <div className="dropdown-menu absolute top-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                       <li>
-                        <button
-                          onClick={() => {
+                      <button
+                        onClick={() => {
                             ToogleDashboard();
                           }}
                           className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          title="Start/Stop Dashboard"
+                          title="Start/Stop Compelete Dashboard"
                         >
                           <div className="flex items-center justify-between">
                             Dashboard
@@ -360,7 +403,7 @@ const Admimpanel = () => {
                             ToogleStats();
                           }}
                           className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          title="Start/Stop Dashboard"
+                          title="Start/Stop Statistics Page"
                         >
                           <div className="flex items-center justify-between">
                             Statistics
@@ -398,7 +441,7 @@ const Admimpanel = () => {
                             ToogleEarnings();
                           }}
                           className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          title="Start/Stop Dashboard"
+                          title="Start/Stop Earnings Page"
                         >
                           <div className="flex items-center justify-between">
                             Earnings
@@ -435,33 +478,6 @@ const Admimpanel = () => {
                 )}
               </div>
 
-              <button
-                onClick={() => {
-                  setshowCommission(!showCommission);
-                }}
-                className="pt-2"
-                title="Show Commision"
-              >
-                {showCommission && (
-                  <lord-icon
-                    src="https://cdn.lordicon.com/fmjvulyw.json"
-                    trigger="hover"
-                    stroke="light"
-                    state="hover-look-around"
-                    style={{ width: "30px", height: "30px" }}
-                  ></lord-icon>
-                )}
-                {!showCommission && (
-                  <lord-icon
-                    src="https://cdn.lordicon.com/fmjvulyw.json"
-                    trigger="hover"
-                    stroke="bold"
-                    state="hover-lashes"
-                    colors="primary:#ffffff,secondary:#ebe6ef,tertiary:#3a3347,quaternary:#4bb3fd,quinary:#f9c9c0,senary:#f24c00"
-                    style={{ width: "30px", height: "30px" }}
-                  ></lord-icon>
-                )}
-              </button>
               <button
                 onClick={() => {
                   setHideAddUser(false);
@@ -611,7 +627,7 @@ const Admimpanel = () => {
                             <path
                               d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                               fill="#1C64F2"
-                            />
+                          />
                           </svg>
                           Adding...
                         </button>

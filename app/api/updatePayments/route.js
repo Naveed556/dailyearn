@@ -31,14 +31,14 @@ export async function POST(request) {
                 { name: "totalRevenue" },  // Get the total revenue metric
             ],
             dateRanges: [
-                { startDate: "2022-01-01", endDate: "today" },  // Get data from the earliest possible date until now
+                { startDate: "2025-01-01", endDate: "today" },  // Get data from the earliest possible date until now
             ],
             dimensionFilter: {
                 filter: {
                     fieldName: "firstUserCampaignName",
                     stringFilter: {
                         matchType: "ENDS_WITH",
-                        value: username // Filter campaigns containing the username dynamically
+                        value: `_${username}` // Filter campaigns containing the username dynamically
                     }
                 }
             },

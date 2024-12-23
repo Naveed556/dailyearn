@@ -13,6 +13,7 @@ const UserStats = ({ params }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [campaignData, setCampaignData] = useState([]);
+  const [statsError, setStatsError] = useState(null);
   const [paymentsLoading, setPaymentsLoading] = useState(false);
   const [updatingPayments, setupdatingPayments] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -23,6 +24,15 @@ const UserStats = ({ params }) => {
     return date.toISOString().split("T")[0];
   };
 
+   // Utility function to format date as YYYY-MM-DD
+   const firstDateofMonth = () => {
+    const date = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // 1st of the current month
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     document.title = `${params.username} Stats | Daily Earn Online`;
     setUsername(params.username);
@@ -30,7 +40,8 @@ const UserStats = ({ params }) => {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(today.getDate() - 30);
 
-    setStartDate(formatDate(thirtyDaysAgo)); // Default start date (30 days ago)
+    // setStartDate(formatDate(thirtyDaysAgo)); // Default start date (30 days ago)
+    setStartDate(firstDateofMonth()); // Default start date (1st day of month)
     setEndDate(formatDate(today)); // Default end date (today)
   }, []);
 
@@ -75,8 +86,8 @@ const UserStats = ({ params }) => {
       },
       body: JSON.stringify({ username: username, id: id }),
     });
+    const data = await response.json();
     if (response.ok) {
-      const data = await response.json();
       setCampaignData(data);
     } else {
       setCampaignData([]);
@@ -105,6 +116,7 @@ const UserStats = ({ params }) => {
   };
 
   const fetchUtmData = async () => {
+    setStatsError(null);
     setDataLoading(true);
     const response = await fetch("/api/utmdata", {
       method: "POST",
@@ -118,6 +130,9 @@ const UserStats = ({ params }) => {
       }),
     });
     const data = await response.json();
+    if (!response.ok) {
+      setStatsError(data.error);
+    }
     if (data.length <= 0) {
       setDataFound(false);
       setUtmData([]);
@@ -618,11 +633,22 @@ const UserStats = ({ params }) => {
               {!dataFound && (
                 <tr className="bg-gray-800 border-b border-gray-700 hover:bg-gray-600">
                   <th
-                    colSpan={"5"}
+                    colSpan={"7"}
                     scope="row"
                     className="px-6 py-4 font-medium text-center whitespace-nowrap text-white"
                   >
                     No Data Available Yet!
+                  </th>
+                </tr>
+              )}
+              {statsError && (
+                <tr className="bg-gray-800 border-b border-gray-700 hover:bg-gray-600">
+                  <th
+                    colSpan={"7"}
+                    scope="row"
+                    className="px-6 py-4 font-medium text-center whitespace-nowrap text-red-500"
+                  >
+                    {statsError}
                   </th>
                 </tr>
               )}

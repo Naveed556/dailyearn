@@ -19,7 +19,7 @@ export default function Dashboard() {
   const [campaignData, setCampaignData] = useState([]);
   const [hideReset, setHideReset] = useState(true);
   const [showPass, setShowPass] = useState(false);
-  const [showStats, setShowStats] = useState(true);
+  const [showStats, setShowStats] = useState(false);
   const utm = username;
 
   const {

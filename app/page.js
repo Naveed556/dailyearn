@@ -84,15 +84,15 @@ export default function Home() {
               <div className="relative flex flex-col min-w-0 break-words bg-gray-800 w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400"> */}
-                  <Link href={"https://fashiontipstricks.com"} target="blank">
-                    <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200} alt="Fasion Tips Tricks Logo" />
+                  <Link href={"https://fascinatenames.com"} target="blank">
+                    <Image className="p-3 inline-flex items-center justify-center mb-5" src={FTTlogo} width={200} alt="Fascinate Names Logo" />
                   </Link>
                   {/* </div> */}
                   <h6 className="text-white text-xl font-semibold hover:underline">
-                    <Link href={"https://fashiontipstricks.com"} target="blank">Fashion Tips & Tricks</Link>
+                    <Link href={"https://fascinatenames.com"} target="blank">Fascinate Names</Link>
                   </h6>
                   <p className="mt-2 mb-4 text-gray-300">
-                    Fashiontipstricks is a website that shares easy fashion tips and tricks to help you look your best. It covers everything from basic wardrobe advice to the latest trends. Ideal for anyone wanting to improve their style with simple, practical advice.
+                    Fascinate Names is a website that shares easy fashion tips and tricks to help you look your best. It covers everything from basic wardrobe advice to the latest trends. Ideal for anyone wanting to improve their style with simple, practical advice.
                   </p>
                 </div>
               </div>

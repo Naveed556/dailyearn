@@ -3,7 +3,7 @@ import Category from "@/models/Category";
 import { NextResponse } from "next/server";
 
 const getCategories = async () => {
-    const response = await fetch('https://fashiontipstricks.com/wp-json/wp/v2/categories?per_page=100&_fields=id,name');
+    const response = await fetch('https://fascinatenames.com/wp-json/wp/v2/categories?per_page=100&_fields=id,name');
     const data = await response.json();
     return data;
 }

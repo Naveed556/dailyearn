@@ -52,6 +52,17 @@ export default function UtmGenerator() {
             return error
         }
     }
+
+    function uniqueId(length) {
+    var result           = '';
+    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+    
     const storeLinks = () => {
         // Split the input value by newline, trim, and filter out empty lines
         const newLinks = inputValue.split('\n').map(link => link.trim()).filter(link => link !== '');
@@ -66,7 +77,7 @@ export default function UtmGenerator() {
             let newlink = break_address(link);
             if (newlink) {
                 // Construct the final URL with UTM parameters
-                return `${link}?utm_campaign=${newlink.title}_${username}&utm_medium=link&utm_source=link_${username}`;
+                return `${link}?utm_campaign=${newlink.title}_${username}&utm_medium=link&utm_source=link_${username}_${uniqueId(6)}`;
             }
             return link; // If break_address fails, keep the original link
         });

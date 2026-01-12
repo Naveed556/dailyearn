@@ -54,7 +54,7 @@ export default function UTMLinks() {
         let newLink = break_address(item.link);
         if (newLink) {
           return {
-            link: `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}_${umiqueId(6)}`,
+            link: `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}_${uniqueId(6)}`,
             title: item.title
           };
         }

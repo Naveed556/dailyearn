@@ -36,6 +36,15 @@ export default function UTMLinks() {
     setCopiedIndexes([]);
   }, [selectedCategory])
 
+  function uniqueId(length) {
+    var result           = '';
+    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 
   useEffect(() => {
     if (posts.length > 0 && username) {
@@ -45,7 +54,7 @@ export default function UTMLinks() {
         let newLink = break_address(item.link);
         if (newLink) {
           return {
-            link: `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}`,
+            link: `${item.link}?utm_campaign=${newLink.title}_${username}&utm_medium=link&utm_source=link_${username}_${umiqueId(6)}`,
             title: item.title
           };
         }
